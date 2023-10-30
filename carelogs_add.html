@@ -22,24 +22,21 @@
         <h1>databats</h1>
     </header>
     <main>
-        <table>
-            <tr>
-              <th><a href="carelogs_add.html">add</a></th>
-              <th>id</th>
-              <th>bat</th>
-              <th>date/time</th>
-              <th>person</th>
-              <th>remark</th>
-            </tr>
-            <tr>
-              <th></th>
-              <td align="right" >1</td>
-              <td >2</td>
-              <td align="right" >10/30/2023 01:00</td>
-              <td>Ruth</td>
-              <td>all good</td>
-            </tr>
-          </table>
+        <form method="POST" id="addCarelog">
+            <legend><strong>add care log</strong></legend>
+              <fieldset class="fields">
+                <label> bat </label> <select name="bats">
+                    <option value="0">&nbsp;</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    </select>
+                <label> date </label> <input type="text" name="date">
+          </fieldset>
+          <p></p>
+              <input class="btn" type="submit" id="addCarelog" value="add care log">
+              <input class="btn" type="button" value="cancel" onClick="">
+        </form> 
     </main>
     <footer>
         <p>&copy; 2023</p>
