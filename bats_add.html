@@ -25,13 +25,25 @@
           <form method="POST" id="addBat">
             <legend><strong>add bat</strong></legend>
               <fieldset class="fields">
-                <label> species </label> <select name="homeworld">
+                <label> person </label> <select name="person">
                     <option value="0">&nbsp;</option>
-                    <option value="1">Myotis Myotis</option>
-                    <option value="2">Pipistrellus Pipistrellus</option>
+                    <option value="1">Brett</option>
+                    <option value="2">Ruth</option>
+                    <option value="3">Some</option>
+                    </select>
+                <label> sex </label> <input type="text" name="sex">
+                <label> species </label> <select name="species">
+                    <option value="0">&nbsp;</option>
+                    <option value="1">Pipistrellus Pipistrellus</option>
+                    <option value="2">Pipistrellus kuhlii</option>
+                    <option value="3">Nyctalus noctula</option>
+                    <option value="3">Myotis myotis</option>
                     <option value="3">Myotis crypticus</option>
                     </select>
-                <label> site found </label> <input type="text" name="age">
+                <label for="dateField">date found</label>
+                <input type="date" id="dateField" name="dateField">
+                <label> site found (zip) </label>
+                <input type="text" name="site">
           </fieldset>
           <p></p>
               <input class="btn" type="submit" id="addBat" value="add bat">

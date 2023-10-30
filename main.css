@@ -30,17 +30,21 @@
   /*   ----- Variables  -----  */
   :root {
       --almost-black: #0D0D0D;
-      --aqua: #b0c7cc;
+      --mustard: #A67926;
+      --old-pink: ##b0c7cc;
       --opaque-dust-pink: RGBA(217,208,215, 0.7);
       --yellow: #A68729;
       --purple: #996164;
+      --custom-color-name:;
+      --custom-embellishment-name:;
     }
     
     /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
     body {       /* Can alternatively define in html {} or :root {} */
       font-family: 'Roboto', sans-serif;
-      background-color: var(--aqua);
-      width: 100%;;
+      background-color:;
+      width: 100%;
+      background-image: url(images/2022-rki-roses-large-edited.jpg);
       background-size: cover;
       background-attachment: fixed;
       color:;
@@ -57,7 +61,7 @@
     header, footer {
       font-family: 'Amatic SC', cursive;
       background-color:var(--almost-black);
-      color:var(--aqua);
+      color:var(--old-pink);
       position: fixed;
       width: 100%;
       margin:0%;
@@ -91,7 +95,7 @@
     }
     section {}
     article {
-      background-color: var(--aqua);
+      background-color: var(--opaque-dust-pink);
       margin: 2%;
       margin-left: 1%;
       padding: 2%;
@@ -114,7 +118,7 @@
     }
   
     .main_nav a {
-      background-color:var(--aqua);
+      background-color:var(--old-pink);
       color:var(--almost-black);
       font-size: 140%;
       border: 2px solid var(--almost-black);
@@ -129,9 +133,73 @@
   
     .main_nav a:hover {
       background-color:var(--almost-black);
-      color:var(--aqua);
+      color:var(--old-pink);
     }
   
+    /* ----- Anchors ----- Text links */
+    .second_nav {
+      text-align: left;
+      font-family: 'Amatic SC', cursive;
+      text-decoration: none;
+      color:var(--almost-black);
+      list-style-type: none;
+    }
+    .second_nav a {
+      display: block;
+      color:var(--almost-black);
+      font-weight:bold;
+      font-size: 120%;
+      margin-left:1%;
+      text-decoration:none;
+      border-radius:2px;
+      list-style-type: none;
+    }
+  
+    .second_nav a:hover {
+      background-color:var(--almost-black);
+      color:var(--old-pink);
+      border-radius: 30px 30px 30px 30px; 
+      width: 150px;
+    }
+  
+    .second_nav a:visited {
+      color:var(--purple)
+    }
+  
+    .second_nav a:active {
+      background-color:#0D0D0D;
+      color:#0D0D0D;
+      width: 150px;
+    }
+  
+    /* ----- Anchors ----- More Text links */
+    .back_nav {
+      text-align: right;
+      font-family: 'Amatic SC', cursive;
+      text-decoration: none;
+      color:var(--almost-black);
+      list-style-type: none;
+    }
+  
+    .back_nav a {
+      display: block;
+      color:var(--almost-black);
+      background-color:var(--old-pink);
+      font-weight:bold;
+      font-size: 120%;
+      margin-left: 90%;
+      text-decoration:none;
+      border-radius:2px;
+      border-radius: 30px 30px 30px 30px; 
+      list-style-type: none;
+    }
+  
+    .back_nav a:hover {
+      background-color:var(--almost-black);
+      color:var(--old-pink);
+      border-radius: 30px 30px 30px 30px; 
+      width: 110px;
+    }
   
     /*  -----  Typography  ----- */
     p {}
@@ -175,18 +243,7 @@
     ins {}
     
     /*  ----- Table ----- */
-    table {
-      width: 100%;
-      table-layout: fixed;
-    }
-    
-    table td {
-      text-align: left;
-    }
-
-    table th {
-      text-align: left;
-    }
+    table {}
     caption {}
     thead {}
     tbody {}

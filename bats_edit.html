@@ -22,7 +22,43 @@
         <h1>databats</h1>
     </header>
     <main>
-    </main>
+        <form method="POST" id="addBat">
+          <legend><strong>edit bat</strong></legend>
+            <fieldset class="fields">
+              <label> person </label> <select name="person">
+                  <option value="0">&nbsp;</option>
+                  <option value="1">Brett</option>
+                  <option value="2">Ruth</option>
+                  <option value="3">Some</option>
+                  </select>
+              <label> sex </label> <input type="text" name="sex">
+              <label> species </label> <select name="species">
+                  <option value="0">&nbsp;</option>
+                  <option value="1">Pipistrellus Pipistrellus</option>
+                  <option value="2">Pipistrellus kuhlii</option>
+                  <option value="3">Nyctalus noctula</option>
+                  <option value="4">Myotis myotis</option>
+                  <option value="5">Myotis crypticus</option>
+                  </select>
+              <label for="dateField">date end</label>
+              <input type="date" id="dateField" name="dateField">
+              <label> site released (zip) </label>
+              <input type="text" name="site">
+              <label> status </label> <select name="status">
+                <option value="0">&nbsp;</option>
+                <option value="1">on hold</option>
+                <option value="2">quarantined</option>
+                <option value="3">scheduled for release</option>
+                <option value="4">released</option>
+                <option value="5">dead</option>
+                <option value="6">unknown</option>
+                </select>
+        </fieldset>
+        <p></p>
+            <input class="btn" type="submit" id="addBat" value="add bat">
+            <input class="btn" type="button" value="cancel" onClick="">
+      </form> 
+  </main>
     <footer>
         <p>&copy; 2023</p>
     </footer>
