@@ -31,7 +31,7 @@
   :root {
       --almost-black: #0D0D0D;
       --mustard: #A67926;
-      --old-pink: ##b0c7cc;
+      --old-pink: #c2becf;
       --opaque-dust-pink: RGBA(217,208,215, 0.7);
       --yellow: #A68729;
       --purple: #996164;
@@ -42,7 +42,7 @@
     /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
     body {       /* Can alternatively define in html {} or :root {} */
       font-family: 'Roboto', sans-serif;
-      background-color:;
+      background-color:var(--old-pink);
       width: 100%;
       background-image: url(images/2022-rki-roses-large-edited.jpg);
       background-size: cover;
@@ -243,7 +243,10 @@
     ins {}
     
     /*  ----- Table ----- */
-    table {}
+    table {
+      width: 100%;
+      table-layout: auto;
+    }
     caption {}
     thead {}
     tbody {}
@@ -251,7 +254,9 @@
     tr {}
       tr:nth-child(even) {}
     th {}
-    td {}
+    td {
+      text-align: center;
+    }
       td:nth-child(1) {}
     colgroup {}
     data {}
