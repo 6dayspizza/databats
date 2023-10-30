@@ -252,10 +252,12 @@
     tbody {}
     tfoot {}
     tr {}
-      tr:nth-child(even) {}
-    th {}
+      tr:nth-child(even) {
+        background-color: #e5e4eb;
+      }
+    th {text-align: left;}
     td {
-      text-align: center;
+      text-align: left;
     }
       td:nth-child(1) {}
     colgroup {}
