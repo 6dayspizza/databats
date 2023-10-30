@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>databats</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="robots" content="noindex,noarchive, nofollow" />
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <header>
+        <nav class="main_nav">
+            <a href="bats.html">BATS</a>
+            <a href="carelogs.html">CARE LOGS</a>
+            <a href="persons.html">PERSONS</a>
+            <a href="status.html">STATUS</a>
+            <a href="species.html">SPECIES</a>
+            <a href="medicalcares.html">MEDICAL TREATMENTS</a>
+        </nav>
+        <h1>databats</h1>
+    </header>
+    <main>
+          <form method="POST" id="addBat">
+            <legend><strong>add bat</strong></legend>
+              <fieldset class="fields">
+                <label> species </label> <select name="homeworld">
+                    <option value="0">&nbsp;</option>
+                    <option value="1">Myotis Myotis</option>
+                    <option value="2">Pipistrellus Pipistrellus</option>
+                    <option value="3">Myotis crypticus</option>
+                    </select>
+                <label> site found </label> <input type="text" name="age">
+          </fieldset>
+          <p></p>
+              <input class="btn" type="submit" id="addBat" value="add bat">
+              <input class="btn" type="button" value="cancel" onClick="">
+        </form> 
+    </main>
+    <footer>
+        <p>&copy; 2023</p>
+    </footer>
+</body>
+</html>
