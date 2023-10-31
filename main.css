@@ -1,42 +1,18 @@
-/*  ===== MOBILE styles (reside at the top and are inherited by all devices) ===== */
-/*  ===== See tablet, desktop, and print @media queries at the bottom. */
-
-
-/*   ----- Imports  -----  */
-  /* Add fonts from the app's server 
-    @font-face {                
-      font-family: 'FontName';
-      src: url('FontName.woff2') format('woff2');
-    } 
-    ...or hosted services like Google Fonts 
-    @import url(//fonts.googleapis.com/css?family=Font+Name);
-  */
-  
-  /* @import 'node_modules/modern-normalize/modern-normalize.css'; */
-        /* npm install modern-normalize
-          Resets elements for browser consistency.  
-          https://www.npmjs.com/package/modern-normalize
-        */         
-  
-  /* Component-specific stylesheets, if any. 
-    @import "component1.css";   
+  /*
+  I created some parts of this CSS-file in my CS290 Web Dev class, checked with TA, it's acceptable as long as it's my own
+  work and I leave a comment on here. (Ruth Kistler)
   */
 
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Loved+by+the+King&display=swap');
   
   
   /*   ----- Variables  -----  */
   :root {
       --almost-black: #0D0D0D;
-      --mustard: #A67926;
       --old-pink: #c2becf;
       --opaque-dust-pink: RGBA(217,208,215, 0.7);
-      --yellow: #A68729;
       --purple: #996164;
-      --custom-color-name:;
-      --custom-embellishment-name:;
     }
     
     /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
@@ -44,11 +20,6 @@
       font-family: 'Roboto', sans-serif;
       background-color:var(--old-pink);
       width: 100%;
-      background-image: url(images/2022-rki-roses-large-edited.jpg);
-      background-size: cover;
-      background-attachment: fixed;
-      color:;
-      font-family:; /* Define with at least one font name and its related generic family name.*/
       margin-top: 90px;
       padding: 30px;
       min-height: 400px;
@@ -136,68 +107,7 @@
       background-color:var(--almost-black);
       color:var(--old-pink);
     }
-  
-    /* ----- Anchors ----- Text links */
-    .second_nav {
-      text-align: left;
-      font-family: 'Amatic SC', cursive;
-      text-decoration: none;
-      color:var(--almost-black);
-      list-style-type: none;
-    }
-    .second_nav a {
-      display: block;
-      color:var(--almost-black);
-      font-weight:bold;
-      font-size: 120%;
-      margin-left:1%;
-      text-decoration:none;
-      border-radius:2px;
-      list-style-type: none;
-    }
-  
-    .second_nav a:hover {
-      background-color:var(--almost-black);
-      color:var(--old-pink);
-      border-radius: 30px 30px 30px 30px; 
-      width: 150px;
-    }
-  
-  
-    .second_nav a:active {
-      background-color:#0D0D0D;
-      color:#0D0D0D;
-      width: 150px;
-    }
-  
-    /* ----- Anchors ----- More Text links */
-    .back_nav {
-      text-align: right;
-      font-family: 'Amatic SC', cursive;
-      text-decoration: none;
-      color:var(--almost-black);
-      list-style-type: none;
-    }
-  
-    .back_nav a {
-      display: block;
-      color:var(--almost-black);
-      background-color:var(--old-pink);
-      font-weight:bold;
-      font-size: 120%;
-      margin-left: 90%;
-      text-decoration:none;
-      border-radius:2px;
-      border-radius: 30px 30px 30px 30px; 
-      list-style-type: none;
-    }
-  
-    .back_nav a:hover {
-      background-color:var(--almost-black);
-      color:var(--old-pink);
-      border-radius: 30px 30px 30px 30px; 
-      width: 110px;
-    }
+
   
     /*  -----  Typography  ----- */
     p {}
@@ -253,6 +163,8 @@
     caption {
       display: table-caption;
       text-align: center;
+      border-bottom: 2px solid #000;
+      padding-bottom: 10px;
     }
     thead {
       font-size: 100%;
@@ -267,7 +179,7 @@
     th {
       text-align: left;
       font-family: 'Amatic SC', cursive;
-      font-size: 130%;
+      font-size: 150%;
       background-color: var(--old-pink);
     }
     td {
@@ -279,6 +191,10 @@
       padding: .5% 1%;
       text-align: left; 
     }
+
+    .insert_table tr:nth-child(even) td{
+      background-color: white;
+    }
   
     colgroup {}
     data {}
@@ -288,12 +204,16 @@
     /*  ----- Form ----- */
     form {}
     fieldset {
-      border:;    
+      border-top: 2px solid;
+      border-bottom: 0px;
+      border-left: 0px;
+      border-right: 0px; 
       margin-top:; 
       padding:;  
    }
    legend {
     color:;
+    padding-bottom: 10px;
     font-size:;
   }
   label {
@@ -339,6 +259,10 @@
         width: 100px;
         font-family: 'Amatic SC', cursive;
         font-size: 140%;
+      }
+
+      #remark {
+        width: 320px;
       }
     .btn:hover {
       background-color: var(--old-pink);
