@@ -16,16 +16,16 @@ CREATE OR REPLACE TABLE Bats (
   idPerson INT,
   idSpecies INT,
   idStatus INT,
-  sex VARCHAR(1),
+  sex TINYINT,
   remark VARCHAR(255),
   foundDate DATE NOT NULL,
   foundSite INT,
   endDate DATE,
   releaseSite INT,
   PRIMARY KEY (idBat),
-  FOREIGN KEY (idPerson) REFERENCES Persons (idPerson),
-  FOREIGN KEY (idSpecies) REFERENCES Species (idSpecies),
-  FOREIGN KEY (idStatus) REFERENCES Status (idStatus)
+  FOREIGN KEY (idPerson) REFERENCES Persons (idPerson) ON DELETE CASCADE,
+  FOREIGN KEY (idSpecies) REFERENCES Species (idSpecies) ON DELETE CASCADE,
+  FOREIGN KEY (idStatus) REFERENCES Status (idStatus) ON DELETE CASCADE
 );
 
 
@@ -64,7 +64,7 @@ CREATE OR REPLACE TABLE CareLogs (
   foodType VARCHAR(20),
   remark VARCHAR(255),
   PRIMARY KEY (idCareLog),
-  FOREIGN KEY (idPerson) REFERENCES Persons (idPerson) ON DELETE CASCADE,
+  FOREIGN KEY (idPerson) REFERENCES Persons (idPerson) ON SET NULL,
   FOREIGN KEY (idBat) REFERENCES Bats (idBat) ON DELETE CASCADE
 );
 
@@ -87,7 +87,7 @@ CREATE OR REPLACE TABLE CareLogsMedicalCares (
   idCareLog INT,
   idMedicalCare INT,
   PRIMARY KEY (idCareLogMedicalCare),
-  FOREIGN KEY (idCareLog) REFERENCES CareLogs (idCareLog) ON DELETE CASCADE,
+  FOREIGN KEY (idCareLog) REFERENCES CareLogs (idCareLog) ON DELETE RESTRICT,
   FOREIGN KEY (idMedicalCare) REFERENCES MedicalCares (idMedicalCare) ON DELETE CASCADE
 );
 
