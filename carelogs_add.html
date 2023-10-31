@@ -22,39 +22,60 @@
         <h1>databats</h1>
     </header>
     <main>
-        <form method="POST" id="addCarelog">
-            <legend><strong>add care log</strong></legend>
-              <fieldset class="fields">
-                <label> bat </label> <select name="bats">
-                    <option value="0">&nbsp;</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+        <form method="POST" id="addCareLog">
+            <legend><strong>add new log</strong></legend>
+            <fieldset class="fields">
+              <table>
+                <tr>
+                  <th>bat</th>
+                  <th>person</th>
+                  <th>weight (g)</th>
+                  <th>food (mw)</th>
+                  <th>medical</th>
+                  <th>remark</th>
+                </tr>
+                <tr>
+                  <td>
+                    <select name="bats">
+                      <option value="0">&nbsp;</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
                     </select>
-                <label> person </label> <select name="person">
-                    <option value="0">&nbsp;</option>
-                    <option value="1">Brett</option>
-                    <option value="2">Ruth</option>
-                    <option value="3">Some</option>
+                </td>
+                  <td>
+                    <select name="person">
+                      <option value="0">&nbsp;</option>
+                      <option value="1">Brett</option>
+                      <option value="2">Ruth</option>
+                      <option value="3">Some</option>
                     </select>
-                <label> weight (g) </label>
-                <input type="text" name="weight">
-                <label> food (mw) </label>
-                <input type="text" name="food">
-                <label> medical </label> <select name="medicalcares">
-                    <option value="0">&nbsp;</option>
-                    <option value="1">Metacam</option>
-                    <option value="2">Baytril</option>
-                    <option value="3">surgery</option>
-                    <option value="4">Betadine (diluted) on wings</option>
+                  </td>
+                  <td>
+                    <input type="text" name="weight">
+                  </td>
+                  <td>
+                    <input type="text" name="food">
+                  </td>
+                  <td>
+                    <select name="medicalcares">
+                        <option value="0">&nbsp;</option>
+                      <option value="1">Metacam</option>
+                      <option value="2">Baytril</option>
+                      <option value="3">surgery</option>
+                      <option value="4">Betadine (diluted) on wings</option>
                     </select>
-                <label> remark </label>
-                <input type="text" name="remark">
-          </fieldset>
-          <p></p>
-              <input class="btn" type="submit" id="addCarelog" value="add care log">
+                  </td>
+                  <td>
+                    <input type="text" name="remark">
+                  </td>
+                </tr>
+              </table>
+            </fieldset>
+            <p></p>
+              <input class="btn" type="submit" id="addCareLog" value="add">
               <input class="btn" type="button" value="cancel" onClick="">
-        </form> 
+          </form> 
     </main>
     <footer>
         <p>&copy; 2023</p>

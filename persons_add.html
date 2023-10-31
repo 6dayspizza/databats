@@ -24,14 +24,22 @@
     <main>
         <form method="POST" id="addPerson">
             <legend><strong>add person</strong></legend>
-              <fieldset class="fields">
-                <label> person name </label>
-                <input type="text" name="person">
+            <fieldset class="fields">
+              <table>
+                <tr>
+                  <th>name</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" name="name">
+                  </td>
+                </tr>
+              </table>
             </fieldset>
-          <p></p>
-              <input class="btn" type="submit" id="addPerson" value="add person">
+            <p></p>
+              <input class="btn" type="submit" id="addPerson" value="add">
               <input class="btn" type="button" value="cancel" onClick="">
-        </form> 
+          </form>
     </main>
     <footer>
         <p>&copy; 2023</p>

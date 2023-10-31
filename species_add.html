@@ -24,14 +24,22 @@
     <main>
         <form method="POST" id="addSpecies">
             <legend><strong>add species</strong></legend>
-              <fieldset class="fields">
-                <label> species name </label>
-                <input type="text" name="species">
+            <fieldset class="fields">
+              <table>
+                <tr>
+                  <th>scientific name</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" name="name">
+                  </td>
+                </tr>
+              </table>
             </fieldset>
-          <p></p>
-              <input class="btn" type="submit" id="addSpecies" value="add species">
+            <p></p>
+              <input class="btn" type="submit" id="addSpecies" value="add">
               <input class="btn" type="button" value="cancel" onClick="">
-        </form> 
+          </form>
     </main>
     <footer>
         <p>&copy; 2023</p>

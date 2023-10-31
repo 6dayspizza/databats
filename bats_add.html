@@ -22,33 +22,54 @@
         <h1>databats</h1>
     </header>
     <main>
-          <form method="POST" id="addBat">
+        <form method="POST" id="addBat">
             <legend><strong>add bat</strong></legend>
-              <fieldset class="fields">
-                <label> person </label> <select name="person">
-                    <option value="0">&nbsp;</option>
-                    <option value="1">Brett</option>
-                    <option value="2">Ruth</option>
-                    <option value="3">Some</option>
+            <fieldset class="fields">
+              <table>
+                <tr>
+                  <th width=10%>person</th>
+                  <th>species</th>
+                  <th width=7%>sex</th>
+                  <th>date found</th>
+                  <th>site found</th>
+                  <th>remark</th>
+                </tr>
+                <tr>
+                  <td><select name="person">
+                              <option value="0">&nbsp;</option>
+                              <option value="1">Brett</option>
+                              <option value="2">Ruth</option>
+                              <option value="3">Some</option>
+                              </select></td>
+                  <td>
+                    <select name="species">
+                      <option value="0">&nbsp;</option>
+                      <option value="1">Pipistrellus Pipistrellus</option>
+                      <option value="2">Pipistrellus kuhlii</option>
+                      <option value="3">Nyctalus noctula</option>
+                      <option value="4">Myotis myotis</option>
+                      <option value="5">Myotis crypticus</option>
                     </select>
-                <label> sex </label> <input type="text" name="sex">
-                <label> species </label> <select name="species">
-                    <option value="0">&nbsp;</option>
-                    <option value="1">Pipistrellus Pipistrellus</option>
-                    <option value="2">Pipistrellus kuhlii</option>
-                    <option value="3">Nyctalus noctula</option>
-                    <option value="4">Myotis myotis</option>
-                    <option value="5">Myotis crypticus</option>
-                    </select>
-                <label for="dateField">date found</label>
-                <input type="date" id="dateField" name="dateField">
-            <label> remark </label>
-            <input type="text" name="remark">
-          </fieldset>
-          <p></p>
+                  </td>
+                  <td>
+                    <input type="text" name="sex">
+                  </td>
+                  <td>
+                    <input type="date" id="dateField" name="dateFound">
+                  </td>
+                  <td>
+                    <input type="text" name="siteFound">
+                  </td>
+                  <td>
+                    <input type="text" name="remark">
+                  </td>
+                </tr>
+              </table>
+            </fieldset>
+            <p></p>
               <input class="btn" type="submit" id="addBat" value="add bat">
               <input class="btn" type="button" value="cancel" onClick="">
-        </form> 
+          </form>
     </main>
     <footer>
         <p>&copy; 2023</p>

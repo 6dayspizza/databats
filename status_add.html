@@ -24,14 +24,22 @@
     <main>
         <form method="POST" id="addStatus">
             <legend><strong>add status</strong></legend>
-              <fieldset class="fields">
-                <label> status name </label>
-                <input type="text" name="status">
+            <fieldset class="fields">
+              <table>
+                <tr>
+                  <th>descriptive name</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" name="name">
+                  </td>
+                </tr>
+              </table>
             </fieldset>
-          <p></p>
-              <input class="btn" type="submit" id="addStatus" value="add status">
+            <p></p>
+              <input class="btn" type="submit" id="addStatus" value="add">
               <input class="btn" type="button" value="cancel" onClick="">
-        </form> 
+          </form>
     </main>
     <footer>
         <p>&copy; 2023</p>

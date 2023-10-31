@@ -22,16 +22,24 @@
         <h1>databats</h1>
     </header>
     <main>
-        <form method="POST" id="addMedical">
+        <form method="POST" id="addMedicalCares">
             <legend><strong>add treatment</strong></legend>
-              <fieldset class="fields">
-                <label> treatment </label>
-                <input type="text" name="medicalcares">
+            <fieldset class="fields">
+              <table>
+                <tr>
+                  <th>treatment name</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" name="name">
+                  </td>
+                </tr>
+              </table>
             </fieldset>
-          <p></p>
-              <input class="btn" type="submit" id="addMedical" value="add treatment">
+            <p></p>
+              <input class="btn" type="submit" id="addMedicalCares" value="add">
               <input class="btn" type="button" value="cancel" onClick="">
-        </form> 
+          </form>
     </main>
     <footer>
         <p>&copy; 2023</p>

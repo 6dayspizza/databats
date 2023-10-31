@@ -95,11 +95,12 @@
     }
     section {}
     article {
-      background-color: var(--opaque-dust-pink);
+      background-color: var(--old-pink);
       margin: 2%;
       margin-left: 1%;
       padding: 2%;
       scroll-margin-top: 90px;
+      border-radius: 30px;
     }
       #topic1 {}
       #topic2 {}
@@ -162,9 +163,6 @@
       width: 150px;
     }
   
-    .second_nav a:visited {
-      color:var(--purple)
-    }
   
     .second_nav a:active {
       background-color:#0D0D0D;
@@ -244,22 +242,44 @@
     
     /*  ----- Table ----- */
     table {
-      width: 100%;
+      border: var(--almost-white);
       table-layout: auto;
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--almost-black);
+      margin: 0px;
+      padding: 0px;
     }
-    caption {}
-    thead {}
-    tbody {}
+    caption {
+      display: table-caption;
+      text-align: center;
+    }
+    thead {
+      font-size: 100%;
+    }
+    tbody {
+      background-color: var(--opaque-dust-pink);
+    }
     tfoot {}
     tr {}
-      tr:nth-child(even) {
-        background-color: #e5e4eb;
-      }
-    th {text-align: left;}
+    tr:nth-child(even) td {background-color: var(--opaque-dust-pink);}
+    tr:nth-child(odd) td {background-color: var(--old-pink);}
+    th {
+      text-align: left;
+      font-family: 'Amatic SC', cursive;
+      font-size: 130%;
+      background-color: var(--old-pink);
+    }
     td {
       text-align: left;
     }
-      td:nth-child(1) {}
+    tr th,
+    tr td {
+      border-bottom: 1px dotted var(--almost-black-);
+      padding: .5% 1%;
+      text-align: left; 
+    }
+  
     colgroup {}
     data {}
     datalist {}
@@ -291,7 +311,7 @@
         border:3px solid red;
       }
       input:valid {
-        border:2px solid green;
+        /*border:2px solid;*/
       }
       input::placeholder {
         color:darkgray;
@@ -304,8 +324,56 @@
         background: repeating-linear-gradient(142deg, #CCCCCC, #CCCCCC 4px, #999999 22px);
       }
       input:enabled {
-        background: white;
       }
+      .btn {
+        background-color: var(--almost-black);
+        color: var(--old-pink);
+        border: none;
+        cursor: pointer;
+        border-radius: 30px 30px 30px 30px; 
+        font-weight: bold;
+        text-decoration: none;
+        padding: 1.25%;
+        margin-top: 20px;
+        margin-right: 10px;
+        width: 100px;
+        font-family: 'Amatic SC', cursive;
+        font-size: 140%;
+      }
+    .btn:hover {
+      background-color: var(--old-pink);
+      color: var(--almost-black);
+    }
+
+    .modify {
+      background-color: var(--almost-black);
+      color: var(--old-pink);
+      border: none;
+      cursor: pointer;
+      border-radius: 30px 30px 30px 30px; 
+      font-weight: bold;
+      text-decoration: none;
+      padding: 1%;
+      margin-top: 20px;
+      margin-right: 10px;
+      width: 60px;
+      font-family: 'Amatic SC', cursive;
+      font-size: 140%;
+    }
+
+    .modify:visited {
+      color: var(--old-pink) !important;
+    }
+
+    .modify:active {
+      color: var(--almost-black);
+      background-color: var(--old-pink);
+    }
+    .modify:hover {
+      background-color: var(--purple);
+      color: var(--almost-black);
+    }
+
       output {}
       meter {}
       progress {}
