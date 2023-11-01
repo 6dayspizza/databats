@@ -57,8 +57,8 @@ CREATE OR REPLACE TABLE Species (
 
 CREATE OR REPLACE TABLE CareLogs (
   idCareLog INT NOT NULL AUTO_INCREMENT,
-  idPerson INT,
-  idBat INT,
+  idPerson INT NOT NULL,
+  idBat INT NOT NULL,
   dateTime DATETIME DEFAULT CURRENT_TIMESTAMP,
   weight DECIMAL(3,2),
   foodType VARCHAR(20),
@@ -88,7 +88,7 @@ CREATE OR REPLACE TABLE CareLogsMedicalCares (
   idMedicalCare INT,
   PRIMARY KEY (idCareLogMedicalCare),
   FOREIGN KEY (idCareLog) REFERENCES CareLogs (idCareLog) ON DELETE RESTRICT,
-  FOREIGN KEY (idMedicalCare) REFERENCES MedicalCares (idMedicalCare) ON DELETE CASCADE
+  FOREIGN KEY (idMedicalCare) REFERENCES MedicalCares (idMedicalCare) ON DELETE RESTRICT
 );
 
 
@@ -190,11 +190,6 @@ VALUES
     ((SELECT idCareLog FROM CareLogs WHERE idCareLog = 2), (SELECT idMedicalCare FROM MedicalCares WHERE idMedicalCare = 1)),
     ((SELECT idCareLog FROM CareLogs WHERE idCareLog = 3), (SELECT idMedicalCare FROM MedicalCares WHERE idMedicalCare = 1));
 
--- display all the bats for the Bats-page
-SELECT idBat, species.name AS species, status.name AS status, foundDate, endDate, releaseSite
-FROM Bats
-INNER JOIN Species ON Bats.idSpecies = Species.idSpecies
-INNER JOIN Status ON Bats.idStatus = Status.idStatus;
 
 
 -- enable foreign key checks and commit
