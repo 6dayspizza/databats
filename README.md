@@ -1,2 +1,2 @@
 # databats
-CS 340 group project
+OSU CS 340 group project
