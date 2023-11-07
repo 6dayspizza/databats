@@ -142,23 +142,22 @@
                         <input type="text" name="food">
                       </td>
                       <td>
-                        <select name="medicalcares">
-                            <option value="0">&nbsp;</option>
-                          <option value="1">Metacam</option>
-                          <option value="2">Baytril</option>
-                          <option value="3">surgery</option>
-                          <option value="4">Betadine (diluted) on wings</option>
-                        </select>
+                        <div class="checkbox-list">
+                          <label><input type="checkbox" name="medicalcares[]" value="1"> Metacam</label>
+                          <label><input type="checkbox" name="medicalcares[]" value="2"> Baytril</label>
+                          <label><input type="checkbox" name="medicalcares[]" value="3"> Surgery</label>
+                          <label><input type="checkbox" name="medicalcares[]" value="4"> Betadine (diluted) on wings</label>
+                        </div>
                       </td>
                       <td>
-                        <input type="text" name="remark" id="remark">
+                        <textarea name="remark" id="remark"></textarea>
                       </td>
                     </tr>
                   </table>
                 </fieldset>
                 <p></p>
                   <input class="btn" type="submit" id="addCareLog" value="commit">
-                  <input class="btn" type="button" value="cancel" onClick="newRecord()">
+                  <input class="btn" type="button" value="cancel" onClick="browseRecords()">
               </form> 
         </div>
         <div id="edit" style="display: none">
@@ -191,16 +190,15 @@
                         <input type="text" name="food">
                       </td>
                       <td>
-                        <select name="medicalcares">
-                          <option value="0">&nbsp;</option>
-                          <option value="1">Metacam</option>
-                          <option value="2">Baytril</option>
-                          <option value="3">surgery</option>
-                          <option value="4">Betadine (diluted) on wings</option>
-                        </select>
+                        <div class="checkbox-list">
+                          <label><input type="checkbox" name="medicalcares[]" value="1"> Metacam</label>
+                          <label><input type="checkbox" name="medicalcares[]" value="2"> Baytril</label>
+                          <label><input type="checkbox" name="medicalcares[]" value="3"> Surgery</label>
+                          <label><input type="checkbox" name="medicalcares[]" value="4"> Betadine (diluted) on wings</label>
+                        </div>
                       </td>
                       <td>
-                        <input type="text" name="remark" id="remark">
+                        <textarea name="remark" id="remark"></textarea>
                       </td>
                     </tr>
                   </table>

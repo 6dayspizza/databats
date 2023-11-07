@@ -28,11 +28,11 @@
             <tr>
               <th width=4%><a href='#' class="modify" onClick="newRecord()">add</a></th>
               <th width=4%>id</th>
+              <th>person</th>
               <th>species</th>
               <th>sex</th>
               <th>date found</th>
               <th>site found</th>
-              <th>by</th>
               <th>date end</th>
               <th>site released</th>
               <th>status</th>
@@ -42,11 +42,11 @@
             <tr>
               <td></td>
               <td>1</td>
+              <td>Some</td>
               <td>Myotis myotis</td>
               <td>0</td>
               <td>2023-10-24</td>
               <td>8003</td>
-              <td>Some</td>
               <td>2023-10-25</td>
               <td><em>NULL</em></td>
               <td>dead</td>
@@ -56,11 +56,11 @@
             <tr>
               <td></td>
               <td>2</td>
+              <td>Ruth</td>
               <td>Myotis crypticus</td>
               <td>1</td>
               <td>2023-10-24</td>
               <td>8000</td>
-              <td>Ruth</td>
               <td><em>NULL</em></td>
               <td><em>NULL</em></td>
               <td>scheduled for release</td>
@@ -70,11 +70,11 @@
             <tr>
               <td></td>
               <td>3</td>
+              <td>Ruth</td>
               <td>Pipistrellus pipistrellus</td>
               <td>0</td>
               <td>2023-09-20</td>
               <td>8004</td>
-              <td>Ruth</td>
               <td>2023-10-21</td>
               <td>8004</td>
               <td>released</td>
@@ -89,15 +89,20 @@
         <fieldset class="fields">
           <table class="insert_table">
             <tr>
+              <th width=10%>person</th>
               <th>species</th>
               <th width=7%>sex</th>
               <th>date found</th>
               <th>site found</th>
-              <th width=10%>by</th>
-              <th>status</th>
               <th>remark</th>
             </tr>
             <tr>
+              <td><select name="person">
+                          <option value="0">&nbsp;</option>
+                          <option value="1">Brett</option>
+                          <option value="2">Ruth</option>
+                          <option value="3">Some</option>
+                          </select></td>
               <td>
                 <select name="species">
                   <option value="0">&nbsp;</option>
@@ -117,26 +122,8 @@
               <td>
                 <input type="text" name="siteFound">
               </td>
-              <td><select name="by">
-                <option value="0">&nbsp;</option>
-                <option value="1">Brett</option>
-                <option value="2">Ruth</option>
-                <option value="3">Some</option>
-                </select>
-              </td>
               <td>
-                <select name="status">
-                    <option value="0">&nbsp;</option>
-                    <option value="1">on hold</option>
-                    <option value="2">quarantined</option>
-                    <option value="3">scheduled for release</option>
-                    <option value="4">released</option>
-                    <option value="5">dead</option>
-                    <option value="6">unknown</option>
-                  </select>
-              </td>
-              <td>
-                <input type="text" name="remark" id="remark">
+                <textarea name="remark" id="remark"></textarea>
               </td>
             </tr>
           </table>
@@ -178,7 +165,7 @@
                   </select>
               </td>
               <td>
-                <input type="text" name="remark" id="remark">
+                <textarea name="remark" id="remark"></textarea>
               </td>
             </tr>
           </table>

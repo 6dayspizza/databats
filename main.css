@@ -261,8 +261,22 @@
         font-size: 140%;
       }
 
+      .checkbox-list label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      
+      .checkbox-list input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+      
+
       #remark {
         width: 320px;
+        height: 120px;
       }
     .btn:hover {
       background-color: var(--old-pink);
