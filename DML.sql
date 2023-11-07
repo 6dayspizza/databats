@@ -7,27 +7,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
---
--- replace/create table 'Bats'
---
-
-CREATE OR REPLACE TABLE Bats (
-  idBat INT NOT NULL AUTO_INCREMENT,
-  idPerson INT,
-  idSpecies INT,
-  idStatus INT,
-  sex TINYINT,
-  remark VARCHAR(255),
-  foundDate DATE NOT NULL,
-  foundSite INT,
-  endDate DATE,
-  releaseSite INT,
-  PRIMARY KEY (idBat),
-  FOREIGN KEY (idPerson) REFERENCES Persons (idPerson) ON DELETE CASCADE,
-  FOREIGN KEY (idSpecies) REFERENCES Species (idSpecies) ON DELETE CASCADE,
-  FOREIGN KEY (idStatus) REFERENCES Status (idStatus) ON DELETE CASCADE
-);
-
 
 --
 -- replace/create table 'Status'
@@ -102,6 +81,26 @@ CREATE OR REPLACE TABLE Persons (
   PRIMARY KEY (idPerson)
 );
 
+--
+-- replace/create table 'Bats'
+--
+
+CREATE OR REPLACE TABLE Bats (
+  idBat INT NOT NULL AUTO_INCREMENT,
+  idPerson INT,
+  idSpecies INT,
+  idStatus INT,
+  sex TINYINT,
+  remark VARCHAR(255),
+  foundDate DATE NOT NULL,
+  foundSite INT,
+  endDate DATE,
+  releaseSite INT,
+  PRIMARY KEY (idBat),
+  FOREIGN KEY (idPerson) REFERENCES Persons (idPerson) ON DELETE CASCADE,
+  FOREIGN KEY (idSpecies) REFERENCES Species (idSpecies) ON DELETE CASCADE,
+  FOREIGN KEY (idStatus) REFERENCES Status (idStatus) ON DELETE CASCADE
+);
 
 --
 -- insert data into 'Species'
