@@ -30,32 +30,7 @@ CREATE OR REPLACE TABLE Species (
 );
 
 
---
--- replace/create table 'CareLogs'
---
 
-CREATE OR REPLACE TABLE CareLogs (
-  idCareLog INT NOT NULL AUTO_INCREMENT,
-  idPerson INT NOT NULL,
-  idBat INT NOT NULL,
-  dateTime DATETIME DEFAULT CURRENT_TIMESTAMP,
-  weight DECIMAL(3,2),
-  foodType VARCHAR(20),
-  remark VARCHAR(255),
-  PRIMARY KEY (idCareLog),
-  FOREIGN KEY (idPerson) REFERENCES Persons (idPerson) ON SET NULL,
-  FOREIGN KEY (idBat) REFERENCES Bats (idBat) ON DELETE CASCADE
-);
-
---
--- replace/create table 'MedicalCares'
---
-
-CREATE OR REPLACE TABLE MedicalCares (
-  idMedicalCare INT NOT NULL AUTO_INCREMENT,
-  treatment VARCHAR(30),
-  PRIMARY KEY (idMedicalCare)
-);
 
 --
 -- replace/create table 'CareLogsMedicalCares'
@@ -82,6 +57,17 @@ CREATE OR REPLACE TABLE Persons (
 );
 
 --
+-- replace/create table 'MedicalCares'
+--
+
+CREATE OR REPLACE TABLE MedicalCares (
+  idMedicalCare INT NOT NULL AUTO_INCREMENT,
+  treatment VARCHAR(30),
+  PRIMARY KEY (idMedicalCare)
+);
+
+
+--
 -- replace/create table 'Bats'
 --
 
@@ -101,6 +87,24 @@ CREATE OR REPLACE TABLE Bats (
   FOREIGN KEY (idSpecies) REFERENCES Species (idSpecies) ON DELETE CASCADE,
   FOREIGN KEY (idStatus) REFERENCES Status (idStatus) ON DELETE CASCADE
 );
+
+--
+-- replace/create table 'CareLogs'
+--
+
+CREATE OR REPLACE TABLE CareLogs (
+  idCareLog INT NOT NULL AUTO_INCREMENT,
+  idPerson INT NOT NULL,
+  idBat INT NOT NULL,
+  dateTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+  weight DECIMAL(3,2),
+  foodType VARCHAR(20),
+  remark VARCHAR(255),
+  PRIMARY KEY (idCareLog),
+  FOREIGN KEY (idPerson) REFERENCES Persons (idPerson) ON SET NULL,
+  FOREIGN KEY (idBat) REFERENCES Bats (idBat) ON DELETE CASCADE
+);
+
 
 --
 -- insert data into 'Species'
