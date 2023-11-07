@@ -86,6 +86,18 @@ UPDATE CareLogs
 SET person = :idPersonUpdate, weight = :weightUpdate, food = :foodTypeUpdate, remark = CONCAT(remark, '; ', :remarkUpdate)
 WHERE idCareLog = :idCareLogToUpdate;
 
+------------------------NULL UPDATE queries-------------------------------------------
+UPDATE Bats
+SET idPerson == NULL
+WHERE idBat = :idBatToUpdate;
+
+UPDATE Bats
+SET idSpecies == NULL
+WHERE idBat = :idBatToUpdate;
+
+UPDATE Bats
+SET idStatus == NULL
+WHERE idBat = :idBatToUpdate;
 
 ------------------------DELETE queries-------------------------------------------
 -- Delete CareLogs
