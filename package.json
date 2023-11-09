@@ -1,15 +1,25 @@
 {
-  "name": "module-7",
+  "name": "databats",
   "version": "1.0.0",
-  "description": "OSU CS 340 group project",
+  "description": "CS 340 group project",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Brett/Ruth",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/6dayspizza/databats.git"
+  },
+  "author": "brett/ruth",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/6dayspizza/databats/issues"
+  },
+  "homepage": "https://github.com/6dayspizza/databats#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "forever": "^4.0.3"
+    "express-handlebars": "^7.1.2",
+    "forever": "^4.0.3",
+    "mysql": "^2.18.1"
   }
 }
