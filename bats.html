@@ -98,14 +98,14 @@
             </tr>
             <tr>
               <td><select name="person">
-                          <option value="0">&nbsp;</option>
+                          <option value="" disabled selected>select</option>
                           <option value="1">Brett</option>
                           <option value="2">Ruth</option>
                           <option value="3">Some</option>
                           </select></td>
               <td>
-                <select name="species">
-                  <option value="0">&nbsp;</option>
+                <select name="species" placeholder="species">
+                  <option value="" disabled selected>select</option>
                   <option value="1">Pipistrellus Pipistrellus</option>
                   <option value="2">Pipistrellus kuhlii</option>
                   <option value="3">Nyctalus noctula</option>
@@ -114,17 +114,16 @@
                 </select>
               </td>
               <td>
-                <input type="text" name="sex">
+                <input type="text" name="sex" placeholder="f/m">
               </td>
               <td>
                 <input type="date" id="dateField" name="dateFound">
               </td>
               <td>
-                <input type="text" name="siteFound">
+                <input type="text" name="siteFound" placeholder="zip code">
               </td>
               <td>
-                <textarea name="remark" id="remark"></textarea>
-              </td>
+                <textarea name="remark" id="remark" placeholder="max. 250 characters"></textarea>              </td>
             </tr>
           </table>
         </fieldset>
@@ -151,11 +150,11 @@
                 <input type="date" id="dateField" name="date end">
               </td>
               <td>
-                <input type="text" name="site released">
+                <input type="text" name="site released" placeholder="zip code">
               </td>
               <td>
                 <select name="status">
-                    <option value="0">&nbsp;</option>
+                    <option value="" disabled selected>select</option>
                     <option value="1">on hold</option>
                     <option value="2">quarantined</option>
                     <option value="3">scheduled for release</option>
@@ -165,7 +164,7 @@
                   </select>
               </td>
               <td>
-                <textarea name="remark" id="remark"></textarea>
+                <textarea name="remark" id="remark" placeholder="max. 250 characters"></textarea>
               </td>
             </tr>
           </table>
