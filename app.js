@@ -17,10 +17,15 @@ var db = require('./database/db-connector')
 */
 app.get('/', function(req, res)
     {  
-        let query1 = "SELECT * FROM bsg_people;";               // Define our query
+        let query1 = `SELECT Bats.idBat, Persons.name AS "person", Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Bats.endDate, Bats.releaseSite, Status.name as "status", Bats.remark
+        FROM Bats
+        LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
+        LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
+        LEFT JOIN Status ON Bats.idStatus = Status.idStatus;`;   // Define our query
 
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
+            console.log(rows)
             res.render('index', {data: rows});                  // Render the index.hbs file, and also send the renderer
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                          // will process this file, before sending the finished HTML to the client.                                        // requesting the web site.
