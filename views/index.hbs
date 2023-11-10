@@ -1,6 +1,6 @@
 <!-- index.hbs -->
 <h1>The server is running!</h1>
-<p>If you see this text, the server is <strong>definitely</strong> working!</p>
+<p>If you see this text, the server is <strong>definitely</strong> working! #testruth</p>
 
 {{!-- Create a table --}}
 <table>
@@ -25,11 +25,16 @@
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data}}
         <tr>
-            <td>{{this.id}}</td>
-            <td>{{this.fname}}</td>
-            <td>{{this.lname}}</td>
-            <td>{{this.homeworld}}</td>
-            <td>{{this.age}}</td>
+            <td>{{this.idBat}}</td>
+            <td>{{this.person}}</td>
+            <td>{{this.species}}</td>
+            <td>{{this.sex}}</td>
+            <td>{{this.foundDate}}</td>
+            <td>{{this.foundSite}}</td>
+            <td>{{this.endDate}}</td>
+            <td>{{this.releaseSite}}</td>
+            <td>{{this.status}}</td>
+            <td>{{this.remark}}</td>
         </tr>
         {{/each}}
     </tbody>
