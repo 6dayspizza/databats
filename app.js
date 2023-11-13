@@ -26,11 +26,10 @@ var db = require('./database/db-connector')
 */
 app.get('/', function(req, res)
     {  
-        let query1 = `SELECT Bats.idBat, Persons.name AS "person", Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Bats.endDate, Bats.releaseSite, Status.name as "status", Bats.remark
-        FROM Bats
-        LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
-        LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
-        LEFT JOIN Status ON Bats.idStatus = Status.idStatus;`;   // Define our query
+        let query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark
+        FROM CareLogs
+        LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
+        LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat;`;       // display CareLogs
 
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
@@ -41,26 +40,21 @@ app.get('/', function(req, res)
 
 // app.js - ROUTES section
 
-app.post('/add_bat_ajax', function(req, res) 
+app.post('/add_carelog_ajax', function(req, res) 
 {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
     // Capture NULL values
-    let homeworld = parseInt(data.homeworld);
-    if (isNaN(homeworld))
+    let person = parseInt(data.person);
+    if (isNaN(person))
     {
-        homeworld = 'NULL'
-    }
-
-    let age = parseInt(data.age);
-    if (isNaN(age))
-    {
-        age = 'NULL'
+        person = 'NULL'
     }
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Bats (idPerson, idSpecies, sex, remark, foundDate, foundSite, idStatus) VALUES ('${data.idPerson}', '${data.idSpecies}', ${sex}, ${remark},  ${foundDate},  ${foundSite})`;
+    query1 = `INSERT INTO CareLogs (idBat, idPerson, weight, foodType, remark)
+    VALUES (:idBatInput, :idPersonInput, :weightInput, :foodTypeInput, :remarkInput);`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -72,12 +66,11 @@ app.post('/add_bat_ajax', function(req, res)
         }
         else
         {
-            // If there was no error, perform a SELECT * on bsg_people
-            query2 = `SELECT Bats.idBat, Persons.name AS "person", Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Bats.endDate, Bats.releaseSite, Status.name as "status", Bats.remark
-            FROM Bats
-            LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
-            LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
-            LEFT JOIN Status ON Bats.idStatus = Status.idStatus;`;
+            // If there was no error, perform a SELECT * on CareLogs
+            query2 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark
+            FROM CareLogs
+            LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
+            LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat;`;
             db.pool.query(query2, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400
