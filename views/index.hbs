@@ -1,9 +1,11 @@
+		{{> header}}
+
 <!-- index.hbs -->
 <h1>The server is running!</h1>
-<p>If you see this text, the server is <strong>definitely</strong> working! #testruth</p>
+<p>If you see this text, the server is <strong>definitely</strong> working!</p>
 
 {{!-- Create a table --}}
-<table>
+<table id = "bats_table">
 
     {{!-- Header section --}}
     <thead>
@@ -39,3 +41,31 @@
         {{/each}}
     </tbody>
 </table>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Adding Data with AJAX</h2>
+<p>Add a new bat... test</p>
+<form id="add_bat_form_ajax">
+    <label for="input_person">person</label>
+    <input type="text" name="input_person" id="input_person">
+    
+    <label for="input_species">species</label>
+    <input type="text" name="input_species" id="input_species">
+
+    <label for="input_sex">sex</label>
+    <input type="text" name="input_sex" id="input_sex">
+
+    <label for="input_date_found">date found</label>
+    <input type="date" name="input_date_found" id="input_date_found">
+
+    <label for="input_site_found">site found</label>
+    <input type="number" name="input_site_found" id="input_site_found">
+
+    <label for="input_remark">site found</label>
+    <input type="text" name="input_remarks" id="input_remarks">
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_bats.js"></script>
