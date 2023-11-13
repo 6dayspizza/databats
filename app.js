@@ -18,13 +18,25 @@ app.engine('.hbs', hbs.engine);                 // Create an instance of the han
 app.set('view engine', '.hbs');                 // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
 app.use(express.static('assets'));
 
+app.use('/bats.html', express.static(__dirname, {index: 'bats.html'}));
+app.use('/species.html', express.static(__dirname, {index: 'species.html'}));
+app.use('/status.html', express.static(__dirname, {index: 'status.html'}));
+app.use('/persons.html', express.static(__dirname, {index: 'persons.html'}));
+app.use('/medicalcares.html', express.static(__dirname, {index: 'medicalcares.html'}));
+
+
+
 // DATABASE
 var db = require('./database/db-connector')
 
 /*
     ROUTES
 */
-app.get('/', function(req, res)
+app.get('/', (req, res, next) => {
+    res.redirect(307, '/carelogs');
+ });
+
+app.get('/carelogs', function(req, res)
     {  
         let query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark
         FROM CareLogs
@@ -34,7 +46,7 @@ app.get('/', function(req, res)
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
             console.log(rows)
-            res.render('index', {data: rows});                  // Render the index.hbs file, and also send the renderer
+            res.render('carelogs', {data: rows});                  // Render the index.hbs file, and also send the renderer
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                          // will process this file, before sending the finished HTML to the client.                                        // requesting the web site.
 
