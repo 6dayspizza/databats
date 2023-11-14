@@ -5,7 +5,7 @@ var express = require('express');   // We are using the express library for the 
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(express.static('public'))
+app.use(express.static('views/public'))
 
 PORT        = 9751;                 // Set a port number at the top so it's easy to change in the future
 const { engine } = require('express-handlebars');
@@ -16,7 +16,6 @@ const hbs = exphbs.create({
 })
 app.engine('.hbs', hbs.engine);                 // Create an instance of the handlebars engine to process templates
 app.set('view engine', '.hbs');                 // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
-app.use(express.static('assets'));
 
 app.use('/bats.html', express.static(__dirname, {index: 'bats.html'}));
 app.use('/species.html', express.static(__dirname, {index: 'species.html'}));
@@ -44,8 +43,6 @@ app.get('/carelogs', function(req, res)
         LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat;`;       // display CareLogs
 
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
-
-            console.log(rows)
             res.render('carelogs', {data: rows});                  // Render the index.hbs file, and also send the renderer
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                          // will process this file, before sending the finished HTML to the client.                                        // requesting the web site.
