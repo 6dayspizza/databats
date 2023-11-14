@@ -1,4 +1,5 @@
-		{{> header}}
+
+        {{> header}}
 
 <!-- index.hbs -->
 
@@ -62,6 +63,44 @@
 
     <input type="submit">
 </form>
-
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_carelogs.js"></script>
+
+{{!-- Delete Table --}}
+<table id="people-table">
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value={{this.id}}>
+            <td>{{this.idCareLog}}</td>
+            <td>{{this.idBat}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.dateTime}}</td>
+            <td>{{this.weight}}</td>
+            <td>{{this.foodType}}</td>
+            <td>{{this.medical}}</td>
+            <td>{{this.remark}}</td>
+            <td><button onclick="deletePerson({{this.id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src=".//public/js/delete_carelog.js"></script>
+
