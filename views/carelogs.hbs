@@ -42,29 +42,45 @@
 
 {{!-- Form to add a record to the table  --}}
 <p>Add a new care log...</p>
-<form id="add_bat_form_ajax">
+<form id="add_carelog_form_ajax">
     <label for="input_bat">bat</label>
-    <input type="text" name="input_bat" id="input_bat">
+        <select name="bats" id="input_bat">
+        <option value="" disabled selected>select</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        </select>
     
     <label for="input_person">person</label>
-    <input type="text" name="input_person" id="input_person">
+        <select name="person" id="input_person">
+        <option value="" disabled selected>select</option>
+        <option value="1">Brett</option>
+        <option value="2">Ruth</option>
+        <option value="3">Some</option>
+        </select>
 
     <label for="input_weight">weight</label>
-    <input type="text" name="input_weight" id="input_weight">
+    <input type="number" name="input_weight" id="input_weight" placeholder="0.0">
 
     <label for="input_food">food</label>
-    <input type="text" name="input_food" id="input_food">
+    <input type="number" name="input_food" id="input_food" placeholder="0">
 
     <label for="input_medical_care">medical</label>
-    <input type="input_medical_care" name="input_medical_care" id="input_medical_care">
+    <input type="number" name="input_medical_care" id="input_medical_care" placeholder="">
+        <div class="checkbox-list">
+        <label><input type="checkbox" name="medicalcares[]" value="1"> Metacam</label>
+        <label><input type="checkbox" name="medicalcares[]" value="2"> Baytril</label>
+        <label><input type="checkbox" name="medicalcares[]" value="3"> surgery</label>
+        <label><input type="checkbox" name="medicalcares[]" value="4"> Betadine (diluted) on wings</label>
+        </div>
 
     <label for="input_remark">remark</label>
-    <input type="text" name="input_remarks" id="input_remarks">
+    <textarea name="remark" id="input_remark" placeholder="max. 250 characters"></textarea>
 
     <input type="submit">
 </form>
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-<script src="./js/add_carelogs.js"></script>
+<script src="js/add_carelog.js"></script>
 
 {{!-- Delete Table --}}
 <table id="people-table">
@@ -102,5 +118,4 @@
         {{/each}}
     </tbody>
 </table>
-<script src=".//public/js/delete_carelog.js"></script>
-
+<script src="js/delete_carelog.js"></script>

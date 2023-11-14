@@ -63,7 +63,7 @@ app.post('/add_carelog_ajax', function(req, res)
 
     // Create the query and run it on the database
     query1 = `INSERT INTO CareLogs (idBat, idPerson, weight, foodType, remark)
-    VALUES (:idBatInput, :idPersonInput, :weightInput, :foodTypeInput, :remarkInput);`;
+    VALUES (${data.idBat}, ${data.idPerson}, ${data.weight}, ${data.food}, "${data.remark}");`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
