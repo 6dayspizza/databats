@@ -42,8 +42,20 @@ app.get('/carelogs', function(req, res)
         LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
         LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat;`;       // display CareLogs
 
-        db.pool.query(query1, function(error, rows, fields){    // Execute the query
-            res.render('carelogs', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        let query2 = `SELECT Bats.idBat FROM Bats;`
+
+        let query3 = `SELECT Persons.name, Persons.idPerson FROM Persons;`
+
+        db.pool.query(query1, function(error, carelogs, fields){    // Execute the query
+            db.pool.query(query2, function(error, bats, fields) {
+                db.pool.query(query3, function(error, persons, fields){
+                    res.render('carelogs', {
+                    data: carelogs,
+                    bats: bats,
+                    persons: persons
+                });   
+                })
+            })
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                          // will process this file, before sending the finished HTML to the client.                                        // requesting the web site.
 
@@ -61,9 +73,11 @@ app.post('/add_carelog_ajax', function(req, res)
         person = 'NULL'
     }
 
+    let weight = (Math.round(data.weight * 100) / 100).toFixed(2);
+
     // Create the query and run it on the database
     query1 = `INSERT INTO CareLogs (idBat, idPerson, weight, foodType, remark)
-    VALUES (${data.idBat}, ${data.idPerson}, ${data.weight}, ${data.food}, "${data.remark}");`;
+    VALUES (${data.idBat}, ${data.idPerson}, ${weight}, "${data.food}", "${data.remark}");`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error

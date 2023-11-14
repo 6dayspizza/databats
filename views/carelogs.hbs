@@ -45,25 +45,25 @@
 <form id="add_carelog_form_ajax">
     <label for="input_bat">bat</label>
         <select name="bats" id="input_bat">
-        <option value="" disabled selected>select</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+            <option value="" disabled selected>select</option>
+            {{#each bats}}
+            <option>{{this.idBat}}</option>
+            {{/each}}
         </select>
     
     <label for="input_person">person</label>
         <select name="person" id="input_person">
         <option value="" disabled selected>select</option>
-        <option value="1">Brett</option>
-        <option value="2">Ruth</option>
-        <option value="3">Some</option>
+            {{#each persons}}
+            <option value="{{this.idPerson}}">{{this.name}}</option>
+            {{/each}}
         </select>
 
     <label for="input_weight">weight</label>
-    <input type="number" name="input_weight" id="input_weight" placeholder="0.0">
+    <input type="number" name="input_weight" id="input_weight" placeholder="0.0" max="9.99" min="0.00">
 
     <label for="input_food">food</label>
-    <input type="number" name="input_food" id="input_food" placeholder="0">
+    <input type="text" name="input_food" id="input_food" placeholder="00 mw">
 
     <label for="input_medical_care">medical</label>
     <input type="number" name="input_medical_care" id="input_medical_care" placeholder="">
