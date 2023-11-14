@@ -7,6 +7,8 @@ addCareLogForm.addEventListener("submit", function (e) {
     // Prevent the form from submitting
     e.preventDefault();
 
+    debugger
+
     // Get form fields we need to get data from
     let inputBat = document.getElementById("input_bat");
     let inputPerson = document.getElementById("input_person");
@@ -48,11 +50,13 @@ addCareLogForm.addEventListener("submit", function (e) {
 
             // Clear the input fields for another transaction
             inputBat.value = '';
-            inputPersom.value = '';
+            inputPerson.value = '';
             inputWeight.value = '';
             inputFood.value = '';
             inputMedicalCare.value = '';
             inputRemark.value = '';
+
+            browseRecords()
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -69,6 +73,8 @@ addCareLogForm.addEventListener("submit", function (e) {
 // bsg_people
 addRowToTable = (data) => {
 
+    debugger;
+
     // Get a reference to the current table on the page and clear it out.
     let currentTable = document.getElementById("carelogs_table");
 
@@ -81,32 +87,41 @@ addRowToTable = (data) => {
 
     // Create a row and 4 cells
     let row = document.createElement("TR");
+    let firstCell = document.createElement("TD");
     let idCell = document.createElement("TD");
     let batCell = document.createElement("TD");
     let personCell = document.createElement("TD");
+    let dateTimeCell = document.createElement("TD");
     let weightCell = document.createElement("TD");
     let foodCell = document.createElement("TD");
     let medicalCareCell = document.createElement("TD");
     let remarkCell = document.createElement("TD");
+    let endCell1 = document.createElement("TD");
+    let endCell2 = document.createElement("TD")
 
     // Fill the cells with correct data
-    idCell.innerText = newRow.id;
+    idCell.innerText = newRow.idCareLog;
     batCell.innerText = newRow.idBat;
-    personCell.innerText = newRow.idPerson;
+    personCell.innerText = newRow.name;
+    dateTimeCell.innerText = newRow.dateTime;
     weightCell.innerText = newRow.weight;
-    foodCell.innerText = newRow.food;
-    medicalCareCell.innerText = newRow.medicalCare;
+    foodCell.innerText = newRow.foodType;
+    medicalCareCell.innerText = newRow.medicalCare | "";
     remarkCell.innerText = newRow.remark;
 
-    // Add the cells to the row 
+    // Add the cells to the row
+    row.appendChild(firstCell);
     row.appendChild(idCell);
     row.appendChild(batCell);
-    row.appendChild(lastNameCell);
     row.appendChild(personCell);
+    row.appendChild(dateTimeCell);
     row.appendChild(weightCell);
     row.appendChild(foodCell);
     row.appendChild(medicalCareCell);
     row.appendChild(remarkCell);
+    row.appendChild(endCell1);
+    row.appendChild(endCell2);
+
     
     // Add the row to the table
     currentTable.appendChild(row);

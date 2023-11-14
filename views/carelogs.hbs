@@ -3,82 +3,116 @@
 
 <!-- index.hbs -->
 
-{{!-- Create a table --}}
-<table id = "carelogs_table">
+<main>
+    <div id="browse">
+    <table id="carelogs_table">
+        <caption></caption>
+        {{!-- Header section --}}
+        <thead>
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                <th width=4%><a href="#"class="modify" onClick="newRecord()">add</a></th>
+                <th width=4%>id</th>
+                <th>bats</th>
+                <th>person</th>
+                <th>date/time</th>
+                <th>weight</th>
+                <th>food</th>
+                <th>medical</th>
+                <th>remark</th>
+                <th width="5%"></th>
+                <th width="5%"></th>
+            </tr>
+        </thead>
 
-    {{!-- Header section --}}
-    <thead>
-
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
-        <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
+            {{!-- Body section --}}
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td></td>
+                <td>{{this.idCareLog}}</td>
+                <td>{{this.idBat}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.dateTime}}</td>
+                <td>{{this.weight}}</td>
+                <td>{{this.foodType}}</td>
+                <td>{{this.medical}}</td>
+                <td>{{this.remark}}</td>
+                <td></td>
+                <td></td>
+            </tr>
             {{/each}}
-        </tr>
-    </thead>
-
-    {{!-- Body section --}}
-    <tbody>
-
-        {{#each data}}
-        <tr>
-            <td>{{this.idCareLog}}</td>
-            <td>{{this.idBat}}</td>
-            <td>{{this.name}}</td>
-            <td>{{this.dateTime}}</td>
-            <td>{{this.weight}}</td>
-            <td>{{this.foodType}}</td>
-            <td>{{this.medical}}</td>
-            <td>{{this.remark}}</td>
-            <td></td>
-            <td></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
-
-{{!-- Form to add a record to the table  --}}
-<p>Add a new care log...</p>
-<form id="add_carelog_form_ajax">
-    <label for="input_bat">bat</label>
-        <select name="bats" id="input_bat">
-            <option value="" disabled selected>select</option>
-            {{#each bats}}
-            <option>{{this.idBat}}</option>
-            {{/each}}
-        </select>
-    
-    <label for="input_person">person</label>
-        <select name="person" id="input_person">
-        <option value="" disabled selected>select</option>
-            {{#each persons}}
-            <option value="{{this.idPerson}}">{{this.name}}</option>
-            {{/each}}
-        </select>
-
-    <label for="input_weight">weight</label>
-    <input type="number" name="input_weight" id="input_weight" placeholder="0.0" max="9.99" min="0.00">
-
-    <label for="input_food">food</label>
-    <input type="text" name="input_food" id="input_food" placeholder="00 mw">
-
-    <label for="input_medical_care">medical</label>
-    <input type="number" name="input_medical_care" id="input_medical_care" placeholder="">
-        <div class="checkbox-list">
-        <label><input type="checkbox" name="medicalcares[]" value="1"> Metacam</label>
-        <label><input type="checkbox" name="medicalcares[]" value="2"> Baytril</label>
-        <label><input type="checkbox" name="medicalcares[]" value="3"> surgery</label>
-        <label><input type="checkbox" name="medicalcares[]" value="4"> Betadine (diluted) on wings</label>
+        </tbody>
+    </table>
+        
+    </div>
+        <div id="insert" style="display: none">
+            <form id="add_carelog_form_ajax">
+                <legend><strong>add log</strong></legend>
+                <fieldset class="fields">
+                  <table class="insert_table">
+                    <tr>
+                      <th>bat</th>
+                      <th>person</th>
+                      <th>weight (g)</th>
+                      <th>food (mw)</th>
+                      <th>medical</th>
+                      <th>remark</th>
+                    </tr>
+                    <tr>
+                      <td>
+                        <select name="bats" id="input_bat">
+                        <option value="" disabled selected>select</option>
+                        {{#each bats}}
+                        <option>{{this.idBat}}</option>
+                        {{/each}}
+                        </select>
+                    </td>
+                      <td>
+                        <select name="person" id="input_person">
+                        <option value="" disabled selected>select</option>
+                            {{#each persons}}
+                            <option value="{{this.idPerson}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                      </td>
+                      <td>
+                        <input type="number" name="input_weight" id="input_weight" placeholder="0.0" max="9.99" min="0.00">
+                      </td>
+                      <td>
+                        <input type="text" name="input_food" id="input_food" placeholder="00 mw">
+                      </td>
+                      <td>
+                        <div class="checkbox-list">
+                          <label><input type="checkbox" name="medicalcares[]" value="1"> Metacam</label>
+                          <label><input type="checkbox" name="medicalcares[]" value="2"> Baytril</label>
+                          <label><input type="checkbox" name="medicalcares[]" value="3"> surgery</label>
+                          <label><input type="checkbox" name="medicalcares[]" value="4"> Betadine (diluted) on wings</label>
+                        </div>
+                      </td>
+                      <td>
+                        <textarea name="remark" id="input_remark" placeholder="max. 250 characters"></textarea>
+                      </td>
+                    </tr>
+                  </table>
+                </fieldset>
+                <p></p>
+                  <input class="btn" type="submit" id="addCareLog" value="commit">
+                  <input class="btn" type="button" value="cancel" onClick="browseRecords()">
+              </form> 
         </div>
+        <div id="edit" style="display: none">
+            <form method="POST" id="editCareLog">
 
-    <label for="input_remark">remark</label>
-    <textarea name="remark" id="input_remark" placeholder="max. 250 characters"></textarea>
+              </form>
+        </div>
+    </main>
 
-    <input type="submit">
-</form>
+
+
+
+
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="js/add_carelog.js"></script>
 
