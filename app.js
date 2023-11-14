@@ -115,13 +115,13 @@ app.post('/add_carelog_ajax', function(req, res)
 
 app.delete('/delete_carelog_ajax/', function(req,res,next){
     let data = req.body;
-    let personID = parseInt(data.id);
+    let idCareLog = parseInt(data.id);
     let deleteCareLogsMedicalCares = `DELETE FROM CareLogsMedicalCares WHERE idCareLog = ?`
     let deleteCarelog= `DELETE FROM CareLogs WHERE idCareLog = ?`
   
   
           // Run the 1st query
-          db.pool.query(deleteBsg_Cert_People, [personID], function(error, rows, fields){
+          db.pool.query(deleteCareLogsMedicalCares, [idCareLog], function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -132,7 +132,7 @@ app.delete('/delete_carelog_ajax/', function(req,res,next){
               else
               {
                   // Run the second query
-                  db.pool.query(deleteBsg_People, [personID], function(error, rows, fields) {
+                  db.pool.query(deleteCarelog, [idCareLog], function(error, rows, fields) {
   
                       if (error) {
                           console.log(error);
