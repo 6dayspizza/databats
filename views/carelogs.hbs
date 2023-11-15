@@ -110,6 +110,23 @@
         </div>
     </main>
 
+<h2>Updating A CareLog</h2>
+<p>To update a specific CareLog</p>
+<form id="update_ CareLog_form_ajax">
+
+    <label for="input-ID">ID: </label>
+    <select name="input-ID" id="mySelect">
+        <option value="test">Select an ID</option>
+        {{#each data}}
+        <option value="{{this.idCareLog}}">{{this.idCareLog}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-remark">Remark: </label>
+    <input type="text" name="input-remark" id="input-remark-update">
+    <input type="submit">
+
+</form>
 
 
 
@@ -117,3 +134,4 @@
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="js/add_carelog.js"></script>
 <script src="js/delete_carelog.js"></script>
+<script src="./js/update_carelog.js"></script>
