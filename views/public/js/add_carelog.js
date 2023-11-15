@@ -6,7 +6,7 @@ addCareLogForm.addEventListener("submit", function (e) {
     // Prevent the form from sumbitting a default http request
     // DO NOT REMOVE THIS LINE
     e.preventDefault();
-    
+
     // Get form fields we need to get data from
     let inputBat = document.getElementById("input_bat");
     let inputPerson = document.getElementById("input_person");
@@ -94,9 +94,7 @@ addRowToTable = (data) => {
     let foodCell = document.createElement("TD");
     let medicalCareCell = document.createElement("TD");
     let remarkCell = document.createElement("TD");
-    let endCell1 = document.createElement("TD");
-    let endCell2 = document.createElement("TD")
-
+    let editCell = document.createElement("TD");
     let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
@@ -109,10 +107,11 @@ addRowToTable = (data) => {
     medicalCareCell.innerText = newRow.medicalCare | "";
     remarkCell.innerText = newRow.remark;
 
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
-    deleteCell.onclick = function(){
+    let deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.onclick = function(){
         deleteCareLog(newRow.id);}
+    deleteCell.appendChild(deleteButton);
 
 
 
@@ -126,9 +125,7 @@ addRowToTable = (data) => {
     row.appendChild(foodCell);
     row.appendChild(medicalCareCell);
     row.appendChild(remarkCell);
-    row.appendChild(endCell1);
-    row.appendChild(endCell2);
-
+    row.appendChild(editCell);
     row.appendChild(deleteCell);
 
     // Add a row attribute so the deleteRow function can find a newly added row
