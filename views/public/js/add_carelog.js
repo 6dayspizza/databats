@@ -3,12 +3,10 @@ let addCareLogForm = document.getElementById('add_carelog_form_ajax');
 
 // Modify the objects we need
 addCareLogForm.addEventListener("submit", function (e) {
+    // Prevent the form from sumbitting a default http request
+    // DO NOT REMOVE THIS LINE
+    e.preventDefault();
     
-    // // Prevent the form from submitting
-    // e.preventDefault();
-
-    // debugger
-
     // Get form fields we need to get data from
     let inputBat = document.getElementById("input_bat");
     let inputPerson = document.getElementById("input_person");

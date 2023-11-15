@@ -1,3 +1,5 @@
+
+
 // Delete methods
 function deleteCareLog(idCareLog) {
     // Put our data we want to send in a javascript object

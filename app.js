@@ -23,14 +23,18 @@ app.use('/status.html', express.static(__dirname, {index: 'status.html'}));
 app.use('/persons.html', express.static(__dirname, {index: 'persons.html'}));
 app.use('/medicalcares.html', express.static(__dirname, {index: 'medicalcares.html'}));
 
-
-
 // DATABASE
 var db = require('./database/db-connector')
 
 /*
     ROUTES
 */
+app.get('/', (req, res) => {
+    res.render('/bats', {
+    active: { bats: true }
+    });
+  });
+
 app.get('/', (req, res, next) => {
     res.redirect(307, '/carelogs');
  });
@@ -62,7 +66,7 @@ app.get('/carelogs', function(req, res)
 // app.js - ROUTES section
 
 app.post('/add_carelog_ajax', function(req, res) 
-{
+{  
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 

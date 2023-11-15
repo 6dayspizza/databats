@@ -39,7 +39,7 @@
                 <td>{{this.foodType}}</td>
                 <td>{{this.medical}}</td>
                 <td>{{this.remark}}</td>
-                <td><button onclick="deleteCareLog({{this.idCareLog}})">Delete</button></td>
+                <td><button class="modify" onclick="deleteCareLog({{this.idCareLog}})">delete</button></td>
                 <td></td>
                 <td></td>
             </tr>
@@ -86,6 +86,7 @@
                       </td>
                       <td>
                         <div class="checkbox-list">
+                              <input type="number" name="input_medical_care" id="input_medical_care" placeholder="">
                           <label><input type="checkbox" name="medicalcares[]" value="1"> Metacam</label>
                           <label><input type="checkbox" name="medicalcares[]" value="2"> Baytril</label>
                           <label><input type="checkbox" name="medicalcares[]" value="3"> surgery</label>
@@ -109,6 +110,8 @@
               </form>
         </div>
     </main>
+
+    <hr>
 
 <h2>Updating A CareLog</h2>
 <p>To update a specific CareLog</p>
