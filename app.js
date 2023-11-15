@@ -113,6 +113,37 @@ app.post('/add_carelog_ajax', function(req, res)
     })
 });
 
+// Delete Route
+app.delete('/delete_carelog_ajax/', function(req,res,next){
+    let data = req.body;
+    let idCareLog = parseInt(data.id);
+    let deleteCareLogsMedicalCares = `DELETE FROM CareLogsMedicalCares WHERE idCareLog = ${idCareLog}`;
+    let deleteCareLog = `DELETE FROM CareLogs WHERE idCareLog = ${idCareLog}`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteCareLogsMedicalCares, [idCareLog], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  // Run the second query
+                  db.pool.query(deleteCareLog, [idCareLog], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.sendStatus(204);
+                      }
+                  })
+              }
+  })});
 
 /*
     LISTENER
