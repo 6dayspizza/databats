@@ -4,10 +4,10 @@ let addCareLogForm = document.getElementById('add_carelog_form_ajax');
 // Modify the objects we need
 addCareLogForm.addEventListener("submit", function (e) {
     
-    // Prevent the form from submitting
-    e.preventDefault();
+    // // Prevent the form from submitting
+    // e.preventDefault();
 
-    debugger
+    // debugger
 
     // Get form fields we need to get data from
     let inputBat = document.getElementById("input_bat");
@@ -73,7 +73,7 @@ addCareLogForm.addEventListener("submit", function (e) {
 // bsg_people
 addRowToTable = (data) => {
 
-    debugger;
+    // debugger;
 
     // Get a reference to the current table on the page and clear it out.
     let currentTable = document.getElementById("carelogs_table");
@@ -99,6 +99,8 @@ addRowToTable = (data) => {
     let endCell1 = document.createElement("TD");
     let endCell2 = document.createElement("TD")
 
+    let deleteCell = document.createElement("TD");
+
     // Fill the cells with correct data
     idCell.innerText = newRow.idCareLog;
     batCell.innerText = newRow.idBat;
@@ -108,6 +110,13 @@ addRowToTable = (data) => {
     foodCell.innerText = newRow.foodType;
     medicalCareCell.innerText = newRow.medicalCare | "";
     remarkCell.innerText = newRow.remark;
+
+    deleteCell = document.createElement("button");
+    deleteCell.innerHTML = "Delete";
+    deleteCell.onclick = function(){
+        deleteCareLog(newRow.id);}
+
+
 
     // Add the cells to the row
     row.appendChild(firstCell);
@@ -121,6 +130,11 @@ addRowToTable = (data) => {
     row.appendChild(remarkCell);
     row.appendChild(endCell1);
     row.appendChild(endCell2);
+
+    row.appendChild(deleteCell);
+
+    // Add a row attribute so the deleteRow function can find a newly added row
+    row.setAttribute('data-value', newRow.id);
 
     
     // Add the row to the table
