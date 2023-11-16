@@ -29,12 +29,6 @@ var db = require('./database/db-connector')
 /*
     ROUTES
 */
-app.get('/', (req, res) => {
-    res.render('/bats', {
-    active: { bats: true }
-    });
-  });
-
 app.get('/', (req, res, next) => {
     res.redirect(307, '/carelogs');
  });
