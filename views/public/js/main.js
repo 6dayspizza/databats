@@ -1,3 +1,9 @@
+   // Citation for the following function: 
+    //Date: 10/12/2023
+    //Copied from /OR/ Adapted from /OR/ Based on: Module 2 activity 1,2,3 code from Dr. Curry
+    //Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+
+
 function showform(dostuff) {
   /*
   * four DIVS: browse, insert, update, delete

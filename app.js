@@ -1,5 +1,11 @@
 /*
     SETUP
+
+    Citation for the following function: 
+    Date: 10/12/2023
+    Copied from /OR/ Adapted from /OR/ Based on: Module 2 activity 1,2,3 code from Dr. Curry
+    Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 */
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
