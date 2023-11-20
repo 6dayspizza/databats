@@ -46,7 +46,7 @@
                 <td>{{this.foodType}}</td>
                 <td>{{this.medical}}</td>
                 <td>{{this.remark}}</td>
-                <td></td>
+                <td><button class="modify" onClick="editRecord()">edit</button></td>
                 <td><button class="modify" onclick="deleteCareLog({{this.idCareLog}})">delete</button></td>
             </tr>
             {{/each}}
@@ -110,18 +110,13 @@
                   <input class="btn" type="button" value="cancel" onClick="browseRecords()">
               </form> 
         </div>
-        <div id="edit" style="display: none">
-            <form method="POST" id="editCareLog">
-
-              </form>
-        </div>
     </main>
 
     <hr>
 
-<h2>Updating A CareLog</h2>
-<p>To update a specific CareLog</p>
-<form id="update_ CareLog_form_ajax">
+<div id="edit" style="display: none">
+
+  <form id="update_ CareLog_form_ajax">
 
     <label for="input-ID">ID: </label>
     <select name="input-ID" id="mySelect">
@@ -134,8 +129,8 @@
     <label for="input-remark">Remark: </label>
     <input type="text" name="input-remark" id="input-remark-update">
     <input type="submit">
-
-</form>
+  </form>
+</div>
 
 
 
