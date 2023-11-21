@@ -63,7 +63,37 @@ app.get('/carelogs', function(req, res)
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                          // will process this file, before sending the finished HTML to the client.                                        // requesting the web site.
 
-// app.js - ROUTES section
+//
+app.get('/', (req, res, next) => {
+    res.redirect(307, '/bats');
+ });
+
+app.get('/bats', function(req, res)
+    {  
+        let query1 = `SELECT Bats.idBat, Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Persons.name AS "person", Bats.endDate, Bats.releaseSite, Status.name AS "status", Bats.remark
+        FROM Bats
+        LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
+        LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
+        LEFT JOIN Status ON Bats.idStatus = Status.idStatus;`;       // display Bats
+
+        let query2 = `SELECT * FROM Persons;`
+
+        let query3 = `SELECT * FROM Species;`
+
+        db.pool.query(query1, function(error, bats, fields){    // Execute the query
+            db.pool.query(query2, function(error, persons, fields) {
+                db.pool.query(query3, function(error, species, fields){
+                    res.render('bats', {
+                    bats: bats,
+                    persons: persons,
+                    species: species
+                });   
+                })
+            })
+        })                                                      // an object where 'data' is equal to the 'rows' we
+    });
+
+    // app.js - ROUTES section
 
 app.post('/add_carelog_ajax', function(req, res) 
 {  
@@ -117,6 +147,57 @@ app.post('/add_carelog_ajax', function(req, res)
     })
 });
 
+app.post('/add_bat_ajax', function(req, res) 
+{  
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    let person = parseInt(data.person);
+    if (isNaN(person))
+    {
+        person = 'NULL'
+    }
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Bats (idPerson, idSpecies, sex, remark, foundDate, foundSite)
+    VALUES (${data.idPerson}, ${data.idSpecies}, "${data.sex}", "${data.remark}", "${data.foundDate}", ${data.foundSite});`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on CareLogs
+            query2 = `SELECT Bats.idBat, Species.name, Bats.sex, Bats.foundDate, Bats.foundSite, Persons.name, Bats.endDate, Bats.releaseSite, Status.name, Bats.remark
+            FROM Bats
+            LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
+            LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
+            LEFT JOIN Status ON Bats.idStatus = Status.idStatus;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
 // Delete Route
 app.delete('/delete_carelog_ajax/', function(req,res,next){
     let data = req.body;
@@ -143,7 +224,26 @@ app.delete('/delete_carelog_ajax/', function(req,res,next){
                           console.log(error);
                           res.sendStatus(400);
                       } else {
-                          res.sendStatus(204);
+                        query2 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark
+                        FROM CareLogs
+                        LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
+                        LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat;`;
+                        db.pool.query(query2, function(error, rows, fields){
+
+
+                            // If there was an error on the second query, send a 400
+                            if (error) {
+                                
+                                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                                console.log(error);
+                                res.sendStatus(400);
+                            }
+                            // If all went well, send the results of the query back.
+                            else
+                            {
+                                res.send(rows);
+                            }
+                        })
                       }
                   })
               }

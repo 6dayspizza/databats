@@ -1,8 +1,119 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         {{> header}}
+
+<!-- index.hbs -->
+
 <!--     
     Citation for the following function: 
     Date: 10/12/2023
     Copied from /OR/ Adapted from /OR/ Based on: code from Dr. Curry
     Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
 -->
+
+<main>
+    <div id="browse">
+    <table id="bats_table">
+        <caption></caption>
+        {{!-- Header section --}}
+        <thead>
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                <th width=4%><a href="#"class="modify" onClick="newRecord()">add</a></th>
+                <th width=4%>id</th>
+                <th>person</th>
+                <th>species</th>
+                <th>sex</th>
+                <th>date found</th>
+                <th>site found</th>
+                <th>date end</th>
+                <th>site released</th>
+                <th>status</th>
+                <th>remark</th>
+                <th width="5%"></th>
+            </tr>
+        </thead>
+
+            {{!-- Body section --}}
+        <tbody>
+            {{#each bats}}
+            <tr>
+                <td></td>
+                <td>{{this.idBat}}</td>
+                <td>{{this.person}}</td>
+                <td>{{this.species}}</td>
+                <td>{{this.sex}}</td>
+                <td>{{this.foundDate}}</td>
+                <td>{{this.foundSite}}</td>
+                <td>{{this.endDate}}</td>
+                <td>{{this.releaseSite}}</td>
+                <td>{{this.status}}</td>
+                <td>{{this.remark}}</td>
+                <td><button class="modify" onClick="editRecord()">edit</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+        
+    </div>
+        <div id="insert" style="display: none">
+            <form id="add_bat_form_ajax">
+                <legend><strong>add bat</strong></legend>
+                <fieldset class="fields">
+                  <table class="insert_table">
+                    <tr>
+                      <th>person</th>
+                      <th>species</th>
+                      <th>sex</th>
+                      <th>date found</th>
+                      <th>site found</th>
+                      <th>remark</th>
+                    </tr>
+                    <tr>
+                      <td>
+                        <select name="person" id="input_person">
+                        <option value="" disabled selected>select</option>
+                            {{#each persons}}
+                            <option value="{{this.idPerson}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                      </td>
+                      <td>
+                        <select name="species" id="input_species">
+                        <option value="" disabled selected>select</option>
+                            {{#each species}}
+                            <option value="{{this.idSpecies}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                      </td>
+                      <td>
+                        <input type="number" name="sex" id="input_sex" placeholder="0/1" min="0" max="1">
+                      </td>
+                      <td>
+                        <input type="date" name="input_found_date" id="input_found_date">
+                        </td> 
+                      <td>
+                        <input type="number" name="input_found_site" id="input_found_site" placeholder="0000" max="9999" min="0">
+                      </td>
+                      <td>
+                        <textarea name="remark" id="input_remark" placeholder="max. 250 characters"></textarea>
+                      </td>
+                    </tr>
+                  </table>
+                </fieldset>
+                <p></p>
+                  <input class="btn" type="submit" id="addBat" value="commit">
+                  <input class="btn" type="button" value="cancel" onClick="browseRecords()">
+              </form> 
+        </div>
+    </main>
+
+    <hr>
+
+</div>
+
+
+
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="js/add_bat.js"></script>

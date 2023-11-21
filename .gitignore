@@ -9,3 +9,4 @@ node_modules/
 database/db-connector.js
 
 .vs/
+database/db-connector.js
