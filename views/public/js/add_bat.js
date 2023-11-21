@@ -108,7 +108,7 @@ addRowToTable = (data) => {
 
     // Fill the cells with correct data
     idCell.innerText = newRow.idBat;
-    personCell.innerText = newRow.idPerson;
+    personCell.innerText = newRow.person;
     speciesCell.innerText = newRow.species;
     sexCell.innerText = newRow.sex;
     foundDateCell.innerText = newRow.foundDate;

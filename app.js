@@ -173,8 +173,8 @@ app.post('/add_bat_ajax', function(req, res)
         }
         else
         {
-            // If there was no error, perform a SELECT * on CareLogs
-            query2 = `SELECT Bats.idBat, Species.name, Bats.sex, Bats.foundDate, Bats.foundSite, Persons.name, Bats.endDate, Bats.releaseSite, Status.name, Bats.remark
+            // If there was no error, perform a SELECT * on Bats
+            query2 = `SELECT Bats.idBat, Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Persons.name AS "person", Bats.endDate, Bats.releaseSite, Status.name AS "status", Bats.remark
             FROM Bats
             LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
             LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
