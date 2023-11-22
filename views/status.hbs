@@ -1,0 +1,71 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        {{> header}}
+
+<!-- index.hbs -->
+
+<!--     
+    Citation for the following function: 
+    Date: 10/12/2023
+    Copied from /OR/ Adapted from /OR/ Based on: code from Dr. Curry
+    Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+-->
+
+<main>
+    <div id="browse">
+    <table id="status_table">
+        <caption></caption>
+        {{!-- Header section --}}
+        <thead>
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                <th width=4%><a href="#"class="modify" onClick="newRecord()">add</a></th>
+                <th width=4%>id</th>
+                <th>status name</th>
+            </tr>
+        </thead>
+
+            {{!-- Body section --}}
+        <tbody>
+            {{#each status}}
+            <tr>
+                <td></td>
+                <td>{{this.idStatus}}</td>
+                <td>{{this.name}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+        
+    </div>
+        <div id="insert" style="display: none">
+            <form id="add_status_form_ajax">
+                <legend><strong>add status</strong></legend>
+                <fieldset class="fields">
+                  <table class="insert_table">
+                    <tr>
+                      <th>name</th>
+                    </tr>
+                    <tr>
+                      <td>
+                        <textarea name="name" id="input_name" placeholder="max. 30 characters"></textarea>
+                      </td>
+                    </tr>
+                  </table>
+                </fieldset>
+                <p></p>
+                  <input class="btn" type="submit" id="addStatus" value="commit">
+                  <input class="btn" type="button" value="cancel" onClick="browseRecords()">
+              </form> 
+        </div>
+    </main>
+
+    <hr>
+
+</div>
+
+
+
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="js/add_status.js"></script>

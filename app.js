@@ -80,20 +80,98 @@ app.get('/bats', function(req, res)
 
         let query3 = `SELECT * FROM Species;`
 
+        let query4 = `SELECT * FROM Status;`
+
         db.pool.query(query1, function(error, bats, fields){    // Execute the query
             db.pool.query(query2, function(error, persons, fields) {
                 db.pool.query(query3, function(error, species, fields){
-                    res.render('bats', {
-                    bats: bats,
-                    persons: persons,
-                    species: species
+                    db.pool.query(query4, function(error, status, fields){
+                        res.render('bats', {
+                            bats: bats,
+                            persons: persons,
+                            species: species,
+                            status: status
+                        })
+                    })
                 });   
                 })
             })
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });
+        });                                                      // an object where 'data' is equal to the 'rows' we
 
-    // app.js - ROUTES section
+app.get('/', (req, res, next) => {
+    res.redirect(307, '/persons');
+    });
+        
+app.get('/persons', function(req, res)
+    {  
+        let query1 = `SELECT * FROM Persons;`;       // display Persons
+
+        db.pool.query(query1, function(error, persons, fields){ 
+                        res.render('persons', {
+                            persons: persons,
+                        })
+                    })
+                });   
+
+app.get('/', (req, res, next) => {
+    res.redirect(307, '/status');
+    });
+        
+app.get('/status', function(req, res)
+    {  
+        let query1 = `SELECT * FROM Status;`;       // display Status
+
+        db.pool.query(query1, function(error, status, fields){ 
+                        res.render('status', {
+                            status: status,
+                        })
+                    })
+                }); 
+                app.get('/', (req, res, next) => {
+                    res.redirect(307, '/status');
+                    });
+                        
+                app.get('/status', function(req, res)
+                    {  
+                        let query1 = `SELECT * FROM Status;`;       // display Status
+                
+                        db.pool.query(query1, function(error, status, fields){ 
+                                        res.render('status', {
+                                            status: status,
+                                        })
+                                    })
+                                }); 
+
+app.get('/', (req, res, next) => {
+    res.redirect(307, '/species');
+    });
+        
+app.get('/species', function(req, res)
+    {  
+        let query1 = `SELECT * FROM Species;`;       // display Status
+
+        db.pool.query(query1, function(error, species, fields){ 
+                        res.render('species', {
+                            species: species,
+                        })
+                    })
+                }); 
+                app.get('/', (req, res, next) => {
+                    res.redirect(307, '/species');
+                    });
+                        
+                app.get('/species', function(req, res)
+                    {  
+                        let query1 = `SELECT * FROM Species;`;       // display Species
+                
+                        db.pool.query(query1, function(error, status, fields){ 
+                                        res.render('species', {
+                                            species: species,
+                                        })
+                                    })
+                                }); 
+
+// app.js - ROUTES section
 
 app.post('/add_carelog_ajax', function(req, res) 
 {  
@@ -160,8 +238,8 @@ app.post('/add_bat_ajax', function(req, res)
     }
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Bats (idPerson, idSpecies, sex, remark, foundDate, foundSite)
-    VALUES (${data.idPerson}, ${data.idSpecies}, "${data.sex}", "${data.remark}", "${data.foundDate}", ${data.foundSite});`;
+    query1 = `INSERT INTO Bats (idPerson, idSpecies, sex, remark, foundDate, foundSite, idStatus)
+    VALUES (${data.idPerson}, ${data.idSpecies}, "${data.sex}", "${data.remark}", "${data.foundDate}", ${data.foundSite}, "${data.idStatus}");`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -179,6 +257,126 @@ app.post('/add_bat_ajax', function(req, res)
             LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
             LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
             LEFT JOIN Status ON Bats.idStatus = Status.idStatus;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+app.post('/add_person_ajax', function(req, res) 
+{  
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Persons (name)
+    VALUES ("${data.name}");`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Bats
+            query2 = `SELECT * FROM Persons`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+app.post('/add_species_ajax', function(req, res) 
+{  
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Species (name)
+    VALUES ("${data.name}");`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Bats
+            query2 = `SELECT * FROM Species`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+app.post('/add_status_ajax', function(req, res) 
+{  
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Status (name)
+    VALUES ("${data.name}");`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Bats
+            query2 = `SELECT * FROM Status`;
             db.pool.query(query2, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400

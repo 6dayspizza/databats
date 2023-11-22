@@ -21,6 +21,7 @@ addBatForm.addEventListener("submit", function (e) {
     let inputSex = document.getElementById("input_sex");
     let inputFoundDate = document.getElementById("input_found_date");
     let inputFoundSite = document.getElementById("input_found_site");
+    let inputStatus = document.getElementById("input_status");
     let inputRemark = document.getElementById("input_remark");
 
     // Get the values from the form fields
@@ -29,6 +30,7 @@ addBatForm.addEventListener("submit", function (e) {
     let sexValue = inputSex.value;
     let foundDateValue = inputFoundDate.value;
     let foundSiteValue = inputFoundSite.value;
+    let statusValue = inputStatus.value;
     let remarkValue = inputRemark.value;
 
 
@@ -39,6 +41,7 @@ addBatForm.addEventListener("submit", function (e) {
         sex: sexValue,
         foundDate: foundDateValue,
         foundSite: foundSiteValue,
+        idStatus: statusValue,
         remark: remarkValue
     }
     
@@ -60,6 +63,7 @@ addBatForm.addEventListener("submit", function (e) {
             inputSex.value = '';
             inputFoundDate.value = '';
             inputFoundSite.value = '';
+            inputStatus.value = '';
             inputRemark.value = '';
 
             browseRecords()
@@ -114,8 +118,8 @@ addRowToTable = (data) => {
     foundDateCell.innerText = newRow.foundDate;
     foundSiteCell.innerText = newRow.foundSite;
     dateEndCell.innerText = newRow.dateEnd;
-    dateEndCell.innerText = newRow.siteEnd;
-    dateEndCell.innerText = newRow.status;
+    siteEndCell.innerText = newRow.siteEnd;
+    statusCell.innerText = newRow.status;
     remarkCell.innerText = newRow.remark;
 
 

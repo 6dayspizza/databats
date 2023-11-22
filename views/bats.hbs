@@ -30,7 +30,6 @@
                 <th>site released</th>
                 <th>status</th>
                 <th>remark</th>
-                <th width="5%"></th>
             </tr>
         </thead>
 
@@ -49,7 +48,6 @@
                 <td>{{this.releaseSite}}</td>
                 <td>{{this.status}}</td>
                 <td>{{this.remark}}</td>
-                <td><button class="modify" onClick="editRecord()">edit</button></td>
             </tr>
             {{/each}}
         </tbody>
@@ -67,6 +65,7 @@
                       <th>sex</th>
                       <th>date found</th>
                       <th>site found</th>
+                      <th>status</th>
                       <th>remark</th>
                     </tr>
                     <tr>
@@ -94,6 +93,14 @@
                         </td> 
                       <td>
                         <input type="number" name="input_found_site" id="input_found_site" placeholder="0000" max="9999" min="0">
+                      </td>
+                      <td>
+                        <select name="status" id="input_status">
+                        <option value="" disabled selected>select</option>
+                            {{#each status}}
+                            <option value="{{this.idStatus}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
                       </td>
                       <td>
                         <textarea name="remark" id="input_remark" placeholder="max. 250 characters"></textarea>
