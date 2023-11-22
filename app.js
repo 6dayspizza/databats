@@ -32,9 +32,11 @@ app.use('/medicalcares.html', express.static(__dirname, {index: 'medicalcares.ht
 // DATABASE
 var db = require('./database/db-connector')
 
+
 /*
-    ROUTES
+    ALL GET REQUESTS TO DISPLAY DATA
 */
+
 app.get('/', (req, res, next) => {
     res.redirect(307, '/carelogs');
  });
@@ -61,9 +63,9 @@ app.get('/carelogs', function(req, res)
                 })
             })
         })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                          // will process this file, before sending the finished HTML to the client.                                        // requesting the web site.
+    });
 
-//
+
 app.get('/', (req, res, next) => {
     res.redirect(307, '/bats');
  });
@@ -96,7 +98,7 @@ app.get('/bats', function(req, res)
                 });   
                 })
             })
-        });                                                      // an object where 'data' is equal to the 'rows' we
+        });
 
 app.get('/', (req, res, next) => {
     res.redirect(307, '/persons');
@@ -117,65 +119,50 @@ app.get('/', (req, res, next) => {
     res.redirect(307, '/status');
     });
         
-app.get('/status', function(req, res)
-    {  
-        let query1 = `SELECT * FROM Status;`;       // display Status
+app.get('/status', function(req, res){  
+    let query1 = `SELECT * FROM Status;`;       // display Status
 
-        db.pool.query(query1, function(error, status, fields){ 
-                        res.render('status', {
-                            status: status,
-                        })
+    db.pool.query(query1, function(error, status, fields){ 
+                    res.render('status', {
+                        status: status,
                     })
-                }); 
-                app.get('/', (req, res, next) => {
-                    res.redirect(307, '/status');
-                    });
-                        
-                app.get('/status', function(req, res)
-                    {  
-                        let query1 = `SELECT * FROM Status;`;       // display Status
-                
-                        db.pool.query(query1, function(error, status, fields){ 
-                                        res.render('status', {
-                                            status: status,
-                                        })
-                                    })
-                                }); 
+                })
+    }); 
 
 app.get('/', (req, res, next) => {
     res.redirect(307, '/species');
     });
         
-app.get('/species', function(req, res)
-    {  
-        let query1 = `SELECT * FROM Species;`;       // display Status
-
+app.get('/species', function(req, res){
+    let query1 = `SELECT * FROM Species;`;       // display Status
         db.pool.query(query1, function(error, species, fields){ 
                         res.render('species', {
                             species: species,
                         })
                     })
-                }); 
-                app.get('/', (req, res, next) => {
-                    res.redirect(307, '/species');
-                    });
-                        
-                app.get('/species', function(req, res)
-                    {  
-                        let query1 = `SELECT * FROM Species;`;       // display Species
-                
-                        db.pool.query(query1, function(error, status, fields){ 
-                                        res.render('species', {
-                                            species: species,
-                                        })
-                                    })
-                                }); 
+    });  
 
-// app.js - ROUTES section
+app.get('/', (req, res, next) => {
+    res.redirect(307, '/medicalcares');
+    });
+        
+app.get('/medicalcares', function(req, res)
+    {  
+        let query1 = `SELECT * FROM MedicalCares;`;       // display MedicalCares
 
-app.post('/add_carelog_ajax', function(req, res) 
-{  
-    // Capture the incoming data and parse it back to a JS object
+        db.pool.query(query1, function(error, medicalcares, fields){ 
+                        res.render('medicalcares', {
+                            medicalcares: medicalcares,
+                        })
+                    })
+     });   
+
+
+/*
+    ALL POST REQUESTS TO ADD DATA
+*/
+
+app.post('/add_carelog_ajax', function(req, res) {  
     let data = req.body;
 
     // Capture NULL values
@@ -225,9 +212,7 @@ app.post('/add_carelog_ajax', function(req, res)
     })
 });
 
-app.post('/add_bat_ajax', function(req, res) 
-{  
-    // Capture the incoming data and parse it back to a JS object
+app.post('/add_bat_ajax', function(req, res) {  
     let data = req.body;
 
     // Capture NULL values
@@ -276,9 +261,7 @@ app.post('/add_bat_ajax', function(req, res)
     })
 });
 
-app.post('/add_person_ajax', function(req, res) 
-{  
-    // Capture the incoming data and parse it back to a JS object
+app.post('/add_person_ajax', function(req, res) {  
     let data = req.body;
 
     // Create the query and run it on the database
@@ -316,9 +299,7 @@ app.post('/add_person_ajax', function(req, res)
     })
 });
 
-app.post('/add_species_ajax', function(req, res) 
-{  
-    // Capture the incoming data and parse it back to a JS object
+app.post('/add_species_ajax', function(req, res) {
     let data = req.body;
 
     // Create the query and run it on the database
@@ -356,9 +337,7 @@ app.post('/add_species_ajax', function(req, res)
     })
 });
 
-app.post('/add_status_ajax', function(req, res) 
-{  
-    // Capture the incoming data and parse it back to a JS object
+app.post('/add_status_ajax', function(req, res) {  
     let data = req.body;
 
     // Create the query and run it on the database
@@ -396,7 +375,49 @@ app.post('/add_status_ajax', function(req, res)
     })
 });
 
-// Delete Route
+app.post('/add_medicalcare_ajax', function(req, res) {  
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO MedicalCares (treatment)
+    VALUES ("${data.treatment}");`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Bats
+            query2 = `SELECT * FROM MedicalCares`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+
+/*
+    ALL DELETE REQUESTS TO REMOVE DATA
+*/
+
 app.delete('/delete_carelog_ajax/', function(req,res,next){
     let data = req.body;
     let idCareLog = parseInt(data.id);
@@ -446,6 +467,7 @@ app.delete('/delete_carelog_ajax/', function(req,res,next){
                   })
               }
   })});
+
 
 /*
     LISTENER
