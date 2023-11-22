@@ -273,6 +273,17 @@
         vertical-align: middle;
       }
       
+      #input_treatment {
+        width: 95%;
+      }
+
+      #input_name {
+        width: 95%;
+      }
+
+      #input_status {
+        width: 95%;
+      }
 
       #remark {
         width: 320px;

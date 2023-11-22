@@ -23,11 +23,6 @@ const hbs = exphbs.create({
 app.engine('.hbs', hbs.engine);                 // Create an instance of the handlebars engine to process templates
 app.set('view engine', '.hbs');                 // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
 
-app.use('/bats.html', express.static(__dirname, {index: 'bats.html'}));
-app.use('/species.html', express.static(__dirname, {index: 'species.html'}));
-app.use('/status.html', express.static(__dirname, {index: 'status.html'}));
-app.use('/persons.html', express.static(__dirname, {index: 'persons.html'}));
-app.use('/medicalcares.html', express.static(__dirname, {index: 'medicalcares.html'}));
 
 // DATABASE
 var db = require('./database/db-connector')
@@ -36,10 +31,6 @@ var db = require('./database/db-connector')
 /*
     ALL GET REQUESTS TO DISPLAY DATA
 */
-
-app.get('/', (req, res, next) => {
-    res.redirect(307, '/carelogs');
- });
 
 app.get('/carelogs', function(req, res)
     {  
@@ -64,7 +55,6 @@ app.get('/carelogs', function(req, res)
             })
         })                                                      // an object where 'data' is equal to the 'rows' we
     });
-
 
 app.get('/', (req, res, next) => {
     res.redirect(307, '/bats');
@@ -98,10 +88,6 @@ app.get('/bats', function(req, res)
                 });   
                 })
             })
-        });
-
-app.get('/', (req, res, next) => {
-    res.redirect(307, '/persons');
     });
         
 app.get('/persons', function(req, res)
@@ -113,11 +99,7 @@ app.get('/persons', function(req, res)
                             persons: persons,
                         })
                     })
-                });   
-
-app.get('/', (req, res, next) => {
-    res.redirect(307, '/status');
-    });
+    });   
         
 app.get('/status', function(req, res){  
     let query1 = `SELECT * FROM Status;`;       // display Status
@@ -128,10 +110,6 @@ app.get('/status', function(req, res){
                     })
                 })
     }); 
-
-app.get('/', (req, res, next) => {
-    res.redirect(307, '/species');
-    });
         
 app.get('/species', function(req, res){
     let query1 = `SELECT * FROM Species;`;       // display Status
@@ -141,10 +119,6 @@ app.get('/species', function(req, res){
                         })
                     })
     });  
-
-app.get('/', (req, res, next) => {
-    res.redirect(307, '/medicalcares');
-    });
         
 app.get('/medicalcares', function(req, res)
     {  

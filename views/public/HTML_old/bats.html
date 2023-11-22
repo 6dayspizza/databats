@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>databats.</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="robots" content="noindex,noarchive, nofollow" />
+    <link rel='stylesheet' type='text/css' media='screen' href='views/public/main.css'>
+    <script src='views/public/js/main.js'></script>
+</head>
+<body>
+    <header>
+        <nav class="main_nav">
+            <a href="/bats.html">BATS</a>
+            <a href="/carelogs">CARE LOGS</a>
+            <a href="/persons.html">PERSONS</a>
+            <a href="/status.html">STATUS</a>
+            <a href="/species.html">SPECIES</a>
+            <a href="/medicalcares.html">MEDICAL TREATMENTS</a>
+        </nav>
+        <h1>databats.</h1>
+    </header>
+    <main>
+        <div id="browse">
+        <table>
+          <caption></caption>
+            <tr>
+              <th width=4%><a href='#' class="modify" onClick="newRecord()">add</a></th>
+              <th width=4%>id</th>
+              <th>person</th>
+              <th>species</th>
+              <th>sex</th>
+              <th>date found</th>
+              <th>site found</th>
+              <th>date end</th>
+              <th>site released</th>
+              <th>status</th>
+              <th>remark</th>
+              <th></th>
+            </tr>
+            <tr>
+              <td></td>
+              <td>1</td>
+              <td>Some</td>
+              <td>Myotis myotis</td>
+              <td>0</td>
+              <td>2023-10-24</td>
+              <td>8003</td>
+              <td>2023-10-25</td>
+              <td><em>NULL</em></td>
+              <td>dead</td>
+              <td>cat victim</td>
+              <td><td><a href="#" class="modify" onClick="editRecord()">edit</a></td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>2</td>
+              <td>Ruth</td>
+              <td>Myotis crypticus</td>
+              <td>1</td>
+              <td>2023-10-24</td>
+              <td>8000</td>
+              <td><em>NULL</em></td>
+              <td><em>NULL</em></td>
+              <td>scheduled for release</td>
+              <td><em>NULL</em></td>
+              <td><td><a href="#" class="modify" onClick="editRecord()">edit</a></td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>3</td>
+              <td>Ruth</td>
+              <td>Pipistrellus pipistrellus</td>
+              <td>0</td>
+              <td>2023-09-20</td>
+              <td>8004</td>
+              <td>2023-10-21</td>
+              <td>8004</td>
+              <td>released</td>
+              <td><em>NULL</em></td>
+              <td><td><a href="#" class="modify" onClick="editRecord()">edit</a></td></td>
+            </tr>
+          </table>
+        </div>
+      <div id="insert" style="display: none">
+      <form method="POST" id="addBat">
+        <legend><strong>add bat</strong></legend>
+        <fieldset class="fields">
+          <table class="insert_table">
+            <tr>
+              <th width=10%>person</th>
+              <th>species</th>
+              <th width=7%>sex</th>
+              <th>date found</th>
+              <th>site found</th>
+              <th>remark</th>
+            </tr>
+            <tr>
+              <td><select name="person">
+                          <option value="" disabled selected>select</option>
+                          <option value="1">Brett</option>
+                          <option value="2">Ruth</option>
+                          <option value="3">Some</option>
+                          </select></td>
+              <td>
+                <select name="species" placeholder="species">
+                  <option value="" disabled selected>select</option>
+                  <option value="1">Pipistrellus Pipistrellus</option>
+                  <option value="2">Pipistrellus kuhlii</option>
+                  <option value="3">Nyctalus noctula</option>
+                  <option value="4">Myotis myotis</option>
+                  <option value="5">Myotis crypticus</option>
+                </select>
+              </td>
+              <td>
+                <input type="number" name="sex" placeholder="f/m">
+              </td>
+              <td>
+                <input type="date" id="dateField" name="dateFound">
+              </td>
+              <td>
+                <input type="text" name="siteFound" placeholder="zip code">
+              </td>
+              <td>
+                <textarea name="remark" id="remark" placeholder="max. 250 characters"></textarea>              </td>
+            </tr>
+          </table>
+        </fieldset>
+        <p></p>
+          <input class="btn" type="submit" id="addBat" value="commit">
+          <input class="btn" type="button" value="cancel" onClick="browseRecords()">
+      </form>
+    </div>
+    <div id="edit" style="display: none">
+      <form method="POST" id="editBat">
+        <legend><strong>edit bat</strong></legend>
+        <fieldset class="fields">
+          <table class="insert_table">
+            <tr>
+                <th></th>
+              <th>date end</th>
+              <th>site released</th>
+              <th>status</th>
+              <th>remark</th>
+            </tr>
+            <tr>
+              <td width=5%>bat X</td>
+              <td>
+                <input type="date" id="dateField" name="date end">
+              </td>
+              <td>
+                <input type="text" name="site released" placeholder="zip code">
+              </td>
+              <td>
+                <select name="status">
+                    <option value="" disabled selected>select</option>
+                    <option value="1">on hold</option>
+                    <option value="2">quarantined</option>
+                    <option value="3">scheduled for release</option>
+                    <option value="4">released</option>
+                    <option value="5">dead</option>
+                    <option value="6">unknown</option>
+                  </select>
+              </td>
+              <td>
+                <textarea name="remark" id="remark" placeholder="max. 250 characters"></textarea>
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+        <p></p>
+          <input class="btn" type="submit" id="editBat" value="commit" onClick="browseRecords()">
+          <input class="btn" type="button" value="cancel" onClick="browseRecords()">
+      </form>
+    </div>
+    </main>
+    <footer>
+      <p>&copy; 2023_OREGON STATE UNIVERSITY_CS 340</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>databats.</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="robots" content="noindex,noarchive, nofollow" />
+    <link rel='stylesheet' type='text/css' media='screen' href='views/public/main.css'>
+    <script src='views/public/js/main.js'></script>
+</head>
+<body>
+    <header>
+        <nav class="main_nav">
+            <a href="/bats.html">BATS</a>
+            <a href="/carelogs">CARE LOGS</a>
+
+            <a href="/persons.html">PERSONS</a>
+            <a href="/status.html">STATUS</a>
+            <a href="/species.html">SPECIES</a>
+            <a href="/medicalcares.html">MEDICAL TREATMENTS</a>
+        </nav>
+        <h1>databats.</h1>
+    </header>
+    <main>
+      <div id="browse">
+        <table>
+          <caption></caption>
+            <tr>
+              <th width=4%><a href="#" class="modify" onClick="newRecord()">add</a></th>
+              <th width=4%>id</th>
+              <th>species</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td>Pipistrellus pipistrellus</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>2</td>
+                <td>Pipistrellus kuhlii</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>3</td>
+                <td>Nyctalus noctula</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>4</td>
+                <td>Myotis myotis</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>5</td>
+                <td>Myotis crypticus</td>
+              </tr>
+        </table>
+        </div>
+        <div id="insert" style="display: none">
+        <form method="POST" id="addSpecies">
+          <legend><strong>add species</strong></legend>
+          <fieldset class="fields">
+            <table class="insert_table">
+              <tr>
+                <th>scientific name</th>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" name="name" placeholder="max. 30 characters">
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+          <p></p>
+            <input class="btn" type="submit" id="addSpecies" value="commit" onClick="browseRecords()">
+            <input class="btn" type="button" value="cancel" onClick="browseRecords()">
+        </form>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2023_OREGON STATE UNIVERSITY_CS 340</p>
+    </footer>
+</body>
+</html>
