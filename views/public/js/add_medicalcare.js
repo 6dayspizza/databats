@@ -78,7 +78,7 @@ addRowToTable = (data) => {
     let treatmentCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    idCell.innerText = newRow.idStatus;
+    idCell.innerText = newRow.idMedicalCare;
     treatmentCell.innerText = newRow.treatment;
 
 

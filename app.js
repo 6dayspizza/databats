@@ -363,10 +363,8 @@ app.post('/add_medicalcare_ajax', function(req, res) {
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error)
             res.sendStatus(400);
-        }
-        else
-        {
-            // If there was no error, perform a SELECT * on Bats
+        } else {
+            // If there was no error, perform a SELECT * on MedicalCares
             query2 = `SELECT * FROM MedicalCares`;
             db.pool.query(query2, function(error, rows, fields){
 
@@ -378,8 +376,7 @@ app.post('/add_medicalcare_ajax', function(req, res) {
                     res.sendStatus(400);
                 }
                 // If all went well, send the results of the query back.
-                else
-                {
+                else {
                     res.send(rows);
                 }
             })
