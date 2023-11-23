@@ -138,6 +138,17 @@ app.get('/medicalcares', function(req, res)
                     })
      });   
 
+// just for overview, is not actually displayed on website
+app.get('/carelogsmedicalcares', function(req, res)
+    {  
+    let query1 = `SELECT * FROM CareLogsMedicalCares;`;       // display CareLogsMedicalCares
+
+    db.pool.query(query1, function(error, carelogsmedicalcares, fields){ 
+                    res.render('carelogsmedicalcares', {
+                        carelogsmedicalcares: carelogsmedicalcares,
+                    })
+                })
+    });
 
 /*
     ALL POST REQUESTS TO ADD DATA
