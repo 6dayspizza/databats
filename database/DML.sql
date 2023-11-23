@@ -194,7 +194,14 @@ VALUES
     ((SELECT idCareLog FROM CareLogs WHERE idCareLog = 3), (SELECT idMedicalCare FROM MedicalCares WHERE idMedicalCare = 1));
 
 
-
 -- enable foreign key checks and commit
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
+
+
+SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(CareLogsMedicalCares.idMedicalCare SEPARATOR ', ') AS MedicalCares
+        FROM CareLogs
+        LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
+        LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
+        LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
+        GROUP BY CareLogs.idCareLog;

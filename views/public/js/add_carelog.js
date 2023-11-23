@@ -20,7 +20,7 @@ addCareLogForm.addEventListener("submit", function (e) {
     let inputPerson = document.getElementById("input_person");
     let inputWeight = document.getElementById("input_weight");
     let inputFood = document.getElementById("input_food");
-    let inputMedicalCare = document.getElementById("input_medical_care");
+    let inputsMedicalCare = Array.from(document.getElementsByClassName("input_medical_care"));
     let inputRemark = document.getElementById("input_remark");
 
     // Get the values from the form fields
@@ -28,7 +28,7 @@ addCareLogForm.addEventListener("submit", function (e) {
     let personValue = inputPerson.value;
     let weightValue = inputWeight.value;
     let foodValue = inputFood.value;
-    let medicalCareValue = inputMedicalCare.value;
+    let medicalCareValues = inputsMedicalCare.filter(function(input){return input.checked === true}).map(function(input){return input.value});
     let remarkValue = inputRemark.value;
 
 
@@ -38,7 +38,7 @@ addCareLogForm.addEventListener("submit", function (e) {
         idPerson: personValue,
         weight: weightValue,
         food: foodValue,
-        medicalCare: medicalCareValue,
+        medicalCares: medicalCareValues,
         remark: remarkValue
     }
     
@@ -59,7 +59,7 @@ addCareLogForm.addEventListener("submit", function (e) {
             inputPerson.value = '';
             inputWeight.value = '';
             inputFood.value = '';
-            inputMedicalCare.value = '';
+            inputsMedicalCare.value = '';
             inputRemark.value = '';
 
             browseRecords()

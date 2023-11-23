@@ -44,7 +44,7 @@
                 <td>{{this.dateTime}}</td>
                 <td>{{this.weight}}</td>
                 <td>{{this.foodType}}</td>
-                <td>{{this.medical}}</td>
+                <td>{{this.medicalCares}}</td>
                 <td>{{this.remark}}</td>
                 <td><button class="modify" onClick="editRecord()">edit</button></td>
                 <td><button class="modify" onclick="deleteCareLog({{this.idCareLog}})">delete</button></td>
@@ -92,11 +92,9 @@
                       </td>
                       <td>
                         <div class="checkbox-list">
-                              <input type="number" name="input_medical_care" id="input_medical_care" placeholder="">
-                          <label><input type="checkbox" name="medicalcares[]" value="1"> Metacam</label>
-                          <label><input type="checkbox" name="medicalcares[]" value="2"> Baytril</label>
-                          <label><input type="checkbox" name="medicalcares[]" value="3"> surgery</label>
-                          <label><input type="checkbox" name="medicalcares[]" value="4"> Betadine (diluted) on wings</label>
+                          {{#each medicalcares}}
+                          <label><input type="checkbox" name="input_medical_care" class="input_medical_care" value="{{this.idMedicalCare}}"> {{this.treatment}}</label>
+                          {{/each}}
                         </div>
                       </td>
                       <td>

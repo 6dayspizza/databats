@@ -34,23 +34,30 @@ var db = require('./database/db-connector')
 
 app.get('/carelogs', function(req, res)
     {  
-        let query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark
+        let query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(CareLogsMedicalCares.idMedicalCare SEPARATOR ', ') AS medicalCares
         FROM CareLogs
         LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
-        LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat;`;       // display CareLogs
+        LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
+        LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
+        GROUP BY CareLogs.idCareLog;`;       // display CareLogs
 
         let query2 = `SELECT Bats.idBat FROM Bats;`
 
         let query3 = `SELECT Persons.name, Persons.idPerson FROM Persons;`
 
+        let query4 = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`
+
         db.pool.query(query1, function(error, carelogs, fields){    // Execute the query
-            db.pool.query(query2, function(error, bats, fields) {
+            db.pool.query(query2, function(error, bats, fields){
                 db.pool.query(query3, function(error, persons, fields){
-                    res.render('carelogs', {
-                    data: carelogs,
-                    bats: bats,
-                    persons: persons
-                });   
+                    db.pool.query(query4, function(error, medicalcares, fields){
+                        res.render('carelogs', {
+                            data: carelogs,
+                            bats: bats,
+                            persons: persons,
+                            medicalcares: medicalcares
+                    })
+                })   
                 })
             })
         })                                                      // an object where 'data' is equal to the 'rows' we
@@ -149,8 +156,9 @@ app.post('/add_carelog_ajax', function(req, res) {
     let weight = (Math.round(data.weight * 100) / 100).toFixed(2);
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO CareLogs (idBat, idPerson, weight, foodType, remark)
+    let query1 = `INSERT INTO CareLogs (idBat, idPerson, weight, foodType, remark)
     VALUES (${data.idBat}, ${data.idPerson}, ${weight}, "${data.food}", "${data.remark}");`;
+
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -159,29 +167,38 @@ app.post('/add_carelog_ajax', function(req, res) {
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error)
             res.sendStatus(400);
-        }
-        else
-        {
-            // If there was no error, perform a SELECT * on CareLogs
-            query2 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark
-            FROM CareLogs
-            LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
-            LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat;`;
-            db.pool.query(query2, function(error, rows, fields){
+        } else {
+            let idCareLog = rows.insertId;
 
-                // If there was an error on the second query, send a 400
-                if (error) {
-                    
-                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                    console.log(error);
-                    res.sendStatus(400);
-                }
-                // If all went well, send the results of the query back.
-                else
-                {
-                    res.send(rows);
-                }
-            })
+            let query2 = `INSERT INTO CareLogsMedicalCares (idCareLog, idMedicalCare)
+            VALUES ${data.medicalCares.map(function(medicalCare) { 
+                return "(" + idCareLog + "," + medicalCare + ")" 
+            })};`;
+
+            db.pool.query(query2, function(error, rows, fields){
+                console.log(rows);
+                            // If there was no error, perform a SELECT * on CareLogs
+                let query3 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark
+                FROM CareLogs
+                LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
+                LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat;`;
+
+                db.pool.query(query3, function(error, rows, fields){
+
+                    // If there was an error on the second query, send a 400
+                    if (error) {
+                        
+                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                        console.log(error);
+                        res.sendStatus(400);
+                    }
+                    // If all went well, send the results of the query back.
+                    else
+                    {
+                        res.send(rows);
+                    }
+                })  
+                })
         }
     })
 });
