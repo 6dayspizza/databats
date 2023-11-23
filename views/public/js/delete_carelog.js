@@ -19,9 +19,9 @@ function deleteCareLog(idCareLog) {
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
 
-            // Add the new data to the table
-            deleteRow(idCareLog);
+            // deleteRow(idCareLog);
 
+            window.location.href='/carelogs';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.")
@@ -31,7 +31,7 @@ function deleteCareLog(idCareLog) {
     xhttp.send(JSON.stringify(data));
 }
 
-
+/*
 function deleteRow(idCareLog){
 
     let table = document.getElementById("carelogs_table");
@@ -43,4 +43,4 @@ function deleteRow(idCareLog){
             break;
        }
     }
-}
+}*/

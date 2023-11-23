@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('views/public'))
 
-PORT        = 9751;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 9751;                 // port number
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     // Import express-handlebars
 const hbs = exphbs.create({
@@ -432,15 +432,15 @@ app.delete('/delete_carelog_ajax/', function(req,res,next){
                                 res.sendStatus(400);
                             }
                             // If all went well, send the results of the query back.
-                            else
-                            {
-                                res.send(rows);
+                            else {
+                                res.sendStatus(204);
                             }
                         })
                       }
                   })
               }
   })});
+
 
 
 /*

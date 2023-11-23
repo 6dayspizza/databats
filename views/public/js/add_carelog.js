@@ -91,7 +91,7 @@ addRowToTable = (data) => {
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
 
-    // Create a row and 4 cells
+    // Create a row and cells
     let row = document.createElement("TR");
     let firstCell = document.createElement("TD");
     let idCell = document.createElement("TD");
@@ -115,10 +115,20 @@ addRowToTable = (data) => {
     medicalCareCell.innerText = newRow.medicalCare | "";
     remarkCell.innerText = newRow.remark;
 
+    let editButton = document.createElement("button");
+    editButton.classList=["modify"];
+    editButton.innerHTML = "edit";
+    editButton.addEventListener("click", function(event){
+        editRecord(newRow.idCareLog);
+    })
+    editCell.appendChild(editButton);
+
     let deleteButton = document.createElement("button");
-    deleteButton.innerHTML = "Delete";
-    deleteButton.onclick = function(){
-        deleteCareLog(newRow.id);}
+    deleteButton.classList=["modify"];
+    deleteButton.innerHTML = "delete";
+    deleteButton.addEventListener("click", function(event){
+        deleteCareLog(newRow.idCareLog);
+    })
     deleteCell.appendChild(deleteButton);
 
 
