@@ -1,14 +1,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         {{> header}}
 
-<!-- index.hbs -->
-
-<!--     
-    Citation for the following function: 
-    Date: 10/12/2023
-    Copied from /OR/ Adapted from /OR/ Based on: code from Dr. Curry
-    Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
--->
 
 <main>
     <div id="browse">
@@ -114,26 +106,23 @@
 
 <div id="edit" style="display: none">
 
-  <form id="update_CareLog_form_ajax">
+  <form id="update_carelog_form_ajax">
 
-    <label for="input-ID">ID: </label>
-    <select name="input-ID" id="mySelect">
-        <option value="test">Select an ID</option>
+    <label for="update_id">ID: </label>
+    <select name="update_id" id="update_id">
         {{#each data}}
         <option value="{{this.idCareLog}}">{{this.idCareLog}}</option>
         {{/each}}
     </select>
-
-    <label for="input-remark">Remark: </label>
-    <input type="text" name="input-remark" id="input-remark-update">
-    <input type="submit">
+    <input type="number" name="update_weight" id="update_weight" placeholder="0.0" max="9.99" min="0.00">
+    <input class="btn" type="submit" id="updateCareLog" value="commit">
   </form>
 </div>
 
 
 
 
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+{{!-- Embed JS handle the DOM manipulation and AJAX request --}}
 <script src="js/add_carelog.js"></script>
 <script src="js/delete_carelog.js"></script>
-<script src="./js/update_carelog.js"></script>
+<script src="js/update_carelog.js"></script>
