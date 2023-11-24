@@ -483,9 +483,9 @@ app.get('/', function(req, res)
         db.pool.query(query2, (error, rows, fields) => {
             
             // Save the Bats
-            let Bats = rows;
+            let CareLogs = rows;
 
-            return res.render('carelogs', {data: foodType, Bats: Bats});
+            return res.render('carelogs', {data: foodType, CareLogs: CareLogs});
         })
     })
 });
