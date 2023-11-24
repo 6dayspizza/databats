@@ -451,6 +451,47 @@ app.post("/update_carelog_ajax", function (req, res) {
   );
 });
 
+
+/* SEARCH */
+app.get('/', function(req, res)
+{
+    // Declare Query 1
+    let query1;
+
+    // If there is no query string, we just perform a basic SELECT
+    if (req.query.foodType === undefined)
+    {
+        query1 = "SELECT * FROM CareLogs;";
+    }
+
+    // If there is a query string, we assume this is a search, and return desired results
+    else
+    {
+        query1 = `SELECT * FROM CareLogs WHERE foodType LIKE "${req.query.foodType}%"`
+    }
+
+    // Query 2 is the same in both cases
+    let query2 = "SELECT * FROM CareLogs;";
+
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Save the foodType
+        let foodType = rows;
+        
+        // Run the second query
+        db.pool.query(query2, (error, rows, fields) => {
+            
+            // Save the Bats
+            let Bats = rows;
+
+            return res.render('carelogs', {data: foodType, Bats: Bats});
+        })
+    })
+});
+
+
+
 /*
     LISTENER
 */
