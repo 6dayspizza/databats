@@ -481,7 +481,7 @@ app.get("/carelogssearch", function (req, res) {
       LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
       LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
       LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
-      WHERE Persons.name LIKE '${req.query.inputid}'
+      WHERE Persons.name = '${req.query.inputid}'
       GROUP BY CareLogs.idCareLog;`; // display CareLogs
 
       query2 = `SELECT Bats.idBat FROM Bats;`;
