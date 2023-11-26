@@ -119,14 +119,14 @@
   </form>
 </div>
 
-<h2>Search by bats by food type</h2>
-<p>Search using the field below. Partial names are OK too!</p>
-<form id="search-person-carelogs" method='GET' action='/'>
-    <label for="input-name">Search: </label>
-    <input type="text" name="name" id="input-name-carelogs-search">
+<h2>Search carelogs by person name</h2>
+<p>Search using the field below</p>
+<form id="search-person-carelogs" method='GET' action='/carelogssearch'>
+    <label for="inputid">Search by Name: </label>
+    <input type="text" name="inputid" id="input-id-carelogs-search">
     <input type="submit">
-    <a href='/'><button>Reset</button></a>
 </form>
+<a href='/carelogs'><button>Reset</button></a>
 
 
 

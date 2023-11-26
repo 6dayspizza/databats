@@ -452,43 +452,64 @@ app.post("/update_carelog_ajax", function (req, res) {
 });
 
 
-/* SEARCH */
-app.get('/', function(req, res)
-{
-    // Declare Query 1
-    let query1;
+// /* SEARCH */
+app.get("/carelogssearch", function (req, res) {
 
-    // If there is no query string, we just perform a basic SELECT
-    if (req.query.foodType === undefined)
-    {
-        query1 = "SELECT * FROM CareLogs;";
-    }
+  let query1;
+  let query2;
+  let query3;
+  let query4;
 
-    // If there is a query string, we assume this is a search, and return desired results
-    else
-    {
-        query1 = `SELECT * FROM CareLogs WHERE foodType LIKE "${req.query.foodType}%"`
-    }
+  if (req.query.inputid === undefined){
+      query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(CareLogsMedicalCares.idMedicalCare SEPARATOR ', ') AS medicalCares
+        FROM CareLogs
+        LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
+        LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
+        LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
+        GROUP BY CareLogs.idCareLog;`; // display CareLogs
 
-    // Query 2 is the same in both cases
-    let query2 = "SELECT * FROM CareLogs;";
+      query2 = `SELECT Bats.idBat FROM Bats;`;
 
-    // Run the 1st query
-    db.pool.query(query1, function(error, rows, fields){
-        
-        // Save the foodType
-        let foodType = rows;
-        
-        // Run the second query
-        db.pool.query(query2, (error, rows, fields) => {
-            
-            // Save the Bats
-            let CareLogs = rows;
+      query3 = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
 
-            return res.render('carelogs', {data: foodType, CareLogs: CareLogs});
-        })
-    })
+      query4 = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
+  }
+  else
+  {
+      query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(CareLogsMedicalCares.idMedicalCare SEPARATOR ', ') AS medicalCares
+      FROM CareLogs
+      LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
+      LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
+      LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
+      WHERE Persons.name LIKE '${req.query.inputid}'
+      GROUP BY CareLogs.idCareLog;`; // display CareLogs
+
+      query2 = `SELECT Bats.idBat FROM Bats;`;
+
+      query3 = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
+
+      query4 = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
+      
+  }
+
+
+  db.pool.query(query1, function (error, carelogs, fields) {
+    // Execute the query
+    db.pool.query(query2, function (error, bats, fields) {
+      db.pool.query(query3, function (error, persons, fields) {
+        db.pool.query(query4, function (error, medicalcares, fields) {
+          res.render("carelogs", {
+            data: carelogs,
+            bats: bats,
+            persons: persons,
+            medicalcares: medicalcares,
+          });
+        });
+      });
+    });
+  }); // an object where 'data' is equal to the 'rows' we
 });
+
 
 
 
