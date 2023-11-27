@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("views/public"));
 
-PORT = 9751; // port number
+PORT = 9773; // port number
 const { engine } = require("express-handlebars");
 var exphbs = require("express-handlebars"); // Import express-handlebars
 const hbs = exphbs.create({
@@ -433,6 +433,7 @@ app.post("/update_carelog_ajax", function (req, res) {
         WHERE idCareLog = ?;`;
 
 
+
   db.pool.query(
     query1,
     [data.weight, data.idCareLog],
@@ -509,7 +510,6 @@ app.get("/carelogssearch", function (req, res) {
     });
   }); // an object where 'data' is equal to the 'rows' we
 });
-
 
 
 
