@@ -30,9 +30,9 @@ function showform(dostuff) {
     document.getElementById('edit').style.display = 'none';
     document.getElementById('search').style.display = 'block';
   }
+}
 
 function newRecord() { showform('insert'); }
 function browseRecords() { showform('browse'); }
 function editRecord() { showform('edit'); }
 function searchRecord() { showform('search'); }
-}

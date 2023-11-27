@@ -4,14 +4,12 @@
 
 <main>
   <div id="search" style="display: none">
-    <h2>Search carelogs</h2>
-    <p>Search using the field below</p>
     <form id="search-person-carelogs" method='GET' action='/carelogssearch'>
-      <label for="inputid">Search: </label>
-      <input type="text" name="inputid" id="input-id-carelogs-search">
-      <input type="submit">
+      <input type="text" name="inputid" placeholder="firstname lastname" id="input-id-carelogs-search">
+      <input class="btn" type="submit" value="go">
+      <input class="btn" type="button" value="reset" onClick="browseRecords()">
     </form>
-    <a href='/carelogs'><button>reset</button></a>
+    <p></p>
   </div>
 
   <div id="browse">

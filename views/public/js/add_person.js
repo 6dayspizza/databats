@@ -1,11 +1,3 @@
-    
-   // Citation for the following function: 
-    //Date: 10/12/2023
-    //Copied from /OR/ Adapted from /OR/ Based on: code from Dr. Curry
-    //Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
-
-
-
 // Get the objects we need to modify
 let addPersonForm = document.getElementById('add_person_form_ajax');
 
