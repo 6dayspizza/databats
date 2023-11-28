@@ -425,7 +425,43 @@ app.delete("/delete_carelog_ajax/", function (req, res, next) {
     ALL UPDATE REQUESTS TO EDIT DATA
 */
 
-app.post("/update_carelog_ajax", function (req, res) {
+app.put('/put-carelog-ajax', function(req,res,next){
+  let data = req.body;
+
+  let carelog = parseInt(data.idcarelog);
+  let person = parseInt(data.person);
+
+  let query1 = `UPDATE CareLogs SET person = ? WHERE CareLogs.idCareLog = ?`;
+  let selectPerson = `SELECT * FROM Persons WHERE idPerson = ?`
+
+        // Run the 1st query
+        db.pool.query(query1, [carelog, person], function(error, rows, fields){
+
+          if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            // If there was no error, we run our second query and return that data so we can use it to update the people's
+            // table on the front-end
+            else
+            {
+                // Run the second query
+                db.pool.query(selectPerson [person], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })
+            }
+})});
+
+/*app.post("/update_carelog_ajax", function (req, res) {
   let data = req.body;
 
   let query1 = `UPDATE CareLogs
@@ -450,7 +486,7 @@ app.post("/update_carelog_ajax", function (req, res) {
         }
     }
   );
-});
+});*/
 
 
 // /* SEARCH */

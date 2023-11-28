@@ -44,6 +44,7 @@ app.get("/carelogs", function (req, res) {
 
   let query4 = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
 
+
   db.pool.query(query1, function (error, carelogs, fields) {
     // Execute the query
     db.pool.query(query2, function (error, bats, fields) {
@@ -425,32 +426,40 @@ app.delete("/delete_carelog_ajax/", function (req, res, next) {
     ALL UPDATE REQUESTS TO EDIT DATA
 */
 
-app.post("/update_carelog_ajax", function (req, res) {
+app.put('/put-carelog-ajax', function(req,res,next){
   let data = req.body;
 
-  let query1 = `UPDATE CareLogs
-        SET weight = ?
-        WHERE idCareLog = ?;`;
+  let person = parseInt(data.person);
+  let idcarelog = parseInt(data.idcarelog);
 
+  let queryUpdatePerson = `UPDATE CareLogs SET idPerson = ? WHERE CareLogs.idCareLog = ?`;
+  let selectPerson = `SELECT * FROM Persons WHERE idPerson = ?`
 
+        // Run the 1st query
+        db.pool.query(queryUpdatePerson, [person, idcarelog], function(error, rows, fields){
+            if (error) {
 
-  db.pool.query(
-    query1,
-    [data.weight, data.idCareLog],
-    function (error, rows, fields) {
-        // If there was an error on the second query, send a 400
-        if (error) {
-          // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-          console.log(error);
-          res.sendStatus(400);
-        }
-        // If all went well, send the results of the query back.
-        else {
-          res.sendStatus(200);
-        }
-    }
-  );
-});
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            // If there was no error, we run our second query and return that data so we can use it to update the people's
+            // table on the front-end
+            else
+            {
+                // Run the second query
+                db.pool.query(selectPerson, [person], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })
+            }
+})});
 
 
 // /* SEARCH */
