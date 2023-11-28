@@ -11,11 +11,15 @@ updateCareLogForm.addEventListener("submit", function (e) {
     let inputIDCareLog = document.getElementById("mySelect");
     let inputPerson = document.getElementById("input_person_update");
     let inputWeight = document.getElementById("input_weight_update");
+    let inputFoodType= document.getElementById("input_food_update");  
+    let inputRemark= document.getElementById("input_remark_update");   
 
     // Get the values from the form fields
     let idCareLogValue = inputIDCareLog.value;
     let personValue = inputPerson.value;
     let weightValue = inputWeight.value;
+    let remarkValue = inputRemark.value;
+    let foodTypeValue = inputFoodType.value;
 
     // currently the database table for bsg_people does not allow updating values to NULL
     // so we must abort if being bassed NULL for homeworld
@@ -30,6 +34,8 @@ updateCareLogForm.addEventListener("submit", function (e) {
         idcarelog: idCareLogValue,
         person: personValue,
         weight: weightValue,
+        remark: remarkValue,
+        foodtype: foodTypeValue,
     }
 
     // Setup our AJAX request

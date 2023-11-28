@@ -431,12 +431,13 @@ app.put('/put-carelog-ajax', function (req, res, next) {
   let carelog = parseInt(data.idcarelog);
   let person = parseInt(data.person);
   let weight = parseFloat(data.weight);
+  let remark = data.remark;
 
-  let query1 = `UPDATE CareLogs SET person = ?, weight = ? WHERE CareLogs.idCareLog = ?`;
+  let query1 = `UPDATE CareLogs SET person = ?, weight = ?, remark = ? WHERE CareLogs.idCareLog = ?`;
   let selectPerson = `SELECT * FROM Persons WHERE idPerson = ?`
 
   // Run the 1st query
-  db.pool.query(query1, [person, weight, carelog], function (error, rows, fields) {
+  db.pool.query(query1, [person, weight, remark, carelog], function (error, rows, fields) {
 
     if (error) {
 
