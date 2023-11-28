@@ -431,6 +431,7 @@ app.put('/put-carelog-ajax', function(req,res,next){
 
   let person = parseInt(data.person);
   let idcarelog = parseInt(data.idcarelog);
+  let weight = parseInt(data.weight);
 
   let queryUpdatePerson = `UPDATE CareLogs SET idPerson = ? WHERE CareLogs.idCareLog = ?`;
   let selectPerson = `SELECT * FROM Persons WHERE idPerson = ?`

@@ -175,8 +175,8 @@ app.post("/add_carelog_ajax", function (req, res) {
 
       let query2 = `INSERT INTO CareLogsMedicalCares (idCareLog, idMedicalCare)
             VALUES ${data.medicalCares.map(function (medicalCare) {
-              return "(" + idCareLog + "," + medicalCare + ")";
-            })};`;
+        return "(" + idCareLog + "," + medicalCare + ")";
+      })};`;
 
       db.pool.query(query2, function (error, rows, fields) {
         console.log(rows);
@@ -425,71 +425,48 @@ app.delete("/delete_carelog_ajax/", function (req, res, next) {
     ALL UPDATE REQUESTS TO EDIT DATA
 */
 
-app.put('/put-carelog-ajax', function(req,res,next){
+app.put('/put-carelog-ajax', function (req, res, next) {
   let data = req.body;
 
   let carelog = parseInt(data.idcarelog);
   let person = parseInt(data.person);
+  let weight = parseFloat(data.weight);
 
-  let query1 = `UPDATE CareLogs SET person = ? WHERE CareLogs.idCareLog = ?`;
+  let query1 = `UPDATE CareLogs SET person = ?, weight = ? WHERE CareLogs.idCareLog = ?`;
   let selectPerson = `SELECT * FROM Persons WHERE idPerson = ?`
 
-        // Run the 1st query
-        db.pool.query(query1, [carelog, person], function(error, rows, fields){
+  // Run the 1st query
+  db.pool.query(query1, [person, weight, carelog], function (error, rows, fields) {
 
-          if (error) {
+    if (error) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error);
-            res.sendStatus(400);
-            }
+      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      console.log(error);
+      res.sendStatus(400);
+    }
 
-            // If there was no error, we run our second query and return that data so we can use it to update the people's
-            // table on the front-end
-            else
-            {
-                // Run the second query
-                db.pool.query(selectPerson [person], function(error, rows, fields) {
+    // If there was no error, we run our second query and return that data so we can use it to update the people's
+    // table on the front-end
+    else {
+      // Run the second query
+      db.pool.query(selectPerson, [person], function (error, rows, fields) {
 
-                    if (error) {
-                        console.log(error);
-                        res.sendStatus(400);
-                    } else {
-                        res.send(rows);
-                    }
-                })
-            }
-})});
-
-/*app.post("/update_carelog_ajax", function (req, res) {
-  let data = req.body;
-
-  let query1 = `UPDATE CareLogs
-        SET weight = ?
-        WHERE idCareLog = ?;`;
-
-
-
-  db.pool.query(
-    query1,
-    [data.weight, data.idCareLog],
-    function (error, rows, fields) {
-        // If there was an error on the second query, send a 400
         if (error) {
-          // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
           console.log(error);
           res.sendStatus(400);
+        } else {
+          res.send(rows);
         }
-        // If all went well, send the results of the query back.
-        else {
-          res.sendStatus(200);
-        }
+      })
     }
-  );
-});*/
+  })
+});
 
 
-// /* SEARCH */
+/*
+    SEARCH
+*/
+
 app.get("/carelogssearch", function (req, res) {
 
   let query1;
@@ -497,23 +474,22 @@ app.get("/carelogssearch", function (req, res) {
   let query3;
   let query4;
 
-  if (req.query.inputid === undefined){
-      query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(CareLogsMedicalCares.idMedicalCare SEPARATOR ', ') AS medicalCares
+  if (req.query.inputid === undefined) {
+    query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(CareLogsMedicalCares.idMedicalCare SEPARATOR ', ') AS medicalCares
         FROM CareLogs
         LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
         LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
         LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
         GROUP BY CareLogs.idCareLog;`; // display CareLogs
 
-      query2 = `SELECT Bats.idBat FROM Bats;`;
+    query2 = `SELECT Bats.idBat FROM Bats;`;
 
-      query3 = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
+    query3 = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
 
-      query4 = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
+    query4 = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
   }
-  else
-  {
-      query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(CareLogsMedicalCares.idMedicalCare SEPARATOR ', ') AS medicalCares
+  else {
+    query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(CareLogsMedicalCares.idMedicalCare SEPARATOR ', ') AS medicalCares
       FROM CareLogs
       LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
       LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
@@ -521,12 +497,12 @@ app.get("/carelogssearch", function (req, res) {
       WHERE Persons.name = '${req.query.inputid}'
       GROUP BY CareLogs.idCareLog;`; // display CareLogs
 
-      query2 = `SELECT Bats.idBat FROM Bats;`;
+    query2 = `SELECT Bats.idBat FROM Bats;`;
 
-      query3 = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
+    query3 = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
 
-      query4 = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
-      
+    query4 = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
+
   }
 
 
@@ -556,7 +532,7 @@ app.listen(PORT, function () {
   // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
   console.log(
     "Express started on http://localhost:" +
-      PORT +
-      "; press Ctrl-C to terminate."
+    PORT +
+    "; press Ctrl-C to terminate."
   );
 });

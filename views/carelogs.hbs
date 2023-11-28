@@ -22,7 +22,7 @@
         <tr>
           <th width=4%><a href="#" class="modify" onClick="newRecord()">add</a></th>
           <th width=4%>id</th>
-          <th>bats</th>
+          <th>bat</th>
           <th>person</th>
           <th>date/time</th>
           <th>weight</th>
@@ -116,23 +116,38 @@
 
 <div id="edit" style="display: none">
   <form id="update-carelog-form-ajax">
-
-    <label for="input_id">ID: </label>
-    <select name="input_id" id="mySelect">
-      <option value="test">select a care log</option>
-      {{#each data}}
-      <option value="{{this.idCareLog}}">{{this.idCareLog}}</option>
-      {{/each}}
-    </select>
-
-    <label for="input_person">person: </label>
-    <select name="input_person" id="input_person_update">
-      <option>Select a person:</option>
-      {{#each persons}}
-      <option value="{{this.idPerson}}">{{this.name}}</option>
-      {{/each}}
-    </select>
-    <input type="submit">
+    <table class="update_table">
+      <tr>
+        <th>care log</th>
+        <th>person</th>
+        <th>weight (g)</th>
+        <th>food (mw)</th>
+        <th>medical</th>
+        <th>remark</th>
+      </tr>
+      <tr>
+        <td>
+          <select name="input_id" id="mySelect">
+            <option value="test">select a care log</option>
+            {{#each data}}
+            <option value="{{this.idCareLog}}">{{this.idCareLog}}</option>
+            {{/each}}
+          </select>
+        </td>
+        <td>
+          <select name="input_person" id="input_person_update">
+            <option>select a person</option>
+            {{#each persons}}
+            <option value="{{this.idPerson}}">{{this.name}}</option>
+            {{/each}}
+          </select>
+        </td>
+        <td>
+          <input type="number" name="input_weight" id="input_weight_update" placeholder="0.0" max="9.99" min="0.00">
+        </td>
+      </tr>
+    </table>
+    <input type="submit" class="btn">
 
   </form>
 </div>

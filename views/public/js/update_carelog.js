@@ -1,27 +1,26 @@
 // Get the objects we need to modify
 let updateCareLogForm = document.getElementById('update-carelog-form-ajax');
 
-console.log("hello?");
-
 // Modify the objects we need
 updateCareLogForm.addEventListener("submit", function (e) {
-   
+
     // Prevent the form from submitting
     e.preventDefault();
 
     // Get form fields we need to get data from
     let inputIDCareLog = document.getElementById("mySelect");
     let inputPerson = document.getElementById("input_person_update");
+    let inputWeight = document.getElementById("input_weight_update");
 
     // Get the values from the form fields
     let idCareLogValue = inputIDCareLog.value;
     let personValue = inputPerson.value;
-    
+    let weightValue = inputWeight.value;
+
     // currently the database table for bsg_people does not allow updating values to NULL
     // so we must abort if being bassed NULL for homeworld
 
-    if (isNaN(personValue)) 
-    {
+    if (isNaN(personValue)) {
         return;
     }
 
@@ -30,8 +29,9 @@ updateCareLogForm.addEventListener("submit", function (e) {
     let data = {
         idcarelog: idCareLogValue,
         person: personValue,
+        weight: weightValue,
     }
-    
+
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "/put-carelog-ajax", true);
@@ -43,6 +43,7 @@ updateCareLogForm.addEventListener("submit", function (e) {
 
             // Add the new data to the table
             updateRow(xhttp.response, idCareLogValue);
+            window.location.href = '/carelogs';
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -56,15 +57,15 @@ updateCareLogForm.addEventListener("submit", function (e) {
 })
 
 
-function updateRow(data, idCareLog){
+function updateRow(data, idCareLog) {
     let parsedData = JSON.parse(data);
-    
+
     let table = document.getElementById("carelogs_table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
-       //iterate through rows
-       //rows would be accessed using the "row" variable assigned in the for loop
-       if (table.rows[i].getAttribute("data-value") == idCareLog) {
+        //iterate through rows
+        //rows would be accessed using the "row" variable assigned in the for loop
+        if (table.rows[i].getAttribute("data-value") == idCareLog) {
 
             // Get the location of the row where we found the matching person ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
@@ -73,7 +74,7 @@ function updateRow(data, idCareLog){
             let td = updateRowIndex.getElementsByTagName("td")[3];
 
             // Reassign homeworld to our value we updated to
-            td.innerHTML = parsedData[0].name; 
-       }
+            td.innerHTML = parsedData[0].name;
+        }
     }
 }
