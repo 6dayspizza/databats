@@ -431,13 +431,13 @@ app.put('/put-carelog-ajax', function(req,res,next){
 
   let person = parseInt(data.person);
   let idcarelog = parseInt(data.idcarelog);
-  let weight = parseInt(data.weight);
+  let weight = parseFloat(data.weight);
 
-  let queryUpdatePerson = `UPDATE CareLogs SET idPerson = ? WHERE CareLogs.idCareLog = ?`;
+  let queryUpdatePerson = `UPDATE CareLogs SET idPerson = ?, weight = ? WHERE CareLogs.idCareLog = ?`;
   let selectPerson = `SELECT * FROM Persons WHERE idPerson = ?`
 
         // Run the 1st query
-        db.pool.query(queryUpdatePerson, [person, idcarelog], function(error, rows, fields){
+        db.pool.query(queryUpdatePerson, [person, weight, idcarelog], function(error, rows, fields){
             if (error) {
 
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
