@@ -502,7 +502,11 @@ app.put('/put-carelog-ajax', function (req, res, next) {
 });
 
 
-// /* SEARCH */
+
+/*
+    SEARCH
+*/
+
 app.get("/carelogssearch", function (req, res) {
 
   let query1;
@@ -556,7 +560,7 @@ app.get("/carelogssearch", function (req, res) {
         });
       });
     });
-  }); // an object where 'data' is equal to the 'rows' we
+  });
 });
 
 
