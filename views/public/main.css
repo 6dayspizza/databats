@@ -3,414 +3,533 @@
   work and I leave a comment on here. (Ruth Kistler)
   */
 
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap');
-  
-  
-  /*   ----- Variables  -----  */
-  :root {
-      --almost-black: #0D0D0D;
-      --old-pink: #c2becf;
-      --opaque-dust-pink: RGBA(217,208,215, 0.7);
-      --purple: #996164;
-    }
-    
-    /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
-    body {       /* Can alternatively define in html {} or :root {} */
-      font-family: 'Roboto', sans-serif;
-      background-color:var(--old-pink);
-      width: 100%;
-      margin-top: 90px;
-      padding: 30px;
-      min-height: 400px;
-      margin-bottom: 100px;
-      overflow-x: hidden;
-      clear: both;
-    }
-    
-    /*  ----- Page layout blocks -----  */
-    header, footer {
-      font-family: 'Amatic SC', cursive;
-      background-color:var(--almost-black);
-      color:var(--old-pink);
-      position: fixed;
-      width: 100%;
-      margin:0%;
-      padding:1%;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-sizing: border-box;
-    }
-  
-    header {
-      height: 90px;
-      top: 0;
-      padding-left: 2.5%;
-      padding-right: 40px;
-    }
-    
-    header *{
-      display: inline
-    }
-  
-    footer {
-      bottom: 0;
-      z-index: 999;
-      align-items: left;}
-  
-    main {
-      width: 95%;
-    }
-    section {}
-    article {
-      background-color: var(--old-pink);
-      margin: 2%;
-      margin-left: 1%;
-      padding: 2%;
-      scroll-margin-top: 90px;
-      border-radius: 30px;
-    }
-      #topic1 {}
-      #topic2 {}
-    div {}
-    aside {}
-    
-    
-    /*  ----- Navigation ----- Override text links for navigation only.  */
-  
-  
-    .main_nav {
-      text-align: left;
-      font-family: 'Amatic SC', cursive;
-      text-decoration: none;
-      flex-grow: 1;
-    }
-  
-    .main_nav a {
-      background-color:var(--old-pink);
-      color:var(--almost-black);
-      font-size: 140%;
-      border: 2px solid var(--almost-black);
-      border-radius: 30px 30px 30px 30px; 
-      font-weight: bold;
-      text-decoration: none;
-      padding: 1.25%;
-      margin-top: 20px;
-      margin-right: 10px;
-      width: 100px;
-    }
-  
-    .main_nav a:hover {
-      background-color:var(--almost-black);
-      color:var(--old-pink);
-    }
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap");
 
-  
-    /*  -----  Typography  ----- */
-    p {}
-    br {}
-    ol, ul, dl {}
-    li {}
-    dt {}
-    dd {}
-    
-    h1, h2, h3, h4, h5, h6 {font-family: 'Amatic SC', cursive;} 
-    h1 {font-size:500%}
-    h2 {font-size:300%; margin:0; padding:1%; scroll-margin-top: 110px;}
-    h3 {font-size:125%;}
-    h4 {font-size:100%; margin:0; padding:1%;}
-    h5 {}
-    h6 {}
-    
-    abbr {}
-    acronym {}
-    address {}
-    blockquote {}
-      q {}
-      cite {}
-    em {}
-    hr {}
-    mark {}
-    s {}
-    span {}
-    strong {}
-    sub {}
-    sup {}
-    time {}
-    
-    /*  ----- Coding or instructional typography ----- */
-    pre {}
-    code {}
-    kbd {}
-    samp {}
-    var {}
-    del {} 
-    ins {}
-    
-    /*  ----- Table ----- */
-    table {
-      border: var(--almost-white);
-      table-layout: auto;
-      width: 100%;
-      border-collapse: collapse;
-      color: var(--almost-black);
-      margin: 0px;
-      padding: 0px;
-    }
-    caption {
-      display: table-caption;
-      text-align: center;
-      border-bottom: 2px solid #000;
-      padding-bottom: 10px;
-    }
-    thead {
-      font-size: 100%;
-    }
-    tbody {
-      background-color: var(--opaque-dust-pink);
-    }
-    tfoot {}
-    tr {}
-    tr:nth-child(even) td {background-color: var(--opaque-dust-pink);}
-    tr:nth-child(odd) td {background-color: var(--old-pink);}
-    th {
-      text-align: left;
-      font-family: 'Amatic SC', cursive;
-      font-size: 150%;
-      background-color: var(--old-pink);
-    }
-    td {
-      text-align: left;
-    }
-    tr th,
-    tr td {
-      border-bottom: 1px dotted var(--almost-black-);
-      padding: .5% 1%;
-      text-align: left; 
-    }
+/*   ----- Variables  -----  */
+:root {
+  --almost-black: #0d0d0d;
+  --old-pink: #c2becf;
+  --opaque-dust-pink: RGBA(217, 208, 215, 0.7);
+  --purple: #996164;
+}
 
-    .insert_table tr:nth-child(even) td{
-      background-color: white;
-    }
-  
-    colgroup {}
-    data {}
-    datalist {}
-    
-    
-    /*  ----- Form ----- */
-    form {}
-    fieldset {
-      border-top: 2px solid;
-      border-bottom: 0px;
-      border-left: 0px;
-      border-right: 0px; 
-      margin-top:; 
-      padding:;  
-   }
-   legend {
-    color:;
-    padding-bottom: 10px;
-    font-size:;
+/*  ----- Viewport ----- elements inherited by all remaining elements ----- */
+body {
+  /* Can alternatively define in html {} or :root {} */
+  font-family: "Roboto", sans-serif;
+  background-color: var(--old-pink);
+  width: 100%;
+  margin-top: 90px;
+  padding: 30px;
+  min-height: 400px;
+  margin-bottom: 100px;
+  overflow-x: hidden;
+  clear: both;
+}
+
+/*  ----- Page layout blocks -----  */
+header,
+footer {
+  font-family: "Amatic SC", cursive;
+  background-color: var(--almost-black);
+  color: var(--old-pink);
+  position: fixed;
+  width: 100%;
+  margin: 0%;
+  padding: 1%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+header {
+  height: 90px;
+  top: 0;
+  padding-left: 2.5%;
+  padding-right: 40px;
+}
+
+header * {
+  display: inline;
+}
+
+footer {
+  bottom: 0;
+  z-index: 999;
+  align-items: left;
+}
+
+main {
+  width: 95%;
+}
+section {
+}
+article {
+  background-color: var(--old-pink);
+  margin: 2%;
+  margin-left: 1%;
+  padding: 2%;
+  scroll-margin-top: 90px;
+  border-radius: 30px;
+}
+#topic1 {
+}
+#topic2 {
+}
+div {
+}
+aside {
+}
+
+/*  ----- Navigation ----- Override text links for navigation only.  */
+
+.main_nav {
+  text-align: left;
+  font-family: "Amatic SC", cursive;
+  text-decoration: none;
+  flex-grow: 1;
+}
+
+.main_nav a {
+  background-color: var(--old-pink);
+  color: var(--almost-black);
+  font-size: 140%;
+  border: 2px solid var(--almost-black);
+  border-radius: 30px 30px 30px 30px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 1.25%;
+  margin-top: 20px;
+  margin-right: 10px;
+  width: 100px;
+}
+
+.main_nav a:hover {
+  background-color: var(--almost-black);
+  color: var(--old-pink);
+}
+
+/*  -----  Typography  ----- */
+p {
+}
+br {
+}
+ol,
+ul,
+dl {
+}
+li {
+}
+dt {
+}
+dd {
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Amatic SC", cursive;
+}
+h1 {
+  font-size: 500%;
+}
+h2 {
+  font-size: 300%;
+  margin: 0;
+  padding: 1%;
+  scroll-margin-top: 110px;
+}
+h3 {
+  font-size: 125%;
+}
+h4 {
+  font-size: 100%;
+  margin: 0;
+  padding: 1%;
+}
+h5 {
+}
+h6 {
+}
+
+abbr {
+}
+acronym {
+}
+address {
+}
+blockquote {
+}
+q {
+}
+cite {
+}
+em {
+}
+hr {
+}
+mark {
+}
+s {
+}
+span {
+}
+strong {
+}
+sub {
+}
+sup {
+}
+time {
+}
+
+/*  ----- Coding or instructional typography ----- */
+pre {
+}
+code {
+}
+kbd {
+}
+samp {
+}
+var {
+}
+del {
+}
+ins {
+}
+
+/*  ----- Table ----- */
+table {
+  border: var(--almost-white);
+  table-layout: auto;
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--almost-black);
+  margin: 0px;
+  padding: 0px;
+}
+caption {
+  display: table-caption;
+  text-align: center;
+  border-bottom: 2px solid #000;
+  padding-bottom: 10px;
+}
+thead {
+  font-size: 100%;
+}
+tbody {
+  background-color: var(--opaque-dust-pink);
+}
+tfoot {
+}
+tr {
+}
+tr:nth-child(even) td {
+  background-color: var(--opaque-dust-pink);
+}
+tr:nth-child(odd) td {
+  background-color: var(--old-pink);
+}
+th {
+  text-align: left;
+  font-family: "Amatic SC", cursive;
+  font-size: 150%;
+  background-color: var(--old-pink);
+}
+td {
+  text-align: left;
+}
+tr th,
+tr td {
+  border-bottom: 1px dotted var(--almost-black-);
+  padding: 0.5% 1%;
+  text-align: left;
+}
+
+.insert_table tr:nth-child(even) td {
+  background-color: white;
+}
+
+colgroup {
+}
+data {
+}
+datalist {
+}
+
+/*  ----- Form ----- */
+form {
+}
+fieldset {
+  border-top: 2px solid;
+  border-bottom: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-top: ;
+  padding: ;
+}
+legend {
+  color: ;
+  padding-bottom: 10px;
+  font-size: ;
+}
+label {
+  display: block;
+  margin-top: 2%;
+}
+input,
+button,
+textarea,
+select {
+  font-size: 110%;
+  padding: 1%;
+  font-family: inherit;
+}
+button {
+}
+input {
+  width: 50%;
+}
+input:invalid {
+  border: 3px solid red;
+}
+input:valid {
+  /*border:2px solid;*/
+}
+input::placeholder {
+  color: darkgray;
+}
+input[type="checkbox"]:checked + label {
+  color: green;
+  font-style: italic;
+}
+input:disabled {
+  background: repeating-linear-gradient(
+    142deg,
+    #cccccc,
+    #cccccc 4px,
+    #999999 22px
+  );
+}
+input:enabled {
+}
+.btn {
+  background-color: var(--almost-black);
+  color: var(--old-pink);
+  border: none;
+  cursor: pointer;
+  border-radius: 30px 30px 30px 30px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 1.25%;
+  margin-top: 20px;
+  margin-right: 10px;
+  width: 100px;
+  font-family: "Amatic SC", cursive;
+  font-size: 140%;
+}
+
+.checkbox-list label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.checkbox-list input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+#input_treatment {
+  width: 95%;
+}
+
+#input_name {
+  width: 95%;
+}
+
+#input_status {
+  width: 95%;
+}
+
+#remark {
+  width: 320px;
+  height: 120px;
+}
+.btn:hover {
+  background-color: var(--old-pink);
+  color: var(--almost-black);
+}
+
+.modify {
+  background-color: var(--almost-black);
+  color: var(--old-pink);
+  border: none;
+  cursor: pointer;
+  border-radius: 30px 30px 30px 30px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 1%;
+  margin-top: 20px;
+  margin-right: 10px;
+  width: 60px;
+  font-family: "Amatic SC", cursive;
+  font-size: 140%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.modify:visited {
+  color: var(--old-pink) !important;
+}
+
+.modify:active {
+  color: var(--almost-black);
+  background-color: var(--old-pink);
+}
+.modify:hover {
+  background-color: var(--purple);
+  color: var(--almost-black);
+}
+
+output {
+}
+meter {
+}
+progress {
+}
+select {
+}
+optgroup {
+}
+option {
+}
+textarea {
+}
+:focus {
+  background-color: HoneyDew;
+}
+*:required {
+  border: 2px solid green;
+}
+
+/* ----- Media ----- */
+.gallery {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  width: 95%;
+  margin: 1%;
+  padding: 1%;
+}
+
+.gallery figure {
+  border: solid;
+  border-color: var(--opaque-dust-pink);
+  width: 320px;
+  margin: 1%;
+  padding: 0%;
+}
+
+.gallery figcaption {
+  color: var(--almost-black);
+  font-weight: bold;
+  display: block;
+  padding: 1% 1% 2% 1%;
+}
+
+.gallery img {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+svg {
+}
+picture {
+}
+source {
+}
+iframe {
+}
+video {
+}
+audio {
+}
+embed {
+}
+object {
+}
+
+/*  ----- Classes for alignment, positioning, widths, grids, embellishments, and animation -----  */
+
+.floatright {
+}
+.floatleft {
+}
+.center-middle {
+}
+
+.ten {
+}
+.twenty {
+}
+.thirty {
+}
+.forty {
+}
+.fifty {
+}
+.sixty {
+}
+.seventy {
+}
+.eighty {
+}
+
+.radius {
+}
+.circle {
+}
+.boxshadow {
+}
+.tshadow {
+}
+.gradient {
+}
+.shape {
+}
+
+@keyframes App-logo {
+}
+
+/*   ===== PHONE  media query overrides mobile styles ===== */
+@media all and (max-width: 600px) {
+  h1 {
+    font-size: 200%;
+    padding: 2%;
   }
-  label {
-    display:block;
-    margin-top:2%;
-  }
-  input, button, textarea, select {
-    font-size:110%;
-    padding:1%;
-    font-family:inherit;
-  }
-      button {}
-      input {width:50%;}
-      input:invalid {
-        border:3px solid red;
-      }
-      input:valid {
-        /*border:2px solid;*/
-      }
-      input::placeholder {
-        color:darkgray;
-      }
-      input[type=checkbox]:checked + label {
-        color: green;
-        font-style: italic;
-      }
-      input:disabled {
-        background: repeating-linear-gradient(142deg, #CCCCCC, #CCCCCC 4px, #999999 22px);
-      }
-      input:enabled {
-      }
-      .btn {
-        background-color: var(--almost-black);
-        color: var(--old-pink);
-        border: none;
-        cursor: pointer;
-        border-radius: 30px 30px 30px 30px; 
-        font-weight: bold;
-        text-decoration: none;
-        padding: 1.25%;
-        margin-top: 20px;
-        margin-right: 10px;
-        width: 100px;
-        font-family: 'Amatic SC', cursive;
-        font-size: 140%;
-      }
+}
 
-      .checkbox-list label {
-        display: block;
-        margin-bottom: 5px;
-      }
-      
-      .checkbox-list input[type="checkbox"] {
-        width: 20px;
-        height: 20px;
-        margin-right: 5px;
-        vertical-align: middle;
-      }
-      
-      #input_treatment {
-        width: 95%;
-      }
+/*   ===== TABLET  media query overrides mobile styles ===== */
+@media all and (min-width: 600px) {
+}
 
-      #input_name {
-        width: 95%;
-      }
+/*   ===== DESKTOP  media query overrides mobile and tablet styles ===== */
+@media all and (min-width: 1080px) {
+}
 
-      #input_status {
-        width: 95%;
-      }
-
-      #remark {
-        width: 320px;
-        height: 120px;
-      }
-    .btn:hover {
-      background-color: var(--old-pink);
-      color: var(--almost-black);
-    }
-
-    .modify {
-      background-color: var(--almost-black);
-      color: var(--old-pink);
-      border: none;
-      cursor: pointer;
-      border-radius: 30px 30px 30px 30px; 
-      font-weight: bold;
-      text-decoration: none;
-      padding: 1%;
-      margin-top: 20px;
-      margin-right: 10px;
-      width: 60px;
-      font-family: 'Amatic SC', cursive;
-      font-size: 140%;
-    }
-
-    .modify:visited {
-      color: var(--old-pink) !important;
-    }
-
-    .modify:active {
-      color: var(--almost-black);
-      background-color: var(--old-pink);
-    }
-    .modify:hover {
-      background-color: var(--purple);
-      color: var(--almost-black);
-    }
-
-      output {}
-      meter {}
-      progress {}
-      select {}
-      optgroup {}
-      option {}
-      textarea {}
-  :focus{
-    background-color:HoneyDew;
-  }
-  *:required {
-    border:2px solid green;
-  }
-    
-    /* ----- Media ----- */
-    .gallery {
-      display: flex;
-      flex-flow: row wrap;
-      justify-content: space-around;
-      width: 95%;
-      margin:1%; 
-      padding:1%;
-    }
-  
-    .gallery figure {
-      border: solid;
-      border-color: var(--opaque-dust-pink);
-      width: 320px;
-      margin:1%;
-      padding:0%;
-    }
-    
-    .gallery figcaption {
-      color:var(--almost-black);
-      font-weight:bold;
-      display:block; 
-      padding: 1% 1% 2% 1%;
-    }
-    
-    .gallery img  {
-        width:100%;
-        margin:0;
-        padding:0;
-    }
-  
-    svg {}
-    picture {}
-      source {}
-    iframe {}
-    video {}
-    audio {}
-    embed {}
-    object {}
-    
-    /*  ----- Classes for alignment, positioning, widths, grids, embellishments, and animation -----  */
-  
-    .floatright {}
-    .floatleft {}
-    .center-middle {}
-    
-    .ten {}
-    .twenty {}
-    .thirty {}
-    .forty {}
-    .fifty {}
-    .sixty {}
-    .seventy {}
-    .eighty {}
-    
-    .radius {}
-    .circle {}
-    .boxshadow {}
-    .tshadow {} 
-    .gradient {}
-    .shape {}
-    
-    @keyframes App-logo {}
-    
-    /*   ===== PHONE  media query overrides mobile styles ===== */
-    @media all and (max-width: 600px) {
-      h1 {font-size:200%; padding:2%;}
-    }
-  
-    /*   ===== TABLET  media query overrides mobile styles ===== */  
-    @media all and (min-width: 600px) {}
-  
-    /*   ===== DESKTOP  media query overrides mobile and tablet styles ===== */
-    @media all and (min-width: 1080px) {}
-    
-    /*   ===== PRINT  media query overrides previous styles =====  */
-    @media print {}
+/*   ===== PRINT  media query overrides previous styles =====  */
+@media print {
+}
