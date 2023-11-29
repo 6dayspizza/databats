@@ -33,6 +33,21 @@ function showform(dostuff) {
 }
 
 function newRecord() { showform('insert'); }
-function browseRecords() { showform('browse'); }
-function editRecord() { showform('edit'); }
+function browseRecords(idCareLog) { showform('browse'); }
+function editRecord(idCareLog, name, weight, food, remark) {
+  $("#idToUpdate").val(idCareLog);
+  $("#input_person_update option").each(function() {
+    if ($(this).text() === name) {
+      $(this).prop('selected', true);
+    } else {
+      $(this).prop('selected', false);
+    }
+  });
+
+  $("#input_weight_update").val(weight);
+  $("#input_food_update").val(food);
+  $("#input_remark_update").val(remark);
+
+  showform('edit');
+}
 function searchRecord() { showform('search'); }

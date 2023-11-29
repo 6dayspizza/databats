@@ -47,7 +47,9 @@
           <td>{{this.foodType}}</td>
           <td>{{this.medicalCares}}</td>
           <td>{{this.remark}}</td>
-          <td><button class="modify" onClick="editRecord()">edit</button></td>
+          <td><button class="modify"
+              onClick="editRecord('{{this.idCareLog}}', '{{this.name}}', '{{this.weight}}', '{{this.foodType}}', '{{this.remark}}')">edit</button>
+          </td>
           <td><button class="modify" onclick="deleteCareLog({{this.idCareLog}})">delete</button></td>
         </tr>
         {{/each}}
@@ -127,31 +129,26 @@
       </tr>
       <tr>
         <td>
-          <select name="input_id" id="mySelect">
-            <option value="test">select a care log</option>
-            {{#each data}}
-            <option value="{{this.idCareLog}}">{{this.idCareLog}}</option>
-            {{/each}}
-          </select>
+          <input type="integer" id="idToUpdate" name="input_id" value="{{this.idCareLog}}" readonly />
         </td>
         <td>
           <select name="input_person" id="input_person_update">
-            <option>select a person</option>
             {{#each persons}}
             <option value="{{this.idPerson}}">{{this.name}}</option>
             {{/each}}
           </select>
         </td>
         <td>
-          <input type="number" name="input_weight" id="input_weight_update" placeholder="0.0" max="9.99" min="0.00">
+          <input type="number" name="input_weight" id="input_weight_update" value="{{this.weight}}" max="9.99"
+            min="0.00">
         </td>
         <td>
-          <input type="text" name="input_food" id="input_food_update" placeholder="00 mw">
+          <input type="text" name="input_food" id="input_food_update" value="{{this.foodType}}">
         </td>
         <td>
         </td>
         <td>
-          <textarea name="input_remark" id="input_remark_update" placeholder="max. 250 characters"></textarea>
+          <textarea name="input_remark" id="input_remark_update" value="{{this.remark}}"></textarea>
         </td>
       </tr>
     </table>

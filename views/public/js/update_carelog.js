@@ -8,7 +8,7 @@ updateCareLogForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputIDCareLog = document.getElementById("mySelect");
+    let inputIDCareLog = document.getElementById("idToUpdate");
     let inputPerson = document.getElementById("input_person_update");
     let inputWeight = document.getElementById("input_weight_update");
     let inputFoodType= document.getElementById("input_food_update");  

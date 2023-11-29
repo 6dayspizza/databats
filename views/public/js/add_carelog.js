@@ -154,7 +154,7 @@ addRowToTable = (data) => {
     currentTable.appendChild(row);
 
     // for the UPDATE function
-    let selectMenu = document.getElementById("mySelect");
+    let selectMenu = document.getElementById("idToUpdate");
     let option = document.createElement("option");
     // option.text = newRow.fname + ' ' +  newRow.lname;
     option.value = newRow.idCareLog;

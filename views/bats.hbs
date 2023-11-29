@@ -30,6 +30,7 @@
                 <th>site released</th>
                 <th>status</th>
                 <th>remark</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -48,6 +49,7 @@
                 <td>{{this.releaseSite}}</td>
                 <td>{{this.status}}</td>
                 <td>{{this.remark}}</td>
+                <td><button class="modify" onclick="deleteBat({{this.idBat}})">delete</button></td>
             </tr>
             {{/each}}
         </tbody>
@@ -124,3 +126,4 @@
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="js/add_bat.js"></script>
+<script src="js/delete_bat.js"></script>

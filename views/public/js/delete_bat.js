@@ -4,9 +4,9 @@
     //Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
 
 // Delete methods
-function deleteCareLog(idCareLog) {
+function deleteBat(idBat) {
 
-    var userConfirmed = window.confirm("are you sure you want to delete this care log?");
+    var userConfirmed = window.confirm("are you sure you want to delete this bat?");
 
     if (!userConfirmed) {
         return; // Do nothing if the user cancels the deletion
@@ -14,21 +14,21 @@ function deleteCareLog(idCareLog) {
 
     // Put our data we want to send in a javascript object
     let data = {
-        id: idCareLog
+        id: idBat
     };
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("DELETE", "/delete-carelog-ajax", true);
+    xhttp.open("DELETE", "/delete-bat-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
 
-            // deleteRow(idCareLog);
+            // deleteRow(idBat);
 
-            window.location.href='/carelogs';
+            window.location.href='/bats';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.")
