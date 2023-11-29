@@ -150,7 +150,7 @@ app.get("/carelogsmedicalcares", function (req, res) {
     ALL POST REQUESTS TO ADD DATA
 */
 
-app.post("/add_carelog_ajax", function (req, res) {
+app.post("/add-carelog-ajax", function (req, res) {
   let data = req.body;
 
   // Capture NULL values
@@ -204,7 +204,7 @@ app.post("/add_carelog_ajax", function (req, res) {
   });
 });
 
-app.post("/add_bat_ajax", function (req, res) {
+app.post("/add-bat-ajax", function (req, res) {
   let data = req.body;
 
   // Capture NULL values
@@ -245,7 +245,7 @@ app.post("/add_bat_ajax", function (req, res) {
   });
 });
 
-app.post("/add_person_ajax", function (req, res) {
+app.post("/add-person-ajax", function (req, res) {
   let data = req.body;
 
   // Create the query and run it on the database
@@ -276,7 +276,7 @@ app.post("/add_person_ajax", function (req, res) {
   });
 });
 
-app.post("/add_species_ajax", function (req, res) {
+app.post("/add-species-ajax", function (req, res) {
   let data = req.body;
 
   // Create the query and run it on the database
@@ -307,7 +307,7 @@ app.post("/add_species_ajax", function (req, res) {
   });
 });
 
-app.post("/add_status_ajax", function (req, res) {
+app.post("/add-status-ajax", function (req, res) {
   let data = req.body;
 
   // Create the query and run it on the database
@@ -338,7 +338,7 @@ app.post("/add_status_ajax", function (req, res) {
   });
 });
 
-app.post("/add_medicalcare_ajax", function (req, res) {
+app.post("/add-medicalcare-ajax", function (req, res) {
   let data = req.body;
 
   // Create the query and run it on the database
