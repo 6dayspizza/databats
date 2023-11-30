@@ -62,7 +62,7 @@ addCareLogForm.addEventListener("submit", function (e) {
             inputsMedicalCare.value = '';
             inputRemark.value = '';
 
-            browseRecords()
+            browseRecords();
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -119,7 +119,7 @@ addRowToTable = (data) => {
     editButton.classList=["modify"];
     editButton.innerHTML = "edit";
     editButton.addEventListener("click", function(event){
-        editRecord(newRow.idCareLog);
+        editRecord(newRow.idCareLog, newRow.name, newRow.weight, newRow.foodType, newRow.remark);
     })
     editCell.appendChild(editButton);
 
@@ -153,10 +153,5 @@ addRowToTable = (data) => {
     // Add the row to the table
     currentTable.appendChild(row);
 
-    // for the UPDATE function
-    let selectMenu = document.getElementById("idToUpdate");
-    let option = document.createElement("option");
-    // option.text = newRow.fname + ' ' +  newRow.lname;
-    option.value = newRow.idCareLog;
-    selectMenu.add(option);
+
 }
