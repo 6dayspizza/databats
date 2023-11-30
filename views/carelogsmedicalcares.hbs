@@ -1,3 +1,4 @@
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         {{> header}}
 
@@ -5,12 +6,12 @@
 <main>
     <div id="browse">
     <table id="carelogsmedicalcares_table">
-        <caption></caption>
+        
         {{!-- Header section --}}
         <thead>
             <tr>
                 <th width=4%></th>
-                <th width=4%>id</th>
+                <td width=4%>id</th>
                 <th>idCareLog</th>
                 <th>idMedicalCare</th>
             </tr>
@@ -21,7 +22,7 @@
             {{#each carelogsmedicalcares}}
             <tr>
                 <td></td>
-                <td>{{this.idCareLogMedicalCare}}</td>
+                <td class="id">{{this.idCareLogMedicalCare}}</td>
                 <td>{{this.idCareLog}}</td>
                 <td>{{this.idMedicalCare}}</td>
             </tr>
@@ -29,5 +30,4 @@
         </tbody>
     </table>
     </main>
-    <hr>
 </div>

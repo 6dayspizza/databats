@@ -51,6 +51,7 @@ app.get("/carelogs", function (req, res) {
       db.pool.query(query3, function (error, persons, fields) {
         db.pool.query(query4, function (error, medicalcares, fields) {
           res.render("carelogs", {
+            active: { carelogs: true },
             data: carelogs,
             bats: bats,
             persons: persons,
@@ -85,6 +86,7 @@ app.get("/bats", function (req, res) {
       db.pool.query(query3, function (error, species, fields) {
         db.pool.query(query4, function (error, status, fields) {
           res.render("bats", {
+            active: { bats: true },
             bats: bats,
             persons: persons,
             species: species,
@@ -101,6 +103,7 @@ app.get("/persons", function (req, res) {
 
   db.pool.query(query1, function (error, persons, fields) {
     res.render("persons", {
+      active: { persons: true },
       persons: persons,
     });
   });
@@ -111,6 +114,7 @@ app.get("/status", function (req, res) {
 
   db.pool.query(query1, function (error, status, fields) {
     res.render("status", {
+      active: { status: true },
       status: status,
     });
   });
@@ -120,6 +124,7 @@ app.get("/species", function (req, res) {
   let query1 = `SELECT * FROM Species;`; // display Status
   db.pool.query(query1, function (error, species, fields) {
     res.render("species", {
+      active: { species: true },
       species: species,
     });
   });
@@ -130,6 +135,7 @@ app.get("/medicalcares", function (req, res) {
 
   db.pool.query(query1, function (error, medicalcares, fields) {
     res.render("medicalcares", {
+      active: { medicalcares: true },
       medicalcares: medicalcares,
     });
   });
@@ -141,6 +147,7 @@ app.get("/carelogsmedicalcares", function (req, res) {
 
   db.pool.query(query1, function (error, carelogsmedicalcares, fields) {
     res.render("carelogsmedicalcares", {
+      active: { carelogsmedicalcares: true },
       carelogsmedicalcares: carelogsmedicalcares,
     });
   });

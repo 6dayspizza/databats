@@ -1,3 +1,4 @@
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {{> header}}
 
@@ -6,21 +7,20 @@
   <div id="search" style="display: none">
     <form id="search-person-carelogs" method='GET' action='/carelogssearch'>
       <input type="text" name="inputid" placeholder="firstname lastname" id="input-id-carelogs-search">
-      <input class="btn" type="submit" value="go">
-      <input class="btn" type="button" value="reset" onClick="browseRecords()">
+      <input class="modify" type="submit" value="go">
+      <input class="modify" type="button" value="reset" onClick="browseRecords()">
     </form>
     <p></p>
   </div>
 
   <div id="browse">
     <table id="carelogs_table">
-      <caption></caption>
       {{!-- Header section --}}
       <thead>
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-          <th width=4%><a href="#" class="modify" onClick="newRecord()">add</a></th>
+          <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
           <th width=4%>id</th>
           <th>bat</th>
           <th>person</th>
@@ -30,7 +30,7 @@
           <th>medical</th>
           <th>remark</th>
           <th width="5%"></th>
-          <th width="5%"><a href="#" class="modify" onClick="searchRecord()">search</a></th>
+          <th width="5%"><button class="modify" onClick="searchRecord()">search</button></th>
         </tr>
       </thead>
 
@@ -39,7 +39,7 @@
         {{#each data}}
         <tr>
           <td></td>
-          <td>{{this.idCareLog}}</td>
+          <td class="id">{{this.idCareLog}}</td>
           <td>{{this.idBat}}</td>
           <td>{{this.name}}</td>
           <td>{{this.dateTime}}</td>
@@ -50,7 +50,7 @@
           <td><button class="modify"
               onClick="editRecord('{{this.idCareLog}}', '{{this.name}}', '{{this.weight}}', '{{this.foodType}}', '{{this.remark}}')">edit</button>
           </td>
-          <td><button class="modify" onclick="deleteCareLog({{this.idCareLog}})">delete</button></td>
+          <td><button class="modify accent" onclick="deleteCareLog({{this.idCareLog}})">delete</button></td>
         </tr>
         {{/each}}
       </tbody>
@@ -59,7 +59,6 @@
   </div>
   <div id="insert" style="display: none">
     <form id="add_carelog_form_ajax">
-      <legend><strong>add log</strong></legend>
       <fieldset class="fields">
         <table class="insert_table">
           <tr>
@@ -107,14 +106,14 @@
           </tr>
         </table>
       </fieldset>
-      <p></p>
-      <input class="btn" type="submit" id="addCareLog" value="commit">
-      <input class="btn" type="button" value="cancel" onClick="browseRecords()">
+      <div class="space"></div>
+      <div class="actions">
+        <button class="modify confirm" type="submit" id="addCareLog" value="commit">commit</button>
+        <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
+      </div>
     </form>
   </div>
 </main>
-
-<hr>
 
 <div id="edit" style="display: none">
   <form id="update-carelog-form-ajax">
@@ -152,7 +151,9 @@
         </td>
       </tr>
     </table>
-    <input type="submit" class="btn">
+    <div class="space"></div>
+    <button type="submit" class="modify">commit</button>
+    <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
 
   </form>
 </div>

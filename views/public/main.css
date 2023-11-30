@@ -3,22 +3,25 @@
   work and I leave a comment on here. (Ruth Kistler)
   */
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap");
 
 /*   ----- Variables  -----  */
 :root {
-  --almost-black: #0d0d0d;
+  --almost-black: #323747;
   --old-pink: #c2becf;
-  --opaque-dust-pink: RGBA(217, 208, 215, 0.7);
+  --opaque-dust-pink: #dddff2;
   --purple: #996164;
+  --pale-red: #a86f3a;
+  --nice-green: #6f91d0;
 }
 
 /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
 body {
   /* Can alternatively define in html {} or :root {} */
   font-family: "Roboto", sans-serif;
-  background-color: var(--old-pink);
+  background-color: var(--almost-black);
   width: 100%;
   margin-top: 90px;
   padding: 30px;
@@ -97,18 +100,20 @@ aside {
 .main_nav a {
   background-color: var(--old-pink);
   color: var(--almost-black);
-  font-size: 140%;
-  border: 2px solid var(--almost-black);
-  border-radius: 30px 30px 30px 30px;
-  font-weight: bold;
+  font-size: 32px;
+  font-weight: 700;
   text-decoration: none;
-  padding: 1.25%;
-  margin-top: 20px;
+  padding: 0px 24px;
   margin-right: 10px;
-  width: 100px;
+  height: 50px;
+  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  line-height: 47px;
+  border-radius: 25px;
 }
 
-.main_nav a:hover {
+.main_nav a:hover, a.active {
   background-color: var(--almost-black);
   color: var(--old-pink);
 }
@@ -215,6 +220,8 @@ table {
   color: var(--almost-black);
   margin: 0px;
   padding: 0px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 caption {
   display: table-caption;
@@ -233,7 +240,7 @@ tfoot {
 tr {
 }
 tr:nth-child(even) td {
-  background-color: var(--opaque-dust-pink);
+  background-color: #c8c4d3;
 }
 tr:nth-child(odd) td {
   background-color: var(--old-pink);
@@ -241,7 +248,7 @@ tr:nth-child(odd) td {
 th {
   text-align: left;
   font-family: "Amatic SC", cursive;
-  font-size: 150%;
+  font-size: 26px;
   background-color: var(--old-pink);
 }
 td {
@@ -252,6 +259,9 @@ tr td {
   border-bottom: 1px dotted var(--almost-black-);
   padding: 0.5% 1%;
   text-align: left;
+}
+td.id {
+  font-weight: 600;
 }
 
 .insert_table tr:nth-child(even) td {
@@ -269,7 +279,6 @@ datalist {
 form {
 }
 fieldset {
-  border-top: 2px solid;
   border-bottom: 0px;
   border-left: 0px;
   border-right: 0px;
@@ -285,6 +294,12 @@ label {
   display: block;
   margin-top: 2%;
 }
+
+.button-container {
+  display: flex;
+  justify-content: flex-start !important;
+}
+
 input,
 button,
 textarea,
@@ -378,16 +393,17 @@ input:enabled {
   border-radius: 30px 30px 30px 30px;
   font-weight: bold;
   text-decoration: none;
-  padding: 1%;
+  padding: 3px 12px;
   margin-top: 20px;
   margin-right: 10px;
   width: 60px;
   font-family: "Amatic SC", cursive;
-  font-size: 140%;
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: auto;
+  line-height: 1;
 }
 
 .modify:visited {
@@ -400,6 +416,14 @@ input:enabled {
 }
 .modify:hover {
   background-color: var(--purple);
+  color: var(--almost-black);
+}
+.accent {
+  background-color: var(--purple);
+}
+
+.confirm {
+  background-color: var(--old-pink);
   color: var(--almost-black);
 }
 
@@ -532,4 +556,8 @@ object {
 
 /*   ===== PRINT  media query overrides previous styles =====  */
 @media print {
+}
+
+.space {
+  height: 1rem;
 }

@@ -1,5 +1,6 @@
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        {{> header}}
+{{> header}}
 
 <!-- index.hbs -->
 
@@ -11,114 +12,109 @@
 -->
 
 <main>
-    <div id="browse">
+  <div id="browse">
     <table id="bats_table">
-        <caption></caption>
-        {{!-- Header section --}}
-        <thead>
-            {{!-- For just the first row, we print each key of the row object as a header cell so we
-            know what each column means when the page renders --}}
-            <tr>
-                <th width=4%><a href="#"class="modify" onClick="newRecord()">add</a></th>
-                <th width=4%>id</th>
-                <th>person</th>
-                <th>species</th>
-                <th>sex</th>
-                <th>date found</th>
-                <th>site found</th>
-                <th>date end</th>
-                <th>site released</th>
-                <th>status</th>
-                <th>remark</th>
-                <th></th>
-            </tr>
-        </thead>
+      {{!-- Header section --}}
+      <thead>
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+          <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
+          <th width=4%>id</th>
+          <th>person</th>
+          <th>species</th>
+          <th>sex</th>
+          <th>date found</th>
+          <th>site found</th>
+          <th>date end</th>
+          <th>site released</th>
+          <th>status</th>
+          <th>remark</th>
+          <th></th>
+        </tr>
+      </thead>
 
-            {{!-- Body section --}}
-        <tbody>
-            {{#each bats}}
-            <tr>
-                <td></td>
-                <td>{{this.idBat}}</td>
-                <td>{{this.person}}</td>
-                <td>{{this.species}}</td>
-                <td>{{this.sex}}</td>
-                <td>{{this.foundDate}}</td>
-                <td>{{this.foundSite}}</td>
-                <td>{{this.endDate}}</td>
-                <td>{{this.releaseSite}}</td>
-                <td>{{this.status}}</td>
-                <td>{{this.remark}}</td>
-                <td><button class="modify" onclick="deleteBat({{this.idBat}})">delete</button></td>
-            </tr>
-            {{/each}}
-        </tbody>
+      {{!-- Body section --}}
+      <tbody>
+        {{#each bats}}
+        <tr>
+          <td></td>
+          <td class="id">{{this.idBat}}</td>
+          <td>{{this.person}}</td>
+          <td>{{this.species}}</td>
+          <td>{{this.sex}}</td>
+          <td>{{this.foundDate}}</td>
+          <td>{{this.foundSite}}</td>
+          <td>{{this.endDate}}</td>
+          <td>{{this.releaseSite}}</td>
+          <td>{{this.status}}</td>
+          <td>{{this.remark}}</td>
+          <td><button class="modify accent" onclick="deleteBat({{this.idBat}})">delete</button></td>
+        </tr>
+        {{/each}}
+      </tbody>
     </table>
-        
-    </div>
-        <div id="insert" style="display: none">
-            <form id="add_bat_form_ajax">
-                <legend><strong>add bat</strong></legend>
-                <fieldset class="fields">
-                  <table class="insert_table">
-                    <tr>
-                      <th>person</th>
-                      <th>species</th>
-                      <th>sex</th>
-                      <th>date found</th>
-                      <th>site found</th>
-                      <th>status</th>
-                      <th>remark</th>
-                    </tr>
-                    <tr>
-                      <td>
-                        <select name="person" id="input_person">
-                        <option value="" disabled selected>select</option>
-                            {{#each persons}}
-                            <option value="{{this.idPerson}}">{{this.name}}</option>
-                            {{/each}}
-                        </select>
-                      </td>
-                      <td>
-                        <select name="species" id="input_species">
-                        <option value="" disabled selected>select</option>
-                            {{#each species}}
-                            <option value="{{this.idSpecies}}">{{this.name}}</option>
-                            {{/each}}
-                        </select>
-                      </td>
-                      <td>
-                        <input type="number" name="sex" id="input_sex" placeholder="0/1" min="0" max="1">
-                      </td>
-                      <td>
-                        <input type="date" name="input_found_date" id="input_found_date">
-                        </td> 
-                      <td>
-                        <input type="number" name="input_found_site" id="input_found_site" placeholder="0000" max="9999" min="0">
-                      </td>
-                      <td>
-                        <select name="status" id="input_status">
-                        <option value="" disabled selected>select</option>
-                            {{#each status}}
-                            <option value="{{this.idStatus}}">{{this.name}}</option>
-                            {{/each}}
-                        </select>
-                      </td>
-                      <td>
-                        <textarea name="remark" id="input_remark" placeholder="max. 250 characters"></textarea>
-                      </td>
-                    </tr>
-                  </table>
-                </fieldset>
-                <p></p>
-                  <input class="btn" type="submit" id="addBat" value="commit">
-                  <input class="btn" type="button" value="cancel" onClick="browseRecords()">
-              </form> 
-        </div>
-    </main>
 
-    <hr>
-
+  </div>
+  <div id="insert" style="display: none">
+    <form id="add_bat_form_ajax">
+      <fieldset class="fields">
+        <table class="insert_table">
+          <tr>
+            <th>person</th>
+            <th>species</th>
+            <th>sex</th>
+            <th>date found</th>
+            <th>site found</th>
+            <th>status</th>
+            <th>remark</th>
+          </tr>
+          <tr>
+            <td>
+              <select name="person" id="input_person">
+                <option value="" disabled selected>select</option>
+                {{#each persons}}
+                <option value="{{this.idPerson}}">{{this.name}}</option>
+                {{/each}}
+              </select>
+            </td>
+            <td>
+              <select name="species" id="input_species">
+                <option value="" disabled selected>select</option>
+                {{#each species}}
+                <option value="{{this.idSpecies}}">{{this.name}}</option>
+                {{/each}}
+              </select>
+            </td>
+            <td>
+              <input type="number" name="sex" id="input_sex" placeholder="0/1" min="0" max="1">
+            </td>
+            <td>
+              <input type="date" name="input_found_date" id="input_found_date">
+            </td>
+            <td>
+              <input type="number" name="input_found_site" id="input_found_site" placeholder="0000" max="9999" min="0">
+            </td>
+            <td>
+              <select name="status" id="input_status">
+                <option value="" disabled selected>select</option>
+                {{#each status}}
+                <option value="{{this.idStatus}}">{{this.name}}</option>
+                {{/each}}
+              </select>
+            </td>
+            <td>
+              <textarea name="remark" id="input_remark" placeholder="max. 250 characters"></textarea>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <div class="space"></div>
+      <button class="modify confirm" type="submit" id="addBat">commit</button>
+      <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
+    </form>
+  </div>
+</main>
 </div>
 
 

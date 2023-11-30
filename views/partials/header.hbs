@@ -1,11 +1,11 @@
 <header>
     <nav class="main_nav">
-        <a href="/bats">BATS</a>
-        <a href="/carelogs">CARE LOGS</a>
-        <a href="/persons">PERSONS</a>
-        <a href="/status">STATUS</a>
-        <a href="/species">SPECIES</a>
-        <a href="/medicalcares">MEDICAL CARES</a>
+        <a class="{{#if active.bats}}active{{/if}}" href="/bats">BATS</a>
+        <a class="{{#if active.carelogs}}active{{/if}}" href="/carelogs">CARE LOGS</a>
+        <a class="{{#if active.persons}}active{{/if}}" href="/persons">PERSONS</a>
+        <a class="{{#if active.status}}active{{/if}}" href="/status">STATUS</a>
+        <a class="{{#if active.species}}active{{/if}}" href="/species">SPECIES</a>
+        <a class="{{#if active.medicalcares}}active{{/if}}" href="/medicalcares">MEDICAL CARES</a>
     </nav>
     <h1>databats.</h1>
 </header>

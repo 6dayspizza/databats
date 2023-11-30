@@ -1,14 +1,15 @@
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         {{> header}}
 
 <main>
     <div id="browse">
     <table id="persons_table">
-        <caption></caption>
+        
         {{!-- Header section --}}
         <thead>
             <tr>
-                <th width=4%><a href="#"class="modify" onClick="newRecord()">add</a></th>
+                <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
                 <th width=4%>id</th>
                 <th>person name</th>
             </tr>
@@ -19,7 +20,7 @@
             {{#each persons}}
             <tr>
                 <td></td>
-                <td>{{this.idPerson}}</td>
+                <td class="id">{{this.idPerson}}</td>
                 <td>{{this.name}}</td>
             </tr>
             {{/each}}
@@ -29,7 +30,6 @@
     </div>
         <div id="insert" style="display: none">
             <form id="add_person_form_ajax">
-                <legend><strong>add person</strong></legend>
                 <fieldset class="fields">
                   <table class="insert_table">
                     <tr>
@@ -43,14 +43,11 @@
                   </table>
                 </fieldset>
                 <p></p>
-                  <input class="btn" type="submit" id="addPerson" value="commit">
-                  <input class="btn" type="button" value="cancel" onClick="browseRecords()">
+                  <button class="modify" type="submit" id="addPerson">commit</button>
+                  <button class="modify" type="button" onClick="browseRecords()">cancel</button>
               </form> 
         </div>
     </main>
-
-    <hr>
-
 </div>
 
 
