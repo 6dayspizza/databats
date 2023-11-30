@@ -10,11 +10,11 @@
 /*   ----- Variables  -----  */
 :root {
   --almost-black: #323747;
-  --old-pink: #c2becf;
-  --opaque-dust-pink: #dddff2;
-  --purple: #996164;
+  --dusty-purple: #c2becf;
+  --almost-white: #dddff2;
+  --kinda-berry: #996164;
   --pale-red: #a86f3a;
-  --nice-green: #6f91d0;
+  --nice-green: #659ea6;
 }
 
 /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
@@ -36,7 +36,7 @@ header,
 footer {
   font-family: "Amatic SC", cursive;
   background-color: var(--almost-black);
-  color: var(--old-pink);
+  color: var(--dusty-purple);
   position: fixed;
   width: 100%;
   margin: 0%;
@@ -72,7 +72,7 @@ main {
 section {
 }
 article {
-  background-color: var(--old-pink);
+  background-color: var(--dusty-purple);
   margin: 2%;
   margin-left: 1%;
   padding: 2%;
@@ -98,7 +98,7 @@ aside {
 }
 
 .main_nav a {
-  background-color: var(--old-pink);
+  background-color: var(--dusty-purple);
   color: var(--almost-black);
   font-size: 32px;
   font-weight: 700;
@@ -115,7 +115,7 @@ aside {
 
 .main_nav a:hover, a.active {
   background-color: var(--almost-black);
-  color: var(--old-pink);
+  color: var(--dusty-purple);
 }
 
 /*  -----  Typography  ----- */
@@ -233,7 +233,7 @@ thead {
   font-size: 100%;
 }
 tbody {
-  background-color: var(--opaque-dust-pink);
+  background-color: var(--almost-white);
 }
 tfoot {
 }
@@ -243,13 +243,13 @@ tr:nth-child(even) td {
   background-color: #c8c4d3;
 }
 tr:nth-child(odd) td {
-  background-color: var(--old-pink);
+  background-color: var(--dusty-purple);
 }
 th {
   text-align: left;
   font-family: "Amatic SC", cursive;
   font-size: 26px;
-  background-color: var(--old-pink);
+  background-color: var(--dusty-purple);
 }
 td {
   text-align: left;
@@ -365,7 +365,7 @@ input:enabled {
 }
 .btn {
   background-color: var(--almost-black);
-  color: var(--old-pink);
+  color: var(--dusty-purple);
   border: none;
   cursor: pointer;
   border-radius: 30px 30px 30px 30px;
@@ -413,13 +413,13 @@ input:enabled {
   height: 120px;
 }
 .btn:hover {
-  background-color: var(--old-pink);
+  background-color: var(--dusty-purple);
   color: var(--almost-black);
 }
 
 .modify {
   background-color: var(--almost-black);
-  color: var(--old-pink);
+  color: var(--dusty-purple);
   border: none;
   cursor: pointer;
   border-radius: 30px 30px 30px 30px;
@@ -436,24 +436,24 @@ input:enabled {
 }
 
 .modify:visited {
-  color: var(--old-pink) !important;
+  color: var(--dusty-purple) !important;
 }
 
 .modify:active {
   color: var(--almost-black);
-  background-color: var(--old-pink);
+  background-color: var(--dusty-purple);
 }
 .modify:hover {
-  background-color: var(--purple);
+  background-color: var(--nice-green);
   color: var(--almost-black);
 }
 .accent {
-  background-color: var(--purple);
+  background-color: var(--kinda-berry);
 }
 
 .confirm {
-  background-color: var(--old-pink);
-  color: var(--almost-black);
+  background-color: var(--nice-green);
+  color: var(--almost-white);
 }
 
 .space {
@@ -504,7 +504,7 @@ textarea {
 
 .gallery figure {
   border: solid;
-  border-color: var(--opaque-dust-pink);
+  border-color: var(--almost-white);
   width: 320px;
   margin: 1%;
   padding: 0%;
