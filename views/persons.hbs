@@ -1,53 +1,52 @@
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        {{> header}}
+{{> header}}
 
 <main>
-    <div id="browse">
+  <div id="browse">
     <table id="persons_table">
-        
-        {{!-- Header section --}}
-        <thead>
-            <tr>
-                <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
-                <th width=4%>id</th>
-                <th>person name</th>
-            </tr>
-        </thead>
 
-            {{!-- Body section --}}
-        <tbody>
-            {{#each persons}}
-            <tr>
-                <td></td>
-                <td class="id">{{this.idPerson}}</td>
-                <td>{{this.name}}</td>
-            </tr>
-            {{/each}}
-        </tbody>
+      {{!-- Header section --}}
+      <thead>
+        <tr>
+          <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
+          <th width=4%>id</th>
+          <th>person name</th>
+        </tr>
+      </thead>
+
+      {{!-- Body section --}}
+      <tbody>
+        {{#each persons}}
+        <tr>
+          <td></td>
+          <td class="id">{{this.idPerson}}</td>
+          <td>{{this.name}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
     </table>
-        
-    </div>
-        <div id="insert" style="display: none">
-            <form id="add_person_form_ajax">
-                <fieldset class="fields">
-                  <table class="insert_table">
-                    <tr>
-                      <th>name</th>
-                    </tr>
-                    <tr>
-                      <td>
-                        <textarea name="name" id="input_name" placeholder="max. 30 characters"></textarea>
-                      </td>
-                    </tr>
-                  </table>
-                </fieldset>
-                <p></p>
-                  <button class="modify" type="submit" id="addPerson">commit</button>
-                  <button class="modify" type="button" onClick="browseRecords()">cancel</button>
-              </form> 
-        </div>
-    </main>
+
+  </div>
+  <div id="insert" style="display: none">
+    <form id="add_person_form_ajax">
+      <table class="insert_table">
+        <tr>
+          <th>name</th>
+        </tr>
+        <tr>
+          <td>
+            <textarea name="name" id="input_name" placeholder="max. 30 characters"></textarea>
+          </td>
+        </tr>
+      </table>
+      <div class="space"></div>
+      <div class="actions">
+        <button class="modify" type="submit" id="addPerson">commit</button>
+        <button class="modify" type="button" onClick="browseRecords()">cancel</button>
+      </div>
+    </form>
+  </div>
+</main>
 </div>
 
 

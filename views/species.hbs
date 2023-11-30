@@ -41,7 +41,6 @@
     </div>
         <div id="insert" style="display: none">
             <form id="add_species_form_ajax">
-                <fieldset class="fields">
                   <table class="insert_table">
                     <tr>
                       <th>name</th>
@@ -52,10 +51,11 @@
                       </td>
                     </tr>
                   </table>
-                </fieldset>
-                <p></p>
-                  <button class="modify" type="submit" id="addSpecies">commit</button>
-                  <button class="modify" type="button" onClick="browseRecords()">cancel</button>
+                <div class="space"></div>
+                  <div class="actions">
+                    <button class="modify commit" type="submit" id="addSpecies">commit</button>
+                  <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
+                  </div>
               </form> 
         </div>
     </main>

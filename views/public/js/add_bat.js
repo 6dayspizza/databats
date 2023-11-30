@@ -108,8 +108,8 @@ addRowToTable = (data) => {
   sexCell.innerText = newRow.sex;
   foundDateCell.innerText = newRow.foundDate;
   foundSiteCell.innerText = newRow.foundSite;
-  dateEndCell.innerText = newRow.dateEnd;
-  siteEndCell.innerText = newRow.siteEnd;
+  dateEndCell.innerText = newRow.dateEnd || "";
+  siteEndCell.innerText = newRow.siteEnd || "";
   statusCell.innerText = newRow.status;
   remarkCell.innerText = newRow.remark;
 

@@ -1,4 +1,3 @@
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {{> header}}
 
@@ -36,7 +35,7 @@
 
       {{!-- Body section --}}
       <tbody>
-        {{#each data}}
+        {{#each carelogs}}
         <tr>
           <td></td>
           <td class="id">{{this.idCareLog}}</td>
@@ -57,56 +56,55 @@
     </table>
 
   </div>
-  
+
   <div id="insert" style="display: none">
     <form id="add_carelog_form_ajax">
-      <fieldset class="fields">
-        <table class="insert_table">
-          <tr>
-            <th>bat</th>
-            <th>person</th>
-            <th>weight (g)</th>
-            <th>food (mw)</th>
-            <th>medical</th>
-            <th>remark</th>
-          </tr>
-          <tr>
-            <td>
-              <select name="bats" id="input_bat">
-                <option value="" disabled selected>select</option>
-                {{#each bats}}
-                <option>{{this.idBat}}</option>
-                {{/each}}
-              </select>
-            </td>
-            <td>
-              <select name="person" id="input_person">
-                <option value="" disabled selected>select</option>
-                {{#each persons}}
-                <option value="{{this.idPerson}}">{{this.name}}</option>
-                {{/each}}
-              </select>
-            </td>
-            <td>
-              <input type="number" name="input_weight" id="input_weight" placeholder="0.0" max="9.99" min="0.00">
-            </td>
-            <td>
-              <input type="text" name="input_food" id="input_food" placeholder="00 mw">
-            </td>
-            <td>
-              <div class="checkbox-list">
-                {{#each medicalcares}}
-                <label><input type="checkbox" name="input_medical_care" class="input_medical_care"
-                    value="{{this.idMedicalCare}}"> {{this.treatment}}</label>
-                {{/each}}
-              </div>
-            </td>
-            <td>
-              <textarea name="remark" id="input_remark" placeholder="max. 250 characters"></textarea>
-            </td>
-          </tr>
-        </table>
-      </fieldset>
+      <table class="insert_table">
+        <tr>
+          <th>bat</th>
+          <th>person</th>
+          <th>weight (g)</th>
+          <th>food (mw)</th>
+          <th>medical</th>
+          <th>remark</th>
+        </tr>
+        <tr>
+          <td>
+            <select name="bats" id="input_bat">
+              <option value="" disabled selected>select</option>
+              {{#each bats}}
+              <option>{{this.idBat}}</option>
+              {{/each}}
+            </select>
+          </td>
+          <td>
+            <select name="person" id="input_person">
+              <option value="" disabled selected>select</option>
+              {{#each persons}}
+              <option value="{{this.idPerson}}">{{this.name}}</option>
+              {{/each}}
+            </select>
+          </td>
+          <td>
+            <input type="number" step="0.01" name="input_weight" id="input_weight" placeholder="0.0" max="9.99"
+              min="0.00">
+          </td>
+          <td>
+            <input type="text" name="input_food" id="input_food" placeholder="00 mw">
+          </td>
+          <td>
+            <div class="checkbox-list">
+              {{#each medicalcares}}
+              <label><input type="checkbox" name="input_medical_care" class="input_medical_care"
+                  value="{{this.idMedicalCare}}"> {{this.treatment}}</label>
+              {{/each}}
+            </div>
+          </td>
+          <td>
+            <textarea name="remark" id="input_remark" placeholder="max. 250 characters"></textarea>
+          </td>
+        </tr>
+      </table>
       <div class="space"></div>
       <div class="actions">
         <button class="modify confirm" type="submit" id="addCareLog" value="commit">commit</button>
@@ -114,9 +112,8 @@
       </div>
     </form>
   </div>
-</main>
 
-<div id="edit" style="display: none">
+  <div id="edit" style="display: none">
   <form id="update-carelog-form-ajax">
     <table class="update_table">
       <tr>
@@ -139,8 +136,8 @@
           </select>
         </td>
         <td>
-          <input type="number" step="0.01" name="input_weight" id="input_weight_update" value="{{this.weight}}" max="9.99"
-            min="0.00">
+          <input type="number" step="0.01" name="input_weight" id="input_weight_update" value="{{this.weight}}"
+            max="9.99" min="0.00">
         </td>
         <td>
           <input type="text" name="input_food" id="input_food_update" value="{{this.foodType}}">
@@ -153,11 +150,13 @@
       </tr>
     </table>
     <div class="space"></div>
-    <button type="submit" class="modify">commit</button>
-    <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
-
+    <div class="actions">
+      <button type="submit" class="modify">commit</button>
+      <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
+    </div>
   </form>
 </div>
+</main>
 
 
 

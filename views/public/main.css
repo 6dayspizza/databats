@@ -265,7 +265,6 @@ td.id {
 }
 
 .insert_table tr:nth-child(even) td {
-  background-color: white;
 }
 
 colgroup {
@@ -300,19 +299,29 @@ label {
   justify-content: flex-start !important;
 }
 
-input,
+input[type="text"],
+input[type="number"],
 button,
 textarea,
 select {
   font-size: 110%;
   padding: 1%;
   font-family: inherit;
+  border-radius: 30px;
+  padding: 0 12px;
+  min-height: 38px;
+  border: none;
+}
+textarea {
+  height: 125px;
+  padding-top: 13px;
 }
 button {
+
 }
 input {
-  width: 50%;
 }
+
 input:invalid {
   border: 3px solid red;
 }
@@ -350,6 +359,11 @@ input:enabled {
   width: 100px;
   font-family: "Amatic SC", cursive;
   font-size: 140%;
+}
+
+.checkbox-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .checkbox-list label {
@@ -394,15 +408,12 @@ input:enabled {
   font-weight: bold;
   text-decoration: none;
   padding: 3px 12px;
-  margin-top: 20px;
-  margin-right: 10px;
   width: 60px;
   font-family: "Amatic SC", cursive;
   font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: auto;
   line-height: 1;
 }
 
@@ -425,6 +436,20 @@ input:enabled {
 .confirm {
   background-color: var(--old-pink);
   color: var(--almost-black);
+}
+
+.space {
+  height: 1rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.actions button {
+  margin-left: 13px;
 }
 
 output {
@@ -558,6 +583,3 @@ object {
 @media print {
 }
 
-.space {
-  height: 1rem;
-}

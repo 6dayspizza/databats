@@ -59,7 +59,7 @@ addCareLogForm.addEventListener("submit", function (e) {
             inputPerson.value = '';
             inputWeight.value = '';
             inputFood.value = '';
-            inputsMedicalCare.value = '';
+            inputsMedicalCare.forEach(input => input.checked = false);
             inputRemark.value = '';
 
             browseRecords();
@@ -78,8 +78,6 @@ addCareLogForm.addEventListener("submit", function (e) {
 // Creates a single row from an Object representing a single record from 
 // bsg_people
 addRowToTable = (data) => {
-
-    // debugger;
 
     // Get a reference to the current table on the page and clear it out.
     let currentTable = document.getElementById("carelogs_table");
@@ -113,7 +111,7 @@ addRowToTable = (data) => {
     dateTimeCell.innerText = newRow.dateTime;
     weightCell.innerText = newRow.weight;
     foodCell.innerText = newRow.foodType;
-    medicalCareCell.innerText = newRow.medicalCare | "";
+    medicalCareCell.innerText = newRow.medicalCares || "";
     remarkCell.innerText = newRow.remark;
 
     let editButton = document.createElement("button");

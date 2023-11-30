@@ -31,12 +31,13 @@ var db = require("./database/db-connector");
 */
 
 app.get("/carelogs", function (req, res) {
-  let query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(CareLogsMedicalCares.idMedicalCare SEPARATOR ', ') AS medicalCares
-        FROM CareLogs
-        LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
-        LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
-        LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
-        GROUP BY CareLogs.idCareLog;`; // display CareLogs
+  let query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR ', ') AS medicalCares
+  FROM CareLogs
+  LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
+  LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
+  LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
+  LEFT JOIN MedicalCares ON MedicalCares.idMedicalCare = CareLogsMedicalCares.idMedicalCare
+  GROUP BY CareLogs.idCareLog;`; // display CareLogs
 
   let query2 = `SELECT Bats.idBat FROM Bats;`;
 
@@ -52,7 +53,7 @@ app.get("/carelogs", function (req, res) {
         db.pool.query(query4, function (error, medicalcares, fields) {
           res.render("carelogs", {
             active: { carelogs: true },
-            data: carelogs,
+            carelogs: carelogs,
             bats: bats,
             persons: persons,
             medicalcares: medicalcares,
@@ -189,10 +190,13 @@ app.post("/add-carelog-ajax", function (req, res) {
       db.pool.query(query2, function (error, rows, fields) {
         console.log(rows);
         // If there was no error, perform a SELECT * on CareLogs
-        let query3 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark
-                FROM CareLogs
-                LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
-                LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat;`;
+        let query3 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR ', ') AS medicalCares
+        FROM CareLogs
+        LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
+        LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
+        LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
+        LEFT JOIN MedicalCares ON MedicalCares.idMedicalCare = CareLogsMedicalCares.idMedicalCare
+        GROUP BY CareLogs.idCareLog;`;
 
         db.pool.query(query3, function (error, rows, fields) {
           // If there was an error on the second query, send a 400
