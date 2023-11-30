@@ -299,8 +299,26 @@ label {
   justify-content: flex-start !important;
 }
 
+input[type="integer"] {
+  background-color: #c8c4d3;
+  font-size: 110%;
+  padding: 1%;
+  font-family: inherit;
+  border-radius: 30px;
+  border-color: none;
+  padding: 0 12px;
+  min-height: 38px;
+  border: none;
+  width: 50px;
+}
+
+input.search {
+  width: 300px;
+}
+
 input[type="text"],
 input[type="number"],
+input[type="date"],
 button,
 textarea,
 select {
@@ -450,6 +468,7 @@ input:enabled {
 
 .actions button {
   margin-left: 13px;
+  width: 120px;
 }
 
 output {

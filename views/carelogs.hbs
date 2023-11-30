@@ -3,13 +3,15 @@
 
 
 <main>
-  <div id="search" style="display: none">
+  <div id="search" style="display: none;">
     <form id="search-person-carelogs" method='GET' action='/carelogssearch'>
-      <input type="text" name="inputid" placeholder="firstname lastname" id="input-id-carelogs-search">
-      <input class="modify" type="submit" value="go">
-      <input class="modify" type="button" value="reset" onClick="browseRecords()">
+      <div class="actions">
+              <input class="search" type="text" name="inputid" placeholder="firstname lastname" id="input-id-carelogs-search">
+        <button class="modify confirm" type="submit">go</button>
+        <button class="modify accent" type="button" onClick="browseRecords()">escape</button>
+      </div>
     </form>
-    <p></p>
+    <div class="space"></div>
   </div>
 
   <div id="browse">
@@ -107,55 +109,55 @@
       </table>
       <div class="space"></div>
       <div class="actions">
-        <button class="modify confirm" type="submit" id="addCareLog" value="commit">commit</button>
+        <button class="modify confirm" type="submit" id="addCareLog" value="confirm">confirm</button>
         <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
       </div>
     </form>
   </div>
 
   <div id="edit" style="display: none">
-  <form id="update-carelog-form-ajax">
-    <table class="update_table">
-      <tr>
-        <th>care log</th>
-        <th>person</th>
-        <th>weight (g)</th>
-        <th>food (mw)</th>
-        <th>medical</th>
-        <th>remark</th>
-      </tr>
-      <tr>
-        <td>
-          <input type="integer" id="idToUpdate" name="input_id" value="{{this.idCareLog}}" readonly />
-        </td>
-        <td>
-          <select name="input_person" id="input_person_update">
-            {{#each persons}}
-            <option value="{{this.idPerson}}">{{this.name}}</option>
-            {{/each}}
-          </select>
-        </td>
-        <td>
-          <input type="number" step="0.01" name="input_weight" id="input_weight_update" value="{{this.weight}}"
-            max="9.99" min="0.00">
-        </td>
-        <td>
-          <input type="text" name="input_food" id="input_food_update" value="{{this.foodType}}">
-        </td>
-        <td>
-        </td>
-        <td>
-          <textarea name="input_remark" id="input_remark_update" value="{{this.remark}}"></textarea>
-        </td>
-      </tr>
-    </table>
-    <div class="space"></div>
-    <div class="actions">
-      <button type="submit" class="modify">commit</button>
-      <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
-    </div>
-  </form>
-</div>
+    <form id="update-carelog-form-ajax">
+      <table class="update_table">
+        <tr>
+          <th class="id">care log</th>
+          <th>person</th>
+          <th>weight (g)</th>
+          <th>food (mw)</th>
+          <th>medical</th>
+          <th>remark</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="integer" id="idToUpdate" name="input_id" value="{{this.idCareLog}}" readonly />
+          </td>
+          <td>
+            <select name="input_person" id="input_person_update">
+              {{#each persons}}
+              <option value="{{this.idPerson}}">{{this.name}}</option>
+              {{/each}}
+            </select>
+          </td>
+          <td>
+            <input type="number" step="0.01" name="input_weight" id="input_weight_update" value="{{this.weight}}"
+              max="9.99" min="0.00">
+          </td>
+          <td>
+            <input type="text" name="input_food" id="input_food_update" value="{{this.foodType}}">
+          </td>
+          <td>
+          </td>
+          <td>
+            <textarea name="input_remark" id="input_remark_update" value="{{this.remark}}"></textarea>
+          </td>
+        </tr>
+      </table>
+      <div class="space"></div>
+      <div class="actions">
+        <button type="submit" class="modify confirm">confirm</button>
+        <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
+      </div>
+    </form>
+  </div>
 </main>
 
 
