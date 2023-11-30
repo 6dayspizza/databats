@@ -107,6 +107,7 @@ addRowToTable = (data) => {
 
     // Fill the cells with correct data
     idCell.innerText = newRow.idCareLog;
+    idCell.classList=["id"]
     batCell.innerText = newRow.idBat;
     personCell.innerText = newRow.name;
     dateTimeCell.innerText = newRow.dateTime;
@@ -124,7 +125,7 @@ addRowToTable = (data) => {
     editCell.appendChild(editButton);
 
     let deleteButton = document.createElement("button");
-    deleteButton.classList=["modify"];
+    deleteButton.classList=["modify accent"];
     deleteButton.innerHTML = "delete";
     deleteButton.addEventListener("click", function(event){
         deleteCareLog(newRow.idCareLog);
