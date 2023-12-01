@@ -83,9 +83,9 @@ CREATE OR REPLACE TABLE Bats (
   endDate DATE,
   releaseSite INT,
   PRIMARY KEY (idBat),
-  FOREIGN KEY (idPerson) REFERENCES Persons (idPerson) ON DELETE CASCADE,
-  FOREIGN KEY (idSpecies) REFERENCES Species (idSpecies) ON DELETE CASCADE,
-  FOREIGN KEY (idStatus) REFERENCES Status (idStatus) ON DELETE CASCADE
+  FOREIGN KEY (idPerson) REFERENCES Persons (idPerson) ON DELETE SET NULL,
+  FOREIGN KEY (idSpecies) REFERENCES Species (idSpecies) ON DELETE SET NULL,
+  FOREIGN KEY (idStatus) REFERENCES Status (idStatus) ON DELETE SET NULL
 );
 
 --

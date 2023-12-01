@@ -493,6 +493,37 @@ app.delete("/delete-bat-ajax/", function (req, res, next) {
 });
 
 
+app.delete("/delete-person-ajax/", function (req, res, next) {
+  let person = req.body;
+  let idPerson = parseInt(person.id);
+  let deletePerson = `DELETE FROM Persons WHERE idPerson = ${idPerson}`;
+
+  db.pool.query(
+    deletePerson,
+    [idPerson],
+    function (error, rows, fields) {
+      if (error) {
+        console.log(error);
+        res.sendStatus(400);
+      } else {
+        query2 = `SELECT * from persons`;
+        db.pool.query(query2, function (error, rows, fields) {
+          // If there was an error on the second query, send a 400
+          if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+          }
+          // If all went well, send the results of the query back.
+          else {
+            res.sendStatus(204);
+          }
+        });
+      }
+    }
+  );
+});
+
 /*
     ALL UPDATE REQUESTS TO EDIT DATA
 */

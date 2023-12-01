@@ -11,8 +11,8 @@ updateBatForm.addEventListener("submit", function (e) {
     let inputIDBat = document.getElementById("idToUpdate");
     let inputEndDate = document.getElementById("input_enddate_update");
     let inputReleaseSite = document.getElementById("input_releasesite_update");
-    let inputStatus= document.getElementById("input_status_update");  
-    let inputRemark= document.getElementById("input_remark_update");   
+    let inputStatus= document.getElementById("input_status_update");
+    let inputRemark= document.getElementById("input_remark_update");
 
     // Get the values from the form fields
     let idBatValue = inputIDBat.value;
