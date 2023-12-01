@@ -49,7 +49,7 @@
           <td>{{this.medicalCares}}</td>
           <td>{{this.remark}}</td>
           <td><button class="modify"
-              onClick="editRecord('{{this.idCareLog}}', '{{this.name}}', '{{this.weight}}', '{{this.foodType}}', '{{this.remark}}')">edit</button>
+              onClick="editRecord('{{this.idCareLog}}', '{{this.name}}', '{{this.weight}}', '{{this.foodType}}', '{{this.medicalcares}}', '{{this.remark}}')">edit</button>
           </td>
           <td><button class="modify accent" onclick="deleteCareLog({{this.idCareLog}})">delete</button></td>
         </tr>
@@ -145,6 +145,12 @@
             <input type="text" name="input_food" id="input_food_update" value="{{this.foodType}}">
           </td>
           <td>
+            <div class="checkbox-list">
+              {{#each medicalcares}}
+              <label><input type="checkbox" name="input_medical_care", id="input_medical_care_update" class="input_medical_care_update"
+                  value="{{this.idMedicalCare}}"> {{this.treatment}}</label>
+              {{/each}}
+            </div>
           </td>
           <td>
             <textarea name="input_remark" id="input_remark_update" value="{{this.remark}}"></textarea>
