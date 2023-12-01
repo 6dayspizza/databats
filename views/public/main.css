@@ -346,6 +346,7 @@ input:invalid {
 input:valid {
   /*border:2px solid;*/
 }
+
 input::placeholder {
   color: darkgray;
 }
