@@ -1,4 +1,3 @@
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {{> header}}
 
@@ -31,6 +30,7 @@
           <th>status</th>
           <th>remark</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
 
@@ -49,6 +49,9 @@
           <td>{{this.releaseSite}}</td>
           <td>{{this.status}}</td>
           <td>{{this.remark}}</td>
+          <td><button class="modify"
+              onClick="editBat('{{this.idBat}}', '{{this.endDate}}','{{this.releaseSite}}', '{{this.status}}', '{{this.remark}}')">edit</button>
+          </td>
           <td><button class="modify accent" onclick="deleteBat({{this.idBat}})">delete</button></td>
         </tr>
         {{/each}}
@@ -58,64 +61,104 @@
   </div>
   <div id="insert" style="display: none">
     <form id="add_bat_form_ajax">
-        <table class="insert_table">
-          <tr>
-            <th>person</th>
-            <th>species</th>
-            <th>sex</th>
-            <th>date found</th>
-            <th>site found</th>
-            <th>status</th>
-            <th>remark</th>
-          </tr>
-          <tr>
-            <td>
-              <select name="person" id="input_person">
-                <option value="" disabled selected>select</option>
-                {{#each persons}}
-                <option value="{{this.idPerson}}">{{this.name}}</option>
-                {{/each}}
-              </select>
-            </td>
-            <td>
-              <select name="species" id="input_species">
-                <option value="" disabled selected>select</option>
-                {{#each species}}
-                <option value="{{this.idSpecies}}">{{this.name}}</option>
-                {{/each}}
-              </select>
-            </td>
-            <td>
-              <input type="number" name="sex" id="input_sex" placeholder="0/1" min="0" max="1">
-            </td>
-            <td>
-              <input type="date" name="input_found_date" id="input_found_date">
-            </td>
-            <td>
-              <input type="number" name="input_found_site" id="input_found_site" placeholder="0000" max="9999" min="1000">
-            </td>
-            <td>
-              <select name="status" id="input_status">
-                <option value="" disabled selected>select</option>
-                {{#each status}}
-                <option value="{{this.idStatus}}">{{this.name}}</option>
-                {{/each}}
-              </select>
-            </td>
-            <td>
-              <textarea name="remark" id="input_remark" placeholder="max. 250 characters"></textarea>
-            </td>
-          </tr>
-        </table>
+      <table class="insert_table">
+        <tr>
+          <th>person</th>
+          <th>species</th>
+          <th>sex</th>
+          <th>date found</th>
+          <th>site found</th>
+          <th>status</th>
+          <th>remark</th>
+        </tr>
+        <tr>
+          <td>
+            <select name="person" id="input_person">
+              <option value="" disabled selected>select</option>
+              {{#each persons}}
+              <option value="{{this.idPerson}}">{{this.name}}</option>
+              {{/each}}
+            </select>
+          </td>
+          <td>
+            <select name="species" id="input_species">
+              <option value="" disabled selected>select</option>
+              {{#each species}}
+              <option value="{{this.idSpecies}}">{{this.name}}</option>
+              {{/each}}
+            </select>
+          </td>
+          <td>
+            <input type="number" name="sex" id="input_sex" placeholder="0/1" min="0" max="1">
+          </td>
+          <td>
+            <input type="date" name="input_found_date" id="input_found_date">
+          </td>
+          <td>
+            <input type="number" name="input_found_site" id="input_found_site" placeholder="0000" max="9999" min="1000">
+          </td>
+          <td>
+            <select name="status" id="input_status">
+              <option value="" disabled selected>select</option>
+              {{#each status}}
+              <option value="{{this.idStatus}}">{{this.name}}</option>
+              {{/each}}
+            </select>
+          </td>
+          <td>
+            <textarea name="remark" id="input_remark" placeholder="max. 250 characters"></textarea>
+          </td>
+        </tr>
+      </table>
       <div class="space"></div>
-<div class="actions">
+      <div class="actions">
         <button class="modify confirm" type="submit" id="addBat">confirm</button>
-      <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
-</div>
+        <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
+      </div>
     </form>
   </div>
+
+  <div id="edit" style="display: none">
+    <form id="update-bat-form-ajax">
+      <table class="update_table">
+        <tr>
+          <th class="id">bat</th>
+          <th>date end</th>
+          <th>site released</th>
+          <th>status</th>
+          <th>remark</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="integer" id="idToUpdate" name="input_id" value="{{this.idBat}}" readonly />
+          </td>
+          <td>
+            <input type="date" id="input_enddate_update" name="input_enddate" value="{{this.endDate}}" />
+          </td>
+          <td>
+            <input type="text" id="input_releasesite_update" name="input_releasesite" value="{{this.releaseSite}}" placeholder="0000" max="9999" min="1000"/>
+          </td>
+          <td>
+          <select name="input_status" id="input_status_update">
+              {{#each status}}
+              <option value="{{this.idStatus}}">{{this.name}}</option>
+              {{/each}}
+            </select>
+          </td>
+          <td>
+            <textarea name="input_remark" id="input_remark_update" value="{{this.remark}}"></textarea>
+          </td>
+        </tr>
+      </table>
+      <div class="space"></div>
+      <div class="actions">
+        <button type="submit" class="modify confirm">confirm</button>
+        <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
+      </div>
+    </form>
+  </div>
+
 </main>
-</div>
 
 
 
@@ -123,3 +166,4 @@
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="js/add_bat.js"></script>
 <script src="js/delete_bat.js"></script>
+<script src="js/update_bat.js"></script>

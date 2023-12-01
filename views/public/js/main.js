@@ -51,3 +51,19 @@ function editRecord(idCareLog, name, weight, food, remark) {
   showform('edit');
 }
 function searchRecord() { showform('search'); }
+function editBat(idBat, endDate, releaseSite, status, remark) {
+  $("#idToUpdate").val(idBat);
+  $("#input_status_update option").each(function() {
+    if ($(this).text() === status) {
+      $(this).prop('selected', true);
+    } else {
+      $(this).prop('selected', false);
+    }
+  });
+
+  $("#input_enddate_update").val(endDate);
+  $("#input_releasesite_update").val(releaseSite);
+  $("#input_remark_update").val(remark);
+
+  showform('edit');
+}

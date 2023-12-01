@@ -113,6 +113,22 @@ addRowToTable = (data) => {
   statusCell.innerText = newRow.status;
   remarkCell.innerText = newRow.remark;
 
+  let editButton = document.createElement("button");
+    editButton.classList=["modify"];
+    editButton.innerHTML = "edit";
+    editButton.addEventListener("click", function(event){
+        editRecord(newRow.idBat, newRow.endDate, newRow.releaseSite, newRow.status, newRow.remark);
+    })
+    editCell.appendChild(editButton);
+
+    let deleteButton = document.createElement("button");
+    deleteButton.classList=["modify accent"];
+    deleteButton.innerHTML = "delete";
+    deleteButton.addEventListener("click", function(event){
+        deleteCareLog(newRow.idBat);
+    })
+    deleteCell.appendChild(deleteButton);
+
   // Add the cells to the row
   row.appendChild(firstCell);
   row.appendChild(idCell);
@@ -126,6 +142,7 @@ addRowToTable = (data) => {
   row.appendChild(statusCell);
   row.appendChild(remarkCell);
   row.appendChild(editCell);
+  row.appendChild(deleteCell);
 
   // Add a row attribute so the deleteRow function can find a newly added row
   row.setAttribute("data-value", newRow.id);
