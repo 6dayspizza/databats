@@ -161,17 +161,17 @@ app.get("/carelogsmedicalcares", function (req, res) {
 app.post("/add-carelog-ajax", function (req, res) {
   let data = req.body;
 
-  // Capture NULL values
-  let person = parseInt(data.person);
-  if (isNaN(person)) {
-    person = "NULL";
-  }
-
   let weight = (Math.round(data.weight * 100) / 100).toFixed(2);
+  let idPerson = parseInt(data.idPerson);
+
+  // Capture NULL values
+  if (isNaN(idPerson)) {
+    idPerson = null;
+  }
 
   // Create the query and run it on the database
   let query1 = `INSERT INTO CareLogs (idBat, idPerson, weight, foodType, remark)
-    VALUES (${data.idBat}, ${data.idPerson}, ${weight}, "${data.food}", "${data.remark}");`;
+    VALUES (${data.idBat}, ${idPerson}, ${weight}, "${data.food}", "${data.remark}");`;
 
   db.pool.query(query1, function (error, rows, fields) {
     // Check to see if there was an error
@@ -574,6 +574,15 @@ app.put('/put-bat-ajax', function (req, res, next) {
   let releasesite = parseInt(bat.releasesite);
   let status = bat.status;
   let remark = bat.remark;
+  
+  // capture empty string values
+  enddate = enddate.trim() === "" ? null : enddate;
+  remark = remark.trim() === "" ? null : remark;
+
+// capture empty int values
+if (isNaN(releasesite)) {
+  releasesite = null;
+}
 
   let updateBat = `UPDATE Bats SET endDate = ?, releaseSite = ?, idStatus = ?, remark = ? WHERE Bats.idBat = ?`;
   let selectStatus = `SELECT * FROM Status WHERE idStatus = ?`

@@ -100,9 +100,11 @@ addRowToTable = (data) => {
   let statusCell = document.createElement("TD");
   let remarkCell = document.createElement("TD");
   let editCell = document.createElement("TD");
+  let deleteCell = document.createElement("TD");
 
   // Fill the cells with correct data
   idCell.innerText = newRow.idBat;
+  idCell.classList=["id"]
   personCell.innerText = newRow.person;
   speciesCell.innerText = newRow.species;
   sexCell.innerText = newRow.sex;
@@ -125,7 +127,7 @@ addRowToTable = (data) => {
     deleteButton.classList=["modify accent"];
     deleteButton.innerHTML = "delete";
     deleteButton.addEventListener("click", function(event){
-        deleteCareLog(newRow.idBat);
+        deleteBat(newRow.idBat);
     })
     deleteCell.appendChild(deleteButton);
 
