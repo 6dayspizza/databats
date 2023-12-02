@@ -66,7 +66,7 @@ app.get("/carelogs", function (req, res) {
 });
 
 app.get("/", (req, res, next) => {
-  res.redirect(307, "/bats");
+  res.redirect(307, "/homepage");
 });
 
 app.get("/bats", function (req, res) {
@@ -142,6 +142,10 @@ app.get("/medicalcares", function (req, res) {
     });
   });
 });
+
+app.get("/homepage", function(req, res) {
+  res.render("homepage")
+})
 
 // just for overview, is not actually displayed on website
 app.get("/carelogsmedicalcares", function (req, res) {

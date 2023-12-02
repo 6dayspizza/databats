@@ -29,9 +29,13 @@ function deleteStatus(idStatus) {
             // deleteRow(idBat);
 
             window.location.href='/status';
-        }
-        else if (xhttp.readyState == 4 && xhttp.status != 204) {
-            console.log("There was an error with the input.")
+        } 
+        else if (xhttp.status == 400) {
+            // Conflict status (foreign key constraint violation)
+            alert("sorry, but this status is in use in another table.");
+        } else {
+            // Other error status
+            console.log("There was an error with the input.");
         }
     }
     // Send the request and wait for the response
