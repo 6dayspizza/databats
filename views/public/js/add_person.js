@@ -69,6 +69,7 @@ addRowToTable = (data) => {
     let idCell = document.createElement("TD");
     let nameCell = document.createElement("TD");
     let deleteCell = document.createElement("TD");
+    
     let deleteButton = document.createElement("button");
     deleteButton.classList=["modify accent"];
     deleteButton.innerHTML = "delete";

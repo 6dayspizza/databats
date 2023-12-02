@@ -1,6 +1,5 @@
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        {{> header}}
+{{> header}}
 
 <!-- index.hbs -->
 
@@ -12,53 +11,56 @@
 -->
 
 <main>
-    <div id="browse">
+  <div id="browse">
     <table id="status_table">
-        
-        {{!-- Header section --}}
-        <thead>
-            {{!-- For just the first row, we print each key of the row object as a header cell so we
-            know what each column means when the page renders --}}
-            <tr>
-                <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
-                <th width=4%>id</th>
-                <th>status name</th>
-            </tr>
-        </thead>
 
-            {{!-- Body section --}}
-        <tbody>
-            {{#each status}}
-            <tr>
-                <td></td>
-                <td class="id">{{this.idStatus}}</td>
-                <td>{{this.name}}</td>
-            </tr>
-            {{/each}}
-        </tbody>
+      {{!-- Header section --}}
+      <thead>
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+          <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
+          <th width=4%>id</th>
+          <th width=83%>status name</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      {{!-- Body section --}}
+      <tbody>
+        {{#each status}}
+        <tr>
+          <td></td>
+          <td class="id">{{this.idStatus}}</td>
+          <td>{{this.name}}</td>
+          <td><button class="modify accent" onclick="deleteStatus({{this.idStatus}})">delete</button></td>
+
+        </tr>
+        {{/each}}
+      </tbody>
     </table>
-        
-    </div>
-        <div id="insert" style="display: none">
-            <form id="add_status_form_ajax">
-                  <table class="insert_table">
-                    <tr>
-                      <th>name</th>
-                    </tr>
-                    <tr>
-                      <td>
-                        <textarea name="name" id="input_name" placeholder="max. 30 characters"></textarea>
-                      </td>
-                    </tr>
-                  </table>
-                  <div class="space"></div>
-                  <div class="actions">
-                    <button class="modify confirm" type="submit" id="addStatus">confirm</button>
-                  <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
-                  </div>
-              </form> 
-        </div>
-    </main>
+
+  </div>
+  <div id="insert" style="display: none">
+    <form id="add_status_form_ajax">
+      <table class="insert_table">
+        <tr>
+          <th>name</th>
+        </tr>
+        <tr>
+          <td>
+            <textarea name="name" id="input_name" placeholder="max. 30 characters"></textarea>
+          </td>
+        </tr>
+      </table>
+      <div class="space"></div>
+      <div class="actions">
+        <button class="modify confirm" type="submit" id="addStatus">confirm</button>
+        <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
+      </div>
+    </form>
+  </div>
+</main>
 </div>
 
 
@@ -66,3 +68,4 @@
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="js/add_status.js"></script>
+<script src="js/delete_status.js"></script>

@@ -31,7 +31,7 @@ var db = require("./database/db-connector");
 */
 
 app.get("/carelogs", function (req, res) {
-  let query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR ', ') AS medicalCares
+  let query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
   FROM CareLogs
   LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
   LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
@@ -191,7 +191,7 @@ app.post("/add-carelog-ajax", function (req, res) {
       db.pool.query(query2, function (error, rows, fields) {
         console.log(rows);
         // If there was no error, perform a SELECT * on CareLogs
-        let query3 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR ', ') AS medicalCares
+        let query3 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
         FROM CareLogs
         LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
         LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
@@ -525,6 +525,68 @@ app.delete("/delete-person-ajax/", function (req, res, next) {
   );
 });
 
+app.delete("/delete-species-ajax/", function (req, res, next) {
+  let species = req.body;
+  let idSpecies = parseInt(species.id);
+  let deleteSpecies = `DELETE FROM Species WHERE idSpecies = ${idSpecies}`;
+
+  db.pool.query(
+    deleteSpecies,
+    [idSpecies],
+    function (error, rows, fields) {
+      if (error) {
+        console.log(error);
+        res.sendStatus(400);
+      } else {
+        query2 = `SELECT * from Species`;
+        db.pool.query(query2, function (error, rows, fields) {
+          // If there was an error on the second query, send a 400
+          if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+          }
+          // If all went well, send the results of the query back.
+          else {
+            res.sendStatus(204);
+          }
+        });
+      }
+    }
+  );
+});
+
+app.delete("/delete-status-ajax/", function (req, res, next) {
+  let status = req.body;
+  let idStatus = parseInt(status.id);
+  let deleteStatus = `DELETE FROM Status WHERE idStatus = ${idStatus}`;
+
+  db.pool.query(
+    deleteStatus,
+    [idStatus],
+    function (error, rows, fields) {
+      if (error) {
+        console.log(error);
+        res.sendStatus(400);
+      } else {
+        query2 = `SELECT * from Status`;
+        db.pool.query(query2, function (error, rows, fields) {
+          // If there was an error on the second query, send a 400
+          if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+          }
+          // If all went well, send the results of the query back.
+          else {
+            res.sendStatus(204);
+          }
+        });
+      }
+    }
+  );
+});
+
 /*
     ALL UPDATE REQUESTS TO EDIT DATA
 */
@@ -636,7 +698,7 @@ app.get("/carelogssearch", function (req, res) {
   let query4;
 
   if (req.query.inputid === undefined) {
-    query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR ', ') AS medicalCares
+    query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
     FROM CareLogs
     LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
     LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
@@ -651,7 +713,7 @@ app.get("/carelogssearch", function (req, res) {
     query4 = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
   }
   else {
-    query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR ', ') AS medicalCares
+    query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
       FROM CareLogs
       LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
       LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat

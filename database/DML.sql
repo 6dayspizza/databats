@@ -178,7 +178,7 @@ VALUES
   ((SELECT idBat FROM Bats WHERE idbat = 2), (SELECT idPerson FROM Persons WHERE idPerson = 1),
   3.9, '10 mw', null),
   ((SELECT idBat FROM Bats WHERE idbat = 1), (SELECT idPerson FROM Persons WHERE idPerson = 2),
-  4.2, null, "didn't eat"),
+  4.2, null, "didnt eat"),
   ((SELECT idBat FROM Bats WHERE idbat = 2), (SELECT idPerson FROM Persons WHERE idPerson = 3),
   4.0, '15 mw', null),
   ((SELECT idBat FROM Bats WHERE idbat = 2), (SELECT idPerson FROM Persons WHERE idPerson = 2),

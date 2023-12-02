@@ -76,9 +76,19 @@ addRowToTable = (data) => {
     let firstCell = document.createElement("TD");
     let idCell = document.createElement("TD");
     let nameCell = document.createElement("TD");
+    let deleteCell = document.createElement("TD");
+
+    let deleteButton = document.createElement("button");
+    deleteButton.classList=["modify accent"];
+    deleteButton.innerHTML = "delete";
+    deleteButton.addEventListener("click", function(event){
+        deleteSpecies(newRow.idSpecies);
+    })
+    deleteCell.appendChild(deleteButton);
 
     // Fill the cells with correct data
     idCell.innerText = newRow.idSpecies;
+    idCell.classList=["id"]
     nameCell.innerText = newRow.name;
 
 
@@ -87,6 +97,8 @@ addRowToTable = (data) => {
     row.appendChild(firstCell);
     row.appendChild(idCell);
     row.appendChild(nameCell);
+    row.appendChild(deleteCell);
+
 
     // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', newRow.id);
