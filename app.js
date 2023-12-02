@@ -57,7 +57,7 @@ app.get("/carelogs", function (req, res) {
             bats: bats,
             persons: persons,
             medicalcares: medicalcares,
-            
+
           });
         });
       });
@@ -598,18 +598,18 @@ app.put('/put-carelog-ajax', function (req, res, next) {
   let idcarelog = parseInt(data.idcarelog);
   let weight = parseFloat(data.weight);
   let foodtype = data.foodtype;
-  let medical = data.medical;
+  let medicalcares = data.medicalcares;
   let remark = data.remark;
 
-  console.log(medical)
+  let previousMedicalCaresQuery = `SELECT idMedicalCare From CareLogsMedicalCares where idCarelog = ${idcarelog}`
 
-  let selectMedicalID = `SELECT idMedicalCare from MedicalCares WHERE treatment = ${medical}`
-  let queryCareLogsMedicalCare = `UPDATE CareLogsMedicalCares SET idMedicalCare = ? WHERE CareLogsMedicalCares.idCareLog = ${idcarelog}`
+  // let selectMedicalID = `SELECT idMedicalCare from MedicalCares WHERE treatment = ${medical}`
+  // let queryCareLogsMedicalCare = `UPDATE CareLogsMedicalCares SET idMedicalCare = ? WHERE CareLogsMedicalCares.idCareLog = ${idcarelog}`
 
   let queryUpdatePerson = `UPDATE CareLogs SET idPerson = ?, weight = ?, foodType = ?, remark = ? WHERE CareLogs.idCareLog = ?`;
   let selectPerson = `SELECT * FROM Persons WHERE idPerson = ?`
 
-  let medicalcareids = db.pool.query(selectMedicalID)
+  //  let medicalcareids = db.pool.query(selectMedicalID)
 
 
   // Run the 1st query
@@ -625,14 +625,56 @@ app.put('/put-carelog-ajax', function (req, res, next) {
     // table on the front-end
     else {
       // Run the second query
-      db.pool.query(selectPerson, [person], function (error, rows, fields) {
+      db.pool.query(previousMedicalCaresQuery, [idcarelog], function (erorr, rows, fields) {
 
-        if (error) {
-          console.log(error);
-          res.sendStatus(400);
-        } else {
-          res.send(rows);
+        let medicalCaresToAdd = [];
+        let medicalCaresToDelete = [];
+        let oldMedicalCares = rows.map(RowDataPacket => RowDataPacket.idMedicalCare);
+        let newMedicalCaresStrings = medicalcares;
+        let newMedicalCares = [];
+
+        newMedicalCaresStrings.forEach(ele => newMedicalCares.push(+ele));
+
+        function compareMedicalCares(oldMedicalCares, newMedicalCares) {
+          // Array to store medical cares to delete
+          let medicalCaresToDelete = oldMedicalCares.filter(oldCare => !newMedicalCares.includes(oldCare));
+
+          // Array to store medical cares to add
+          let medicalCaresToAdd = newMedicalCares.filter(newCare => !oldMedicalCares.includes(newCare));
+
+          return {
+            medicalCaresToDelete,
+            medicalCaresToAdd
+          };
         }
+
+        let result = compareMedicalCares(oldMedicalCares, newMedicalCares);
+        medicalCaresToDelete = result.medicalCaresToDelete.map(number => number.toString());
+        medicalCaresToAdd = result.medicalCaresToAdd.map(number => number.toString());
+
+        let addMedicalCaresQuery = `INSERT INTO CareLogsMedicalCares (idCareLog, idMedicalCare)
+        VALUES ${medicalCaresToAdd.map(function (medicalCare) {
+          return "(" + idcarelog + "," + medicalCare + ")";
+        })};`;
+
+        let deleteMedicalCaresQuery = `DELETE FROM CareLogsMedicalCares 
+        WHERE idCareLog = ${idcarelog} 
+          AND idMedicalCare IN (${medicalCaresToDelete.join(',')});`;
+
+        db.pool.query(deleteMedicalCaresQuery, function (erorr, rows, fields) {
+          db.pool.query(addMedicalCaresQuery, function (error, rows, fields) {
+            db.pool.query(selectPerson, [person], function (error, rows, fields) {
+
+              if (error) {
+                console.log(error);
+                res.sendStatus(400);
+              } else {
+                res.send(rows);
+              }
+            })
+          })
+        }
+        )
       })
     }
   })
@@ -646,15 +688,15 @@ app.put('/put-bat-ajax', function (req, res, next) {
   let releasesite = parseInt(bat.releasesite);
   let status = bat.status;
   let remark = bat.remark;
-  
+
   // capture empty string values
   enddate = enddate.trim() === "" ? null : enddate;
   remark = remark.trim() === "" ? null : remark;
 
-// capture empty int values
-if (isNaN(releasesite)) {
-  releasesite = null;
-}
+  // capture empty int values
+  if (isNaN(releasesite)) {
+    releasesite = null;
+  }
 
   let updateBat = `UPDATE Bats SET endDate = ?, releaseSite = ?, idStatus = ?, remark = ? WHERE Bats.idBat = ?`;
   let selectStatus = `SELECT * FROM Status WHERE idStatus = ?`
