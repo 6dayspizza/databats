@@ -57,6 +57,7 @@ app.get("/carelogs", function (req, res) {
             bats: bats,
             persons: persons,
             medicalcares: medicalcares,
+            
           });
         });
       });
@@ -535,10 +536,19 @@ app.put('/put-carelog-ajax', function (req, res, next) {
   let idcarelog = parseInt(data.idcarelog);
   let weight = parseFloat(data.weight);
   let foodtype = data.foodtype;
+  let medical = data.medical;
   let remark = data.remark;
+
+  console.log(medical)
+
+  let selectMedicalID = `SELECT idMedicalCare from MedicalCares WHERE treatment = ${medical}`
+  let queryCareLogsMedicalCare = `UPDATE CareLogsMedicalCares SET idMedicalCare = ? WHERE CareLogsMedicalCares.idCareLog = ${idcarelog}`
 
   let queryUpdatePerson = `UPDATE CareLogs SET idPerson = ?, weight = ?, foodType = ?, remark = ? WHERE CareLogs.idCareLog = ?`;
   let selectPerson = `SELECT * FROM Persons WHERE idPerson = ?`
+
+  let medicalcareids = db.pool.query(selectMedicalID)
+
 
   // Run the 1st query
   db.pool.query(queryUpdatePerson, [person, weight, foodtype, remark, idcarelog], function (error, rows, fields) {

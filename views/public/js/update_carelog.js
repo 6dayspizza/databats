@@ -12,12 +12,14 @@ updateCareLogForm.addEventListener("submit", function (e) {
     let inputPerson = document.getElementById("input_person_update");
     let inputWeight = document.getElementById("input_weight_update");
     let inputFoodType= document.getElementById("input_food_update");  
+    let inputmedicalcares = document.getElementById("input_medical_care_update")
     let inputRemark= document.getElementById("input_remark_update");   
 
     // Get the values from the form fields
     let idCareLogValue = inputIDCareLog.value;
     let personValue = inputPerson.value;
     let weightValue = inputWeight.value;
+    let medicalcareValue = inputmedicalcares.value;
     let remarkValue = inputRemark.value;
     let foodTypeValue = inputFoodType.value;
 
@@ -34,6 +36,7 @@ updateCareLogForm.addEventListener("submit", function (e) {
         idcarelog: idCareLogValue,
         person: personValue,
         weight: weightValue,
+        medical: medicalcareValue,
         remark: remarkValue,
         foodtype: foodTypeValue,
     }
