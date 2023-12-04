@@ -1,47 +1,43 @@
-    
-   // Citation for the following function: 
-    //Date: 10/12/2023
-    //Copied from /OR/ Adapted from /OR/ Based on: code from Dr. Curry
-    //Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+// Citation for the following function:
+// Date: 10/12/2023
+// Partially based on: code from Dr. Curry
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
-
-
-// Get the objects we need to modify
+// GETS OBJECTS TO MODIFY
 let addStatusForm = document.getElementById('add_status_form_ajax');
 
-// Modify the objects we need
+// MODIFIES THIS OBJECT
 addStatusForm.addEventListener("submit", function (e) {
-    // Prevent the form from sumbitting a default http request
-    // DO NOT REMOVE THIS LINE
+  // PREVENTS DEFAULT BEHAVIOUR ASSOCIATED WITH EVENT
+  // DO NOT REMOVE THIS LINE
     e.preventDefault();
 
-    // Get form fields we need to get data from
+  // ASSIGNS FIELDS FROM FORM WE JUST RECEIVED
     let inputName = document.getElementById("input_name");
 
-    // Get the values from the form fields
+  // EXTRACTS VALUES FROM ASSIGNED FIELDS
     let nameValue = inputName.value;
 
-
-    // Put our data we want to send in a javascript object
+  // PLACES THOSE VALUES IN JS OBJECT
     let data = {
         name: nameValue,
     }
     
-    // Setup our AJAX request
+  // SETS UP AJAX REQUEST
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-status-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Tell our AJAX request how to resolve
+  // DEFINES BEHAVIOUR FOR AJAX
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            // Add the new data to the table
+      // ADDS INSERTED DATA TO EXISTING TABLE
             addRowToTable(xhttp.response);
 
-            // Clear the input fields for another transaction
+      // CLEARS FORM FIELDS FOR NEW DATA
             inputName.value = '';
-
+            
             browseRecords()
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -49,35 +45,37 @@ addStatusForm.addEventListener("submit", function (e) {
         }
     }
 
-    // Send the request and wait for the response
+  // SENDS REQUEST
     xhttp.send(JSON.stringify(data));
 
 })
 
-
-// Creates a single row from an Object representing a single record from 
-// bsg_people
+// CREATES A NEW ROW
 addRowToTable = (data) => {
 
-    // debugger;
-
-    // Get a reference to the current table on the page and clear it out.
+  // GETS CURRENT TABLE
     let currentTable = document.getElementById("status_table");
 
-    // Get the location where we should insert the new row (end of table)
+  // GETS LOCATION OF NEW ROW OF CURRENT TABLE
     let newRowIndex = currentTable.rows.length;
 
-    // Get a reference to the new row from the database query (last object)
+  // GETS CURRENT OBJECT
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
 
-    // Create a row and 4 cells
+  // CREATES NEW ROW WITH ALL CELLS
     let row = document.createElement("TR");
     let firstCell = document.createElement("TD");
     let idCell = document.createElement("TD");
     let nameCell = document.createElement("TD");
     let deleteCell = document.createElement("TD");
 
+  // FILLS THOSE CELLS
+    idCell.innerText = newRow.idStatus;
+    idCell.classList=["id"]
+    nameCell.innerText = newRow.name;
+
+          // MODIFIES DELETE BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
     let deleteButton = document.createElement("button");
     deleteButton.classList=["modify accent"];
     deleteButton.innerHTML = "delete";
@@ -85,24 +83,17 @@ addRowToTable = (data) => {
         deleteStatus(newRow.idStatus);
     })
     deleteCell.appendChild(deleteButton);
-    // Fill the cells with correct data
-    idCell.innerText = newRow.idStatus;
-    idCell.classList=["id"]
-    nameCell.innerText = newRow.name;
 
-
-
-    // Add the cells to the row
+  // ADDS CELLS TO NEW ROW
     row.appendChild(firstCell);
     row.appendChild(idCell);
     row.appendChild(nameCell);
     row.appendChild(deleteCell);
 
-
-    // Add a row attribute so the deleteRow function can find a newly added row
+  // ADDS A ROW ATTRIBUTE FOR deleteRow FUNCTION
+  // DOUBLE CHECK IF THIS IS ACTUALLY IN USE
     row.setAttribute('data-value', newRow.id);
 
-    
-    // Add the row to the table
+  // APPENDS NEW ROW TO TABLE
     currentTable.appendChild(row);
-}
+};
