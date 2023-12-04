@@ -46,7 +46,7 @@ addBatForm.addEventListener("submit", function (e) {
   xhttp.open("POST", "/add-bat-ajax", true);
   xhttp.setRequestHeader("Content-type", "application/json");
 
-  // DEFINES BEHAVIOR FOR AJAX
+  // DEFINES BEHAVIOUR FOR AJAX
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       // ADDS INSERTED DATA TO EXISTING TABLE
