@@ -1,7 +1,7 @@
 // Citation for the following function:
-//Date: 10/12/2023
-//Partially based on: code from Dr. Curry
-//Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+// Date: 10/12/2023
+// Partially based on: code from Dr. Curry
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
 // GETS OBJECTS TO MODIFY
 let addBatForm = document.getElementById("add_bat_form_ajax");
