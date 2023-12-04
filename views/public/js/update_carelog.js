@@ -4,91 +4,94 @@
 // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
 // GETS OBJECTS TO MODIFY
-let updateCareLogForm = document.getElementById('update-carelog-form-ajax');
+let updateCareLogForm = document.getElementById("update-carelog-form-ajax");
 
 // MODIFIES THIS OBJECT
 updateCareLogForm.addEventListener("submit", function (e) {
-
-    // PREVENTS DEFAULT BEHAVIOUR ASSOCIATED WITH EVENT
+  // PREVENTS DEFAULT BEHAVIOUR ASSOCIATED WITH EVENT
   // DO NOT REMOVE THIS LINE
-    e.preventDefault();
+  e.preventDefault();
 
-    // ASSIGNS FIELDS FROM FORM WE JUST RECEIVED
-    let inputIDCareLog = document.getElementById("idToUpdate");
-    let inputPerson = document.getElementById("input_person_update");
-    let inputWeight = document.getElementById("input_weight_update");
-    let inputFoodType= document.getElementById("input_food_update");  
-    let inputsMedicalCare = Array.from(document.getElementsByClassName("input_medical_care"));
-    let inputRemark= document.getElementById("input_remark_update");   
+  // ASSIGNS FIELDS FROM FORM WE JUST RECEIVED
+  let inputIDCareLog = document.getElementById("idToUpdate");
+  let inputPerson = document.getElementById("input_person_update");
+  let inputWeight = document.getElementById("input_weight_update");
+  let inputFoodType = document.getElementById("input_food_update");
+  let inputsMedicalCare = Array.from(
+    document.getElementsByClassName("input_medical_care"),
+  );
+  let inputRemark = document.getElementById("input_remark_update");
 
-    // EXTRACTS VALUES FROM ASSIGNED FIELDS
-    let idCareLogValue = inputIDCareLog.value;
-    let personValue = inputPerson.value;
-    let weightValue = inputWeight.value;
-    let medicalCareValues = inputsMedicalCare.filter(function(input){return input.checked === true}).map(function(input){return input.value});
-    let remarkValue = inputRemark.value;
-    let foodTypeValue = inputFoodType.value;
+  // EXTRACTS VALUES FROM ASSIGNED FIELDS
+  let idCareLogValue = inputIDCareLog.value;
+  let personValue = inputPerson.value;
+  let weightValue = inputWeight.value;
+  let medicalCareValues = inputsMedicalCare
+    .filter(function (input) {
+      return input.checked === true;
+    })
+    .map(function (input) {
+      return input.value;
+    });
+  let remarkValue = inputRemark.value;
+  let foodTypeValue = inputFoodType.value;
 
-    // HANDLES CASE WHERE PERSON IS NOT AN INTEGER/EMPTY WHICH IS NOT ALLOWED FOR NEW ENTRIES
-    if (isNaN(personValue)) {
-        return;
-    };
+  // HANDLES CASE WHERE PERSON IS NOT AN INTEGER/EMPTY WHICH IS NOT ALLOWED FOR NEW ENTRIES
+  if (isNaN(personValue)) {
+    return;
+  }
 
-    // PLACES THOSE VALUES IN JS OBJECT
-    let data = {
-        idcarelog: idCareLogValue,
-        person: personValue,
-        weight: weightValue,
-        medicalcares: medicalCareValues,
-        remark: remarkValue,
-        foodtype: foodTypeValue,
-    }
+  // PLACES THOSE VALUES IN JS OBJECT
+  let data = {
+    idcarelog: idCareLogValue,
+    person: personValue,
+    weight: weightValue,
+    medicalcares: medicalCareValues,
+    remark: remarkValue,
+    foodtype: foodTypeValue,
+  };
 
   // SETS UP AJAX REQUEST
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/put-carelog-ajax", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("PUT", "/put-carelog-ajax", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
 
   // DEFINES BEHAVIOUR FOR AJAX
-    xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
+  xhttp.onreadystatechange = () => {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      // ADDS DATA TO TABLE
+      updateRow(xhttp.response, idCareLogValue);
 
-            // ADDS DATA TO TABLE
-            updateRow(xhttp.response, idCareLogValue);
-
-             // RETURNS TO PAGE
-            window.location.href = '/carelogs';
-
-        }
-        else if (xhttp.readyState == 4 && xhttp.status != 200) {
-            console.log("There was an error with the input.")
-        }
+      // RETURNS TO PAGE
+      window.location.href = "/carelogs";
+    } else if (xhttp.readyState == 4 && xhttp.status != 200) {
+      console.log("There was an error with the input.");
     }
+  };
 
-    // SENDS REQUEST
-    xhttp.send(JSON.stringify(data));
+  // SENDS REQUEST
+  xhttp.send(JSON.stringify(data));
 });
 
 // UPDATE METHOD
 function updateRow(data, idCareLog) {
-    // GETS CURRENT OBJECT
-    let parsedData = JSON.parse(data);
+  // GETS CURRENT OBJECT
+  let parsedData = JSON.parse(data);
 
-    // GETS CURRENT TABLE
-    let table = document.getElementById("carelogs_table");
+  // GETS CURRENT TABLE
+  let table = document.getElementById("carelogs_table");
 
-    for (let i = 0, row; row = table.rows[i]; i++) {
-        // ITERATES THROUGH ROWS
-        if (table.rows[i].getAttribute("data-value") == idCareLog) {
+  for (let i = 0, row; (row = table.rows[i]); i++) {
+    // ITERATES THROUGH ROWS
+    if (table.rows[i].getAttribute("data-value") == idCareLog) {
+      // GETS LOCATION OF ROW WITH MATCHING ID
+      let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-            // GETS LOCATION OF ROW WITH MATCHING ID
-            let updateRowIndex = table.getElementsByTagName("tr")[i];
+      // GETS TD VALUE
+      let td = updateRowIndex.getElementsByTagName("td")[3];
 
-            // GETS TD VALUE
-            let td = updateRowIndex.getElementsByTagName("td")[3];
-
-            // REASSIGNS VALUE
-            td.innerHTML = parsedData[0].name;
-        }
+      // REASSIGNS VALUE
+      td.innerHTML = parsedData[0].name;
     }
-};
+  }
+}

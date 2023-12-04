@@ -113,7 +113,8 @@ aside {
   border-radius: 25px;
 }
 
-.main_nav a:hover, a.active {
+.main_nav a:hover,
+a.active {
   background-color: var(--almost-black);
   color: var(--dusty-purple);
 }
@@ -281,13 +282,13 @@ fieldset {
   border-bottom: 0px;
   border-left: 0px;
   border-right: 0px;
-  margin-top: ;
-  padding: ;
+  margin-top:;
+  padding:;
 }
 legend {
-  color: ;
+  color:;
   padding-bottom: 10px;
-  font-size: ;
+  font-size:;
 }
 label {
   display: block;
@@ -335,7 +336,6 @@ textarea {
   padding-top: 13px;
 }
 button {
-
 }
 input {
 }
@@ -616,4 +616,3 @@ object {
 /*   ===== PRINT  media query overrides previous styles =====  */
 @media print {
 }
-

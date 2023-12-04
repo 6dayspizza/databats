@@ -49,7 +49,6 @@ addMedicalCareForm.addEventListener("submit", function (e) {
 
 // CREATES A NEW ROW
 addRowToTable = (data) => {
-  
   // GETS CURRENT TABLE
   let currentTable = document.getElementById("medicalcares_table");
 
@@ -70,12 +69,12 @@ addRowToTable = (data) => {
   idCell.innerText = newRow.idMedicalCare;
   treatmentCell.innerText = newRow.treatment;
 
-      // MODIFIES EDIT BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
+  // MODIFIES EDIT BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
   row.appendChild(firstCell);
   row.appendChild(idCell);
   row.appendChild(treatmentCell);
 
-      // MODIFIES DELETE BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
+  // MODIFIES DELETE BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
   row.setAttribute("data-value", newRow.id);
 
   // ADDS CELLS TO NEW ROW

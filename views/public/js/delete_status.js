@@ -5,39 +5,38 @@
 
 // DELETE METHOD
 function deleteStatus(idStatus) {
+  // ASK USER FOR CONFIRMATION
+  var userConfirmed = window.confirm(
+    "are you sure you want to delete this status?",
+  );
 
-   // ASK USER FOR CONFIRMATION
-    var userConfirmed = window.confirm("are you sure you want to delete this status?");
+  if (!userConfirmed) {
+    return; // DO NOTHING IF CANCELLED
+  }
 
-    if (!userConfirmed) {
-        return; // DO NOTHING IF CANCELLED
-    }
+  // PLACES DATA IN JS OBJECT
+  let status = {
+    id: idStatus,
+  };
 
-    // PLACES DATA IN JS OBJECT
-    let status = {
-        id: idStatus
-    };
+  // SETS UP AJAX REQUEST
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("DELETE", "/delete-status-ajax", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
 
-    // SETS UP AJAX REQUEST
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("DELETE", "/delete-status-ajax", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-
-    // DEFINES BEHAVIOUR FOR AJAX
-    xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 4 && xhttp.status == 204) {
-
+  // DEFINES BEHAVIOUR FOR AJAX
+  xhttp.onreadystatechange = () => {
+    if (xhttp.readyState == 4 && xhttp.status == 204) {
       // RETURN TO PAGE
-            window.location.href='/status';
-        } 
-        else if (xhttp.status == 400) {
-            // RESOLVE CONFLICTS IF IN USE
-            alert("sorry, but this status is in use in another table.");
-        } else {
-            // OTHER ERRORS
-            console.log("There was an error with the input.");
-        }
+      window.location.href = "/status";
+    } else if (xhttp.status == 400) {
+      // RESOLVE CONFLICTS IF IN USE
+      alert("sorry, but this status is in use in another table.");
+    } else {
+      // OTHER ERRORS
+      console.log("There was an error with the input.");
     }
-    // SENDS REQUEST
-    xhttp.send(JSON.stringify(status));
-};
+  };
+  // SENDS REQUEST
+  xhttp.send(JSON.stringify(status));
+}

@@ -101,7 +101,7 @@ addRowToTable = (data) => {
 
   // FILLS THOSE CELLS
   idCell.innerText = newRow.idBat;
-  idCell.classList=["id"]
+  idCell.classList = ["id"];
   personCell.innerText = newRow.person;
   speciesCell.innerText = newRow.species;
   sexCell.innerText = newRow.sex;
@@ -114,21 +114,27 @@ addRowToTable = (data) => {
 
   // MODIFIES EDIT BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
   let editButton = document.createElement("button");
-    editButton.classList=["modify"];
-    editButton.innerHTML = "edit";
-    editButton.addEventListener("click", function(event){
-        editRecord(newRow.idBat, newRow.endDate, newRow.releaseSite, newRow.status, newRow.remark);
-    })
-    editCell.appendChild(editButton);
+  editButton.classList = ["modify"];
+  editButton.innerHTML = "edit";
+  editButton.addEventListener("click", function (event) {
+    editRecord(
+      newRow.idBat,
+      newRow.endDate,
+      newRow.releaseSite,
+      newRow.status,
+      newRow.remark,
+    );
+  });
+  editCell.appendChild(editButton);
 
   // MODIFIES DELETE BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
-    let deleteButton = document.createElement("button");
-    deleteButton.classList=["modify cancel"];
-    deleteButton.innerHTML = "delete";
-    deleteButton.addEventListener("click", function(event){
-        deleteBat(newRow.idBat);
-    })
-    deleteCell.appendChild(deleteButton);
+  let deleteButton = document.createElement("button");
+  deleteButton.classList = ["modify cancel"];
+  deleteButton.innerHTML = "delete";
+  deleteButton.addEventListener("click", function (event) {
+    deleteBat(newRow.idBat);
+  });
+  deleteCell.appendChild(deleteButton);
 
   // ADDS CELLS TO NEW ROW
   row.appendChild(firstCell);

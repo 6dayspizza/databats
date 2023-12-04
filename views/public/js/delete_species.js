@@ -5,39 +5,38 @@
 
 // DELETE METHOD
 function deleteSpecies(idSpecies) {
+  // ASK USER FOR CONFIRMATION
+  var userConfirmed = window.confirm(
+    "are you sure you want to delete this species?",
+  );
 
-   // ASK USER FOR CONFIRMATION
-    var userConfirmed = window.confirm("are you sure you want to delete this species?");
+  if (!userConfirmed) {
+    return; // DO NOTHING IF CANCELLED
+  }
 
-    if (!userConfirmed) {
-        return; // DO NOTHING IF CANCELLED
+  // PLACES DATA IN JS OBJECT
+  let species = {
+    id: idSpecies,
+  };
+
+  // SETS UP AJAX REQUEST
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("DELETE", "/delete-species-ajax", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+
+  // DEFINES BEHAVIOUR FOR AJAX
+  xhttp.onreadystatechange = () => {
+    if (xhttp.readyState == 4 && xhttp.status == 204) {
+      // RETURN TO PAGE
+      window.location.href = "/species";
+    } else if (xhttp.status == 400) {
+      // RESOLVE CONFLICTS IF IN USE
+      alert("sorry, but this species is in use in another table.");
+    } else {
+      // OTHER ERRORS
+      console.log("There was an error with the input.");
     }
-
-    // PLACES DATA IN JS OBJECT
-    let species = {
-        id: idSpecies
-    };
-
-    // SETS UP AJAX REQUEST
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("DELETE", "/delete-species-ajax", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-
-    // DEFINES BEHAVIOUR FOR AJAX
-    xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 4 && xhttp.status == 204) {
-
-           // RETURN TO PAGE
-            window.location.href='/species';
-        }
-        else if (xhttp.status == 400) {
-            // RESOLVE CONFLICTS IF IN USE
-            alert("sorry, but this species is in use in another table.");
-        } else {
-            // OTHER ERRORS
-            console.log("There was an error with the input.");
-        }
-    }
-    // SENDS REQUEST
-    xhttp.send(JSON.stringify(species));
-};
+  };
+  // SENDS REQUEST
+  xhttp.send(JSON.stringify(species));
+}

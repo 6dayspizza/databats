@@ -5,35 +5,34 @@
 
 // DELETE METHOD
 function deletePerson(idPerson) {
+  // ASK USER FOR CONFIRMATION
+  var userConfirmed = window.confirm(
+    "are you sure you want to delete this person?",
+  );
 
-   // ASK USER FOR CONFIRMATION
-    var userConfirmed = window.confirm("are you sure you want to delete this person?");
+  if (!userConfirmed) {
+    return; // DO NOTHING IF CANCELLED
+  }
 
-    if (!userConfirmed) {
-        return; // DO NOTHING IF CANCELLED
+  // PLACES DATA IN JS OBJECT
+  let person = {
+    id: idPerson,
+  };
+
+  // SETS UP AJAX REQUEST
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("DELETE", "/delete-person-ajax", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+
+  // DEFINES BEHAVIOUR FOR AJAX
+  xhttp.onreadystatechange = () => {
+    if (xhttp.readyState == 4 && xhttp.status == 204) {
+      // RETURN TO PAGE
+      window.location.href = "/persons";
+    } else if (xhttp.readyState == 4 && xhttp.status != 204) {
+      console.log("There was an error with the input.");
     }
-
-    // PLACES DATA IN JS OBJECT
-    let person = {
-        id: idPerson
-    };
-
-    // SETS UP AJAX REQUEST
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("DELETE", "/delete-person-ajax", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-
-    // DEFINES BEHAVIOUR FOR AJAX
-    xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 4 && xhttp.status == 204) {
-
-           // RETURN TO PAGE
-            window.location.href='/persons';
-        }
-        else if (xhttp.readyState == 4 && xhttp.status != 204) {
-            console.log("There was an error with the input.")
-        }
-    }
-    // SENDS REQUEST
-    xhttp.send(JSON.stringify(person));
-};
+  };
+  // SENDS REQUEST
+  xhttp.send(JSON.stringify(person));
+}
