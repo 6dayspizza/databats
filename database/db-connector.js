@@ -16,18 +16,6 @@ var pool = mysql.createPool({
 // Export it for use in our applicaiton
 module.exports.pool = pool; 
 
-// // adding so i can connect 
-// // Create a 'connection pool' using the provided credentials
-// var pool = mysql.createPool({
-//     connectionLimit : 10,
-//     host            : 'classmysql.engr.oregonstate.edu',
-//     user            : 'cs340_dixonbre',
-//     password        : 'u8C7WrbExlMY',
-//     database        : 'cs340_dixonbre'
-// })
-
-// // Export it for use in our applicaiton
-// module.exports.pool = pool; 
 /*
 // this is for local use because I have a really
 // hard time connecting to the OSU servers
