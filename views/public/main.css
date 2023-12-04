@@ -472,6 +472,20 @@ input:enabled {
   width: 120px;
 }
 
+.image {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.image img {
+  width: 40%;
+  height: auto; /* Maintain the aspect ratio */
+}
+
 output {
 }
 meter {

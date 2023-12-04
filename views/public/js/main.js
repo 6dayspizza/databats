@@ -69,3 +69,7 @@ function editBat(idBat, endDate, releaseSite, status, remark) {
 
   showform('edit');
 };
+
+function enterDatabase() {
+  window.location.href = "/bats";
+}
