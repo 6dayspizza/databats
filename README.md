@@ -39,5 +39,8 @@ Status: /status
 Medical Cares: /medicalcares  
 Care Logs//Medical Cares [INTERSECTION TABLE, NOT VISIBLE IN MENU]: /carelogsmedicalcares
 
+### ER DIAGRAM
+![erdiagram](https://github.com/6dayspizza/databats/assets/55084543/16838165-3996-4a4f-a17c-40563c683bc8)
+
 ### CONTRIBUTORS
 Brett Dixon / Ruth Kistler
