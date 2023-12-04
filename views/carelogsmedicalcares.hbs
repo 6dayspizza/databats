@@ -1,14 +1,19 @@
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         {{> header}}
 
+<!--     
+    Citation for the following function: 
+    Date: 10/12/2023
+    Partially based on: code from Dr. Curry
+    Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+-->
 
 <main>
+    {{!-- DISPLAY TABLE WITH ALL DATA --}}
     <div id="browse">
     <table id="carelogsmedicalcares_table">
-        
-        {{!-- Header section --}}
         <thead>
+        {{!-- DISPLAY COLUMN TITLES --}}
             <tr>
                 <th width=4%></th>
                 <td width=4%>id</th>
@@ -16,9 +21,8 @@
                 <th>idMedicalCare</th>
             </tr>
         </thead>
-
-            {{!-- Body section --}}
         <tbody>
+             {{!-- DISPLAY ROWS --}}
             {{#each carelogsmedicalcares}}
             <tr>
                 <td></td>
@@ -29,5 +33,5 @@
             {{/each}}
         </tbody>
     </table>
-    </main>
 </div>
+</main>
