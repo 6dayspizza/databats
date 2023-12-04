@@ -1,5 +1,5 @@
-# databats
-OSU CS340 group project
+# databats  
+OSU CS340 group project  
 Fall term 2023
 
 ### DESCRIPTION
