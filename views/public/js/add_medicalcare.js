@@ -1,40 +1,40 @@
 // Citation for the following function:
 //Date: 10/12/2023
-//Copied from /OR/ Adapted from /OR/ Based on: code from Dr. Curry
+//Partially based on: code from Dr. Curry
 //Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
-// Get the objects we need to modify
+// GETS OBJECTS TO MODIFY
 let addMedicalCareForm = document.getElementById("add_medicalcare_form_ajax");
 
-// Modify the objects we need
+// MODIFIES THIS OBJECT
 addMedicalCareForm.addEventListener("submit", function (e) {
-  // Prevent the form from sumbitting a default http request
+  // PREVENTS DEFAULT BEHAVIOUR ASSOCIATED WITH EVENT
   // DO NOT REMOVE THIS LINE
   e.preventDefault();
 
-  // Get form fields we need to get data from
+  // ASSIGNS FIELDS FROM FORM WE JUST RECEIVED
   let inputTreatment = document.getElementById("input_treatment");
 
-  // Get the values from the form fields
+  // EXTRACTS VALUES FROM ASSIGNED FIELDS
   let treatmentValue = inputTreatment.value;
 
-  // Put our data we want to send in a javascript object
+  // PLACES THOSE VALUES IN JS OBJECT
   let data = {
     treatment: treatmentValue,
   };
 
-  // Setup our AJAX request
+  // SETS UP AJAX REQUEST
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST", "/add-medicalcare-ajax", true);
   xhttp.setRequestHeader("Content-type", "application/json");
 
-  // Tell our AJAX request how to resolve
+  // DEFINES BEHAVIOUR FOR AJAX
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
-      // Add the new data to the table
+      // ADDS INSERTED DATA TO EXISTING TABLE
       addRowToTable(xhttp.response);
 
-      // Clear the input fields for another transaction
+      // CLEARS FORM FIELDS FOR NEW DATA
       inputTreatment.value = "";
 
       browseRecords();
@@ -43,43 +43,41 @@ addMedicalCareForm.addEventListener("submit", function (e) {
     }
   };
 
-  // Send the request and wait for the response
+  // SENDS REQUEST
   xhttp.send(JSON.stringify(data));
 });
 
-// Creates a single row from an Object representing a single record from
-// bsg_people
+// CREATES A NEW ROW
 addRowToTable = (data) => {
-  // debugger;
-
-  // Get a reference to the current table on the page and clear it out.
+  
+  // GETS CURRENT TABLE
   let currentTable = document.getElementById("medicalcares_table");
 
-  // Get the location where we should insert the new row (end of table)
+  // GETS LOCATION OF NEW ROW OF CURRENT TABLE
   let newRowIndex = currentTable.rows.length;
 
-  // Get a reference to the new row from the database query (last object)
+  // GETS CURRENT OBJECT
   let parsedData = JSON.parse(data);
   let newRow = parsedData[parsedData.length - 1];
 
-  // Create a row and 4 cells
+  // CREATES NEW ROW WITH ALL CELLS
   let row = document.createElement("TR");
   let firstCell = document.createElement("TD");
   let idCell = document.createElement("TD");
   let treatmentCell = document.createElement("TD");
 
-  // Fill the cells with correct data
+  // FILLS THOSE CELLS
   idCell.innerText = newRow.idMedicalCare;
   treatmentCell.innerText = newRow.treatment;
 
-  // Add the cells to the row
+      // MODIFIES EDIT BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
   row.appendChild(firstCell);
   row.appendChild(idCell);
   row.appendChild(treatmentCell);
 
-  // Add a row attribute so the deleteRow function can find a newly added row
+      // MODIFIES DELETE BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
   row.setAttribute("data-value", newRow.id);
 
-  // Add the row to the table
+  // ADDS CELLS TO NEW ROW
   currentTable.appendChild(row);
 };
