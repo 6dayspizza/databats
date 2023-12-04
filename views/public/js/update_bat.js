@@ -45,7 +45,7 @@ updateBatForm.addEventListener("submit", function (e) {
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-           // RETURN TO PAGE
+           // RETURNS TO PAGE
             window.location.href = '/bats';
 
         }
@@ -71,13 +71,13 @@ function updateRow(bat, idBat) {
         // ITERATES THROUGH ROWS
         if (table.rows[i].getAttribute("data-value") == idBat) {
 
-            // GET LOCATION OF ROW WITH MATCHING ID
+            // GETS LOCATION OF ROW WITH MATCHING ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-            // GET TD VALUE
+            // GETS TD VALUE
             let td = updateRowIndex.getElementsByTagName("td")[3];
 
-            // REASSIGN VALUE
+            // REASSIGNS VALUE
             td.innerHTML = parsedData[0].name;
         }
     }
