@@ -543,7 +543,7 @@ app.delete("/delete-person-ajax/", function (req, res, next) {
         console.log(error);
         res.sendStatus(400);
       } else {
-        let selectPersonQuery = `SELECT * from persons`;
+        let selectPersonQuery = `SELECT * from Persons`;
         db.pool.query(selectPersonQuery, function (error, rows, fields) {
           // CHECK FOR ERRORS
           if (error) {
