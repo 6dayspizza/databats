@@ -8,7 +8,7 @@ let addBatForm = document.getElementById("add_bat_form_ajax");
 
 // MODIFIES THIS OBJECT
 addBatForm.addEventListener("submit", function (e) {
-  // PERVENTS DEFAULT BEHAVIOR ASSOCIATED WITH EVENT
+  // PREVENTS DEFAULT BEHAVIOUR ASSOCIATED WITH EVENT
   // DO NOT REMOVE THIS LINE
   e.preventDefault();
 
