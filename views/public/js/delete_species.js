@@ -1,43 +1,43 @@
-   // Citation for the following function: 
-    //Date: 10/12/2023
-    //Copied from /OR/ Adapted from /OR/ Based on: code from Dr. Curry
-    //Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+// Citation for the following function:
+// Date: 10/12/2023
+// Partially based on: code from Dr. Curry
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
-// Delete methods
+// DELETE METHOD
 function deleteSpecies(idSpecies) {
 
+   // ASK USER FOR CONFIRMATION
     var userConfirmed = window.confirm("are you sure you want to delete this species?");
 
     if (!userConfirmed) {
-        return; // Do nothing if the user cancels the deletion
+        return; // DO NOTHING IF CANCELLED
     }
 
-    // Put our data we want to send in a javascript object
+    // PLACES DATA IN JS OBJECT
     let species = {
         id: idSpecies
     };
 
-    // Setup our AJAX request
+    // SETS UP AJAX REQUEST
     var xhttp = new XMLHttpRequest();
     xhttp.open("DELETE", "/delete-species-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Tell our AJAX request how to resolve
+    // DEFINES BEHAVIOUR FOR AJAX
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
 
-            // deleteRow(idBat);
-
+           // RETURN TO PAGE
             window.location.href='/species';
         }
         else if (xhttp.status == 400) {
-            // Conflict status (foreign key constraint violation)
+            // RESOLVE CONFLICTS IF IN USE
             alert("sorry, but this species is in use in another table.");
         } else {
-            // Other error status
+            // OTHER ERRORS
             console.log("There was an error with the input.");
         }
     }
-    // Send the request and wait for the response
+    // SENDS REQUEST
     xhttp.send(JSON.stringify(species));
-}
+};
