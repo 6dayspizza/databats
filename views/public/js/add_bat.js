@@ -123,7 +123,7 @@ addRowToTable = (data) => {
 
   // MODIFIES DELETE BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
     let deleteButton = document.createElement("button");
-    deleteButton.classList=["modify accent"];
+    deleteButton.classList=["modify cancel"];
     deleteButton.innerHTML = "delete";
     deleteButton.addEventListener("click", function(event){
         deleteBat(newRow.idBat);

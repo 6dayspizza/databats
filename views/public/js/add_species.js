@@ -71,7 +71,7 @@ addRowToTable = (data) => {
     let deleteCell = document.createElement("TD");
 
     let deleteButton = document.createElement("button");
-    deleteButton.classList=["modify accent"];
+    deleteButton.classList=["modify cancel"];
     deleteButton.innerHTML = "delete";
     deleteButton.addEventListener("click", function(event){
         deleteSpecies(newRow.idSpecies);

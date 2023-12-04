@@ -448,7 +448,7 @@ input:enabled {
   background-color: var(--nice-green);
   color: var(--almost-black);
 }
-.accent {
+.cancel {
   background-color: var(--kinda-berry);
 }
 

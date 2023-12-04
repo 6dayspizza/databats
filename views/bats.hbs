@@ -50,7 +50,7 @@
           <td><button class="modify"
               onClick="editBat('{{this.idBat}}', '{{this.endDate}}','{{this.releaseSite}}', '{{this.status}}', '{{this.remark}}')">edit</button>
           </td>
-          <td><button class="modify accent" onclick="deleteBat({{this.idBat}})">delete</button></td>
+          <td><button class="modify cancel" onclick="deleteBat({{this.idBat}})">delete</button></td>
         </tr>
         {{/each}}
       </tbody>
@@ -116,7 +116,7 @@
       <div class="space"></div>
       <div class="actions">
         <button class="modify confirm" type="submit" id="addBat">confirm</button>
-        <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
+        <button class="modify cancel" type="button" onClick="browseRecords()">cancel</button>
       </div>
     </form>
   </div>
@@ -161,7 +161,7 @@
       <div class="space"></div>
       <div class="actions">
         <button type="submit" class="modify confirm">confirm</button>
-        <button class="modify accent" type="button" onClick="browseRecords()">cancel</button>
+        <button class="modify cancel" type="button" onClick="browseRecords()">cancel</button>
       </div>
     </form>
   </div>
