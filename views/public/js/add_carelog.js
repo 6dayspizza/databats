@@ -43,7 +43,7 @@ addCareLogForm.addEventListener("submit", function (e) {
     xhttp.open("POST", "/add-carelog-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-  // DEFINES BEHAVIOR FOR AJAX
+  // DEFINES BEHAVIOUR FOR AJAX
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
