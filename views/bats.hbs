@@ -1,22 +1,19 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {{> header}}
 
-<!-- index.hbs -->
-
 <!--     
     Citation for the following function: 
     Date: 10/12/2023
-    Copied from /OR/ Adapted from /OR/ Based on: code from Dr. Curry
+    Partially based on: code from Dr. Curry
     Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
 -->
 
 <main>
+{{!-- DISPLAY TABLE WITH ALL DATA --}}
   <div id="browse">
     <table id="bats_table">
-      {{!-- Header section --}}
       <thead>
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
+        {{!-- DISPLAY COLUMN TITLES --}}
         <tr>
           <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
           <th width=4%>id</th>
@@ -34,7 +31,7 @@
         </tr>
       </thead>
 
-      {{!-- Body section --}}
+      {{!-- DISPLAY ROWS --}}
       <tbody>
         {{#each bats}}
         <tr>
@@ -57,11 +54,13 @@
         {{/each}}
       </tbody>
     </table>
-
   </div>
+
+    {{!-- DISPLAY TABLE TO INSERT DATA --}}
   <div id="insert" style="display: none">
     <form id="add_bat_form_ajax">
       <table class="insert_table">
+                  {{!-- DISPLAY COLUMN TITLES --}}
         <tr>
           <th>person</th>
           <th>species</th>
@@ -71,6 +70,7 @@
           <th>status</th>
           <th>remark</th>
         </tr>
+                {{!-- DISPLAY ROWS --}}
         <tr>
           <td>
             <select name="person" id="input_person">
@@ -118,9 +118,12 @@
     </form>
   </div>
 
+        {{!-- DISPLAY TABLE TO EDIT DATA --}}
   <div id="edit" style="display: none">
     <form id="update-bat-form-ajax">
       <table class="update_table">
+                            {{!-- DISPLAY COLUMN TITLES --}}
+
         <tr>
           <th class="id">bat</th>
           <th>date end</th>
@@ -128,6 +131,7 @@
           <th>status</th>
           <th>remark</th>
         </tr>
+                          {{!-- DISPLAY ROWS --}}
         <tr>
           <td>
             <input type="integer" id="idToUpdate" name="input_id" value="{{this.idBat}}" readonly />
@@ -157,13 +161,12 @@
       </div>
     </form>
   </div>
-
 </main>
 
 
 
 
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+{{!-- EMBEDED JAVASCRIPT DOCUMENTS --}}
 <script src="js/add_bat.js"></script>
 <script src="js/delete_bat.js"></script>
 <script src="js/update_bat.js"></script>
