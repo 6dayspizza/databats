@@ -1,11 +1,18 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {{> header}}
 
+<!--     
+    Citation for the following function: 
+    Date: 10/12/2023
+    Partially based on: code from Dr. Curry
+    Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+-->
+
 <main>
+  {{!-- DISPLAY TABLE WITH ALL DATA --}}
   <div id="browse">
     <table id="persons_table">
-
-      {{!-- Header section --}}
+      {{!-- DISPLAY COLUMN TITLES --}}
       <thead>
         <tr>
           <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
@@ -15,7 +22,7 @@
         </tr>
       </thead>
 
-      {{!-- Body section --}}
+      {{!-- DISPLAY ROWS --}}
       <tbody>
         {{#each persons}}
         <tr>
@@ -27,14 +34,17 @@
         {{/each}}
       </tbody>
     </table>
-
   </div>
+
+  {{!-- DISPLAY TABLE TO INSERT DATA --}}
   <div id="insert" style="display: none">
     <form id="add_person_form_ajax">
       <table class="insert_table">
+        {{!-- DISPLAY COLUMN TITLES --}}
         <tr>
           <th>name</th>
         </tr>
+        {{!-- DISPLAY ROWS --}}
         <tr>
           <td>
             <textarea name="name" id="input_name" placeholder="max. 30 characters"></textarea>
@@ -49,9 +59,8 @@
     </form>
   </div>
 </main>
-</div>
 
 
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+{{!-- EMBEDED JAVASCRIPT DOCUMENTS --}}
 <script src="js/add_person.js"></script>
 <script src="js/delete_person.js"></script>
