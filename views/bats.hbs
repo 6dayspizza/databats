@@ -12,8 +12,9 @@
 {{!-- DISPLAY TABLE WITH ALL DATA --}}
   <div id="browse">
     <table id="bats_table">
-      <thead>
-        {{!-- DISPLAY COLUMN TITLES --}}
+        
+      {{!-- DISPLAY COLUMN TITLES --}}
+        <thead>
         <tr>
           <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
           <th width=4%>id</th>
@@ -60,6 +61,7 @@
   <div id="insert" style="display: none">
     <form id="add_bat_form_ajax">
       <table class="insert_table">
+          
                   {{!-- DISPLAY COLUMN TITLES --}}
         <tr>
           <th>person</th>
@@ -70,6 +72,7 @@
           <th>status</th>
           <th>remark</th>
         </tr>
+          
                 {{!-- DISPLAY ROWS --}}
         <tr>
           <td>
@@ -122,8 +125,8 @@
   <div id="edit" style="display: none">
     <form id="update-bat-form-ajax">
       <table class="update_table">
+          
                             {{!-- DISPLAY COLUMN TITLES --}}
-
         <tr>
           <th class="id">bat</th>
           <th>date end</th>
@@ -131,6 +134,7 @@
           <th>status</th>
           <th>remark</th>
         </tr>
+          
                           {{!-- DISPLAY ROWS --}}
         <tr>
           <td>
@@ -162,8 +166,6 @@
     </form>
   </div>
 </main>
-
-
 
 
 {{!-- EMBEDED JAVASCRIPT DOCUMENTS --}}
