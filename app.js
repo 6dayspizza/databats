@@ -43,6 +43,7 @@ app.get("/homepage", function(req, res) {
 })
 
 app.get("/carelogs", function (req, res) {
+// DEFINES QUERIES
   let selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
   FROM CareLogs
   LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
@@ -57,8 +58,8 @@ app.get("/carelogs", function (req, res) {
 
   let selectMedicalCaresQuery = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
 
+    // EXECUTES QUERIES
   db.pool.query(selectCareLogsQuery, function (error, carelogs, fields) {
-    // Execute the query
     db.pool.query(selectBatsQuery, function (error, bats, fields) {
       db.pool.query(selectPersonsQuery, function (error, persons, fields) {
         db.pool.query(selectMedicalCaresQuery, function (error, medicalcares, fields) {
@@ -76,6 +77,7 @@ app.get("/carelogs", function (req, res) {
 });
 
 app.get("/bats", function (req, res) {
+    // DEFINES QUERIES
   let selectBatsQuery = `SELECT Bats.idBat, Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Persons.name AS "person", Bats.endDate, Bats.releaseSite, Status.name AS "status", Bats.remark
         FROM Bats
         LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
@@ -88,6 +90,7 @@ app.get("/bats", function (req, res) {
 
   let selectStatusQuery = `SELECT * FROM Status;`;
 
+    // EXECUTES QUERIES
   db.pool.query(selectBatsQuery, function (error, bats, fields) {
     db.pool.query(selectPersonsQuery, function (error, persons, fields) {
       db.pool.query(selectSpeciesQuery, function (error, species, fields) {
@@ -106,8 +109,10 @@ app.get("/bats", function (req, res) {
 });
 
 app.get("/persons", function (req, res) {
+    // DEFINES QUERIES
   let selectPersonsQuery = `SELECT * FROM Persons;`;
 
+    // EXECUTES QUERIES
   db.pool.query(selectPersonsQuery, function (error, persons, fields) {
     res.render("persons", {
       active: { persons: true },
@@ -117,8 +122,10 @@ app.get("/persons", function (req, res) {
 });
 
 app.get("/status", function (req, res) {
+    // DEFINES QUERIES
   let selectStatusQuery = `SELECT * FROM Status;`;
 
+    // EXECUTES QUERIES
   db.pool.query(selectStatusQuery, function (error, status, fields) {
     res.render("status", {
       active: { status: true },
@@ -128,7 +135,10 @@ app.get("/status", function (req, res) {
 });
 
 app.get("/species", function (req, res) {
+    // DEFINES QUERIES
   let selectSpeciesQuery = `SELECT * FROM Species;`;
+
+    // EXECUTES QUERIES
   db.pool.query(selectSpeciesQuery, function (error, species, fields) {
     res.render("species", {
       active: { species: true },
@@ -138,8 +148,10 @@ app.get("/species", function (req, res) {
 });
 
 app.get("/medicalcares", function (req, res) {
+    // DEFINES QUERIES
   let selectMedicalCaresQuery = `SELECT * FROM MedicalCares;`;
 
+    // EXECUTES QUERIES
   db.pool.query(selectMedicalCaresQuery, function (error, medicalcares, fields) {
     res.render("medicalcares", {
       active: { medicalcares: true },
@@ -150,8 +162,10 @@ app.get("/medicalcares", function (req, res) {
 
 // THIS GET IS JUST FOR INTERNAL CHECKS AND IS NOT DISPLAYED IN THE WEBSITE MENU
 app.get("/carelogsmedicalcares", function (req, res) {
+    // DEFINES QUERIES
   let selectCareLogsMedicalCaresQuery = `SELECT * FROM CareLogsMedicalCares;`; // display CareLogsMedicalCares
 
+    // EXECUTES QUERIES
   db.pool.query(selectCareLogsMedicalCaresQuery, function (error, carelogsmedicalcares, fields) {
     res.render("carelogsmedicalcares", {
       active: { carelogsmedicalcares: true },
@@ -170,19 +184,19 @@ app.post("/add-carelog-ajax", function (req, res) {
   let weight = (Math.round(data.weight * 100) / 100).toFixed(2);
   let idPerson = parseInt(data.idPerson);
 
-  // CAPTURE EMPTY VALUES AND SET TO NULL
+  // CAPTURES EMPTY VALUES AND SET TO NULL
   if (isNaN(idPerson)) {
     idPerson = null;
   }
 
-  // CREATE QUERIES AND RUN
+  // CREATES QUERIES AND RUNS
   let insertCareLogsQuery = `INSERT INTO CareLogs (idBat, idPerson, weight, foodType, remark)
     VALUES (${data.idBat}, ${idPerson}, ${weight}, "${data.food}", "${data.remark}");`;
 
   db.pool.query(insertCareLogsQuery, function (error, rows, fields) {
-    // CHECK FOR ERRORS
+    // CHECKS FOR ERRORS
     if (error) {
-      // LOG ERROR WITH 400 BAD REQUEST
+      // LOGS ERROR WITH 400 BAD REQUEST
       console.log(error);
       res.sendStatus(400);
     } else {
@@ -195,7 +209,7 @@ app.post("/add-carelog-ajax", function (req, res) {
 
       db.pool.query(insertCareLogsMedicalCaresQuery, function (error, rows, fields) {
         console.log(rows);
-        // IF NO ERROR THEN DISPLAY DATA
+        // IF NO ERROR THEN DISPLAYS DATA
         let selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
         FROM CareLogs
         LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
@@ -205,13 +219,13 @@ app.post("/add-carelog-ajax", function (req, res) {
         GROUP BY CareLogs.idCareLog;`;
 
         db.pool.query(selectCareLogsQuery, function (error, rows, fields) {
-          // CHECK FOR ERRORS
+          // CHECKS FOR ERRORS
           if (error) {
-            // LOG ERROR WITH 400 BAD REQUEST
+            // LOGS ERROR WITH 400 BAD REQUEST
             console.log(error);
             res.sendStatus(400);
           }
-          // IF NO ERROR SENT RESULT OF QUERY
+          // IF NO ERROR SENDS RESULT OF QUERY
           else {
             res.send(rows);
           }
@@ -224,36 +238,36 @@ app.post("/add-carelog-ajax", function (req, res) {
 app.post("/add-bat-ajax", function (req, res) {
   let data = req.body;
 
-  // CAPTURE EMPTY VALUES AND SET TO NULL
+  // CAPTURES EMPTY VALUES AND SET TO NULL
   let person = parseInt(data.person);
   if (isNaN(person)) {
     idPerson = null;
   }
 
-  // CREATE QUERIES AND RUN
+  // CREATES QUERIES AND RUNS
   insertBatsQuery = `INSERT INTO Bats (idPerson, idSpecies, sex, remark, foundDate, foundSite, idStatus)
     VALUES (${data.idPerson}, ${data.idSpecies}, "${data.sex}", "${data.remark}", "${data.foundDate}", ${data.foundSite}, "${data.idStatus}");`;
   db.pool.query(insertBatsQuery, function (error, rows, fields) {
-    // CHECK FOR ERRORS
+    // CHECKS FOR ERRORS
     if (error) {
-      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      // LOGS ERROR WITH 400 BAD REQUEST
       console.log(error);
       res.sendStatus(400);
     } else {
-      // If there was no error, perform a SELECT * on Bats
-      query2 = `SELECT Bats.idBat, Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Persons.name AS "person", Bats.endDate, Bats.releaseSite, Status.name AS "status", Bats.remark
+      // IF NO ERROR THEN DISPLAYS DATA
+      let selectBatsQuery  = `SELECT Bats.idBat, Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Persons.name AS "person", Bats.endDate, Bats.releaseSite, Status.name AS "status", Bats.remark
             FROM Bats
             LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
             LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
             LEFT JOIN Status ON Bats.idStatus = Status.idStatus;`;
-      db.pool.query(query2, function (error, rows, fields) {
-        // If there was an error on the second query, send a 400
+      db.pool.query(selectBatsQuery, function (error, rows, fields) {
+        // CHECKS FOR ERRORS
         if (error) {
-          // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+          // LOGS ERROR WITH 400 BAD REQUEST
           console.log(error);
           res.sendStatus(400);
         }
-        // If all went well, send the results of the query back.
+        // IF NO ERROR SENDS RESULT OF QUERY
         else {
           res.send(rows);
         }
@@ -265,26 +279,26 @@ app.post("/add-bat-ajax", function (req, res) {
 app.post("/add-person-ajax", function (req, res) {
   let data = req.body;
 
-  // Create the query and run it on the database
-  query1 = `INSERT INTO Persons (name)
+  // CREATES QUERIES AND RUNS
+  let insertPersonsQuery  = `INSERT INTO Persons (name)
     VALUES ("${data.name}");`;
-  db.pool.query(query1, function (error, rows, fields) {
-    // Check to see if there was an error
+  db.pool.query(insertPersonsQuery, function (error, rows, fields) {
+   // CHECKS FOR ERRORS
     if (error) {
-      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      // LOGS ERROR WITH 400 BAD REQUEST
       console.log(error);
       res.sendStatus(400);
     } else {
-      // If there was no error, perform a SELECT * on Bats
-      query2 = `SELECT * FROM Persons`;
-      db.pool.query(query2, function (error, rows, fields) {
-        // If there was an error on the second query, send a 400
+      // // IF NO ERROR THEN DISPLAYS DATA
+      let selectPersonsQuery= `SELECT * FROM Persons`;
+      db.pool.query(selectPersonsQuery, function (error, rows, fields) {
+        // CHECKS FOR ERRORS
         if (error) {
-          // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+          // LOGS ERROR WITH 400 BAD REQUEST
           console.log(error);
           res.sendStatus(400);
         }
-        // If all went well, send the results of the query back.
+        // IF NO ERROR SENDS RESULT OF QUERY
         else {
           res.send(rows);
         }
@@ -296,26 +310,27 @@ app.post("/add-person-ajax", function (req, res) {
 app.post("/add-species-ajax", function (req, res) {
   let data = req.body;
 
-  // Create the query and run it on the database
-  query1 = `INSERT INTO Species (name)
+  // CREATES QUERIES AND RUNS
+  let insertSpeciesQuery = `INSERT INTO Species (name)
     VALUES ("${data.name}");`;
-  db.pool.query(query1, function (error, rows, fields) {
-    // Check to see if there was an error
+    
+  db.pool.query(insertSpeciesQuery, function (error, rows, fields) {
+    // CHECKS FOR ERRORS
     if (error) {
-      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      // LOGS ERROR WITH 400 BAD REQUEST
       console.log(error);
       res.sendStatus(400);
     } else {
-      // If there was no error, perform a SELECT * on Bats
-      query2 = `SELECT * FROM Species`;
-      db.pool.query(query2, function (error, rows, fields) {
-        // If there was an error on the second query, send a 400
+      // IF NO ERROR THEN DISPLAYS DATA
+      let selectSpeciesQuery = `SELECT * FROM Species`;
+      db.pool.query(selectSpeciesQuery, function (error, rows, fields) {
+        // CHECKS FOR ERRORS
         if (error) {
-          // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+          // LOGS ERROR WITH 400 BAD REQUEST
           console.log(error);
           res.sendStatus(400);
         }
-        // If all went well, send the results of the query back.
+        // IF NO ERROR SENT RESULT OF QUERY
         else {
           res.send(rows);
         }
@@ -327,26 +342,27 @@ app.post("/add-species-ajax", function (req, res) {
 app.post("/add-status-ajax", function (req, res) {
   let data = req.body;
 
-  // Create the query and run it on the database
-  query1 = `INSERT INTO Status (name)
+  // CREATES QUERIES AND RUN
+  let insertStatusQuery = `INSERT INTO Status (name)
     VALUES ("${data.name}");`;
-  db.pool.query(query1, function (error, rows, fields) {
-    // Check to see if there was an error
+    
+  db.pool.query(insertStatusQuery, function (error, rows, fields) {
+    // CHECKS FOR ERRORS
     if (error) {
-      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      // LOGS ERROR WITH 400 BAD REQUEST
       console.log(error);
       res.sendStatus(400);
     } else {
-      // If there was no error, perform a SELECT * on Bats
-      query2 = `SELECT * FROM Status`;
-      db.pool.query(query2, function (error, rows, fields) {
-        // If there was an error on the second query, send a 400
+      // IF NO ERROR THEN DISPLAYS DATA
+      let selectStatusQuery = `SELECT * FROM Status`;
+      db.pool.query(selectStatusQuery, function (error, rows, fields) {
+        // CHECKS FOR ERRORS
         if (error) {
-          // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+          // LOGS ERROR WITH 400 BAD REQUEST
           console.log(error);
           res.sendStatus(400);
         }
-        // If all went well, send the results of the query back.
+        // IF NO ERROR SENDS RESULT OF QUERY
         else {
           res.send(rows);
         }
@@ -358,26 +374,28 @@ app.post("/add-status-ajax", function (req, res) {
 app.post("/add-medicalcare-ajax", function (req, res) {
   let data = req.body;
 
-  // Create the query and run it on the database
-  query1 = `INSERT INTO MedicalCares (treatment)
+  // CREATES QUERIES AND RUNS
+  let insertMedicalCaresQuery = `INSERT INTO MedicalCares (treatment)
     VALUES ("${data.treatment}");`;
-  db.pool.query(query1, function (error, rows, fields) {
-    // Check to see if there was an error
+    
+  db.pool.query(insertMedicalCaresQuery, function (error, rows, fields) {
+    // CHECKS FOR ERRORS
     if (error) {
-      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      // LOGS ERROR WITH 400 BAD REQUEST
       console.log(error);
       res.sendStatus(400);
     } else {
-      // If there was no error, perform a SELECT * on MedicalCares
-      query2 = `SELECT * FROM MedicalCares`;
-      db.pool.query(query2, function (error, rows, fields) {
-        // If there was an error on the second query, send a 400
+      // IF NO ERROR THEN DISPLAYS DATA
+      let selectMedicalCaresQuery = `SELECT * FROM MedicalCares`;
+        
+      db.pool.query(selectMedicalCaresQuery, function (error, rows, fields) {
+        // CHECKS FOR ERRORS
         if (error) {
-          // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+          // LOGS ERROR WITH 400 BAD REQUEST
           console.log(error);
           res.sendStatus(400);
         }
-        // If all went well, send the results of the query back.
+        // IF NO ERROR SENDS RESULT OF QUERY
         else {
           res.send(rows);
         }
@@ -393,40 +411,44 @@ app.post("/add-medicalcare-ajax", function (req, res) {
 app.delete("/delete-carelog-ajax/", function (req, res, next) {
   let data = req.body;
   let idCareLog = parseInt(data.id);
-  let deleteCareLogsMedicalCares = `DELETE FROM CareLogsMedicalCares WHERE idCareLog = ${idCareLog}`;
-  let deleteCareLog = `DELETE FROM CareLogs WHERE idCareLog = ${idCareLog}`;
 
-  // Run the 1st query
+    // DEFINES QUERIES
+  let deleteCareLogMedicalCareQuery = `DELETE FROM CareLogsMedicalCares WHERE idCareLog = ${idCareLog}`;
+  let deleteCareLogQuery = `DELETE FROM CareLogs WHERE idCareLog = ${idCareLog}`;
+
+  // RUNS FIRST QUERY
   db.pool.query(
-    deleteCareLogsMedicalCares,
+    deleteCareLogMedicalCareQuery,
     [idCareLog],
     function (error, rows, fields) {
       if (error) {
-        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        // LOGS ERROR WITH 400 BAD REQUEST
         console.log(error);
         res.sendStatus(400);
       } else {
-        // Run the second query
+        // RUNS SECOND QUERY
         db.pool.query(
-          deleteCareLog,
+          deleteCareLogQuery,
           [idCareLog],
           function (error, rows, fields) {
             if (error) {
+            // LOGS ERROR WITH 400 BAD REQUEST
               console.log(error);
               res.sendStatus(400);
             } else {
-              query2 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark
+                // IF NO ERROR THEN DISPLAYS DATA
+              let selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark
                         FROM CareLogs
                         LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
                         LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat;`;
-              db.pool.query(query2, function (error, rows, fields) {
+              db.pool.query(selectCareLogsQuery, function (error, rows, fields) {
                 // If there was an error on the second query, send a 400
                 if (error) {
-                  // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                  // LOGS ERROR WITH 400 BAD REQUEST
                   console.log(error);
                   res.sendStatus(400);
                 }
-                // If all went well, send the results of the query back.
+                // IF NO ERROR SENDS RESULT OF QUERY
                 else {
                   res.sendStatus(204);
                 }
@@ -440,50 +462,54 @@ app.delete("/delete-carelog-ajax/", function (req, res, next) {
 });
 
 app.delete("/delete-bat-ajax/", function (req, res, next) {
+
+    // DEFINES QUERIES
   let data = req.body;
   let idBat = parseInt(data.id);
-  let deleteCareLogMedicalCare = `DELETE clmc FROM CareLogsMedicalCares clmc JOIN CareLogs cl ON clmc.idCareLog = cl.idCareLog WHERE cl.idBat = ${idBat}`;
-  let deleteCareLog = `DELETE FROM CareLogs WHERE idBat = ${idBat}`;
-  let deleteBat = `DELETE FROM Bats WHERE idBat = ${idBat}`;
+  let deleteCareLogMedicalCareQuery = `DELETE clmc FROM CareLogsMedicalCares clmc JOIN CareLogs cl ON clmc.idCareLog = cl.idCareLog WHERE cl.idBat = ${idBat}`;
+  let deleteCareLogQuery = `DELETE FROM CareLogs WHERE idBat = ${idBat}`;
+  let deleteBatQuery = `DELETE FROM Bats WHERE idBat = ${idBat}`;
 
+    // EXECUTES QUERIES
   db.pool.query(
-    deleteCareLogMedicalCare, [idBat],
+    deleteCareLogMedicalCareQuery, [idBat],
     function (error, rows, fields) {
       if (error) {
-        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        // LOGS ERROR WITH 400 BAD REQUEST
         console.log(error);
         res.sendStatus(400);
       } else {
-        db.pool.query(deleteCareLog,
+        db.pool.query(deleteCareLogQuery,
           [idBat],
           function (error, rows, fields) {
             if (error) {
-              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              // LOGS ERROR WITH 400 BAD REQUEST
               console.log(error);
               res.sendStatus(400);
             } else {
-              // Run the second query
+              // RUNS SECOND QUERY
               db.pool.query(
-                deleteBat,
+                deleteBatQuery,
                 [idBat],
                 function (error, rows, fields) {
                   if (error) {
+                      // LOGS ERROR WITH 400 BAD REQUEST
                     console.log(error);
                     res.sendStatus(400);
                   } else {
-                    query2 = `SELECT Bats.idBat, Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Persons.name AS "person", Bats.endDate, Bats.releaseSite, Status.name AS "status", Bats.remark
+                    let selectBatsQuery = `SELECT Bats.idBat, Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Persons.name AS "person", Bats.endDate, Bats.releaseSite, Status.name AS "status", Bats.remark
               FROM Bats
               LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
               LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
               LEFT JOIN Status ON Bats.idStatus = Status.idStatus;`;
-                    db.pool.query(query2, function (error, rows, fields) {
-                      // If there was an error on the second query, send a 400
+                    db.pool.query(selectBatsQuery, function (error, rows, fields) {
+                      // CHECKS FOR ERRORS
                       if (error) {
-                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                        // LOGS ERROR WITH 400 BAD REQUEST
                         console.log(error);
                         res.sendStatus(400);
                       }
-                      // If all went well, send the results of the query back.
+                      // IF NO ERROR SENDS RESULT OF QUERY
                       else {
                         res.sendStatus(204);
                       }
@@ -502,25 +528,30 @@ app.delete("/delete-bat-ajax/", function (req, res, next) {
 app.delete("/delete-person-ajax/", function (req, res, next) {
   let person = req.body;
   let idPerson = parseInt(person.id);
-  let deletePerson = `DELETE FROM Persons WHERE idPerson = ${idPerson}`;
 
+    // DEFINES QUERIES
+  let deletePersonQuery = `DELETE FROM Persons WHERE idPerson = ${idPerson}`;
+
+    // EXECUTES QUERIES
   db.pool.query(
-    deletePerson,
+    deletePersonQuery,
     [idPerson],
     function (error, rows, fields) {
+        // CHECK FOR ERRORS
       if (error) {
+          // LOG ERROR WITH 400 BAD REQUEST
         console.log(error);
         res.sendStatus(400);
       } else {
-        query2 = `SELECT * from persons`;
-        db.pool.query(query2, function (error, rows, fields) {
-          // If there was an error on the second query, send a 400
+        let selectPersonQuery = `SELECT * from persons`;
+        db.pool.query(selectPersonQuery, function (error, rows, fields) {
+          // CHECK FOR ERRORS
           if (error) {
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            // LOG ERROR WITH 400 BAD REQUEST
             console.log(error);
             res.sendStatus(400);
           }
-          // If all went well, send the results of the query back.
+          // IF NO ERROR SENDS RESULT OF QUERY
           else {
             res.sendStatus(204);
           }
@@ -533,25 +564,30 @@ app.delete("/delete-person-ajax/", function (req, res, next) {
 app.delete("/delete-species-ajax/", function (req, res, next) {
   let species = req.body;
   let idSpecies = parseInt(species.id);
+
+    // DEFINES QUERIES
   let deleteSpecies = `DELETE FROM Species WHERE idSpecies = ${idSpecies}`;
 
+    // EXECUTES QUERIES
   db.pool.query(
     deleteSpecies,
     [idSpecies],
     function (error, rows, fields) {
+        // CHECKS FOR ERRORS
       if (error) {
+          // LOGS ERROR WITH 400 BAD REQUEST
         console.log(error);
         res.sendStatus(400);
       } else {
-        query2 = `SELECT * from Species`;
-        db.pool.query(query2, function (error, rows, fields) {
-          // If there was an error on the second query, send a 400
+        let selectSpeciesQuery = `SELECT * from Species`;
+        db.pool.query(selectSpeciesQuery, function (error, rows, fields) {
+          // CHECKS FOR ERRORS
           if (error) {
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            // LOGS ERROR WITH 400 BAD REQUEST
             console.log(error);
             res.sendStatus(400);
           }
-          // If all went well, send the results of the query back.
+          // IF NO ERROR SENDS RESULT OF QUERY
           else {
             res.sendStatus(204);
           }
@@ -564,25 +600,30 @@ app.delete("/delete-species-ajax/", function (req, res, next) {
 app.delete("/delete-status-ajax/", function (req, res, next) {
   let status = req.body;
   let idStatus = parseInt(status.id);
+
+    // DEFINES QUERIES
   let deleteStatus = `DELETE FROM Status WHERE idStatus = ${idStatus}`;
 
+    // EXECUTES QUERIES
   db.pool.query(
     deleteStatus,
     [idStatus],
     function (error, rows, fields) {
+        // CHECKS FOR ERRORS
       if (error) {
+          // LOGS ERROR WITH 400 BAD REQUEST
         console.log(error);
         res.sendStatus(400);
       } else {
-        query2 = `SELECT * from Status`;
-        db.pool.query(query2, function (error, rows, fields) {
-          // If there was an error on the second query, send a 400
+        let selectStatusQuery = `SELECT * from Status`;
+        db.pool.query(selectStatusQuery, function (error, rows, fields) {
+          // CHECKS FOR ERRORS
           if (error) {
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            // LOGs ERROR WITH 400 BAD REQUEST
             console.log(error);
             res.sendStatus(400);
           }
-          // If all went well, send the results of the query back.
+          // IF NO ERROR SENDS RESULT OF QUERY
           else {
             res.sendStatus(204);
           }
@@ -599,6 +640,7 @@ app.delete("/delete-status-ajax/", function (req, res, next) {
 app.put('/put-carelog-ajax', function (req, res, next) {
   let data = req.body;
 
+    // ASSIGNS EACH DATA
   let person = parseInt(data.person);
   let idcarelog = parseInt(data.idcarelog);
   let weight = parseFloat(data.weight);
@@ -606,45 +648,41 @@ app.put('/put-carelog-ajax', function (req, res, next) {
   let medicalcares = data.medicalcares;
   let remark = data.remark;
 
+    // DEFINES QUERIES
   let previousMedicalCaresQuery = `SELECT idMedicalCare From CareLogsMedicalCares where idCarelog = ${idcarelog}`
-
-  // let selectMedicalID = `SELECT idMedicalCare from MedicalCares WHERE treatment = ${medical}`
-  // let queryCareLogsMedicalCare = `UPDATE CareLogsMedicalCares SET idMedicalCare = ? WHERE CareLogsMedicalCares.idCareLog = ${idcarelog}`
-
   let queryUpdatePerson = `UPDATE CareLogs SET idPerson = ?, weight = ?, foodType = ?, remark = ? WHERE CareLogs.idCareLog = ?`;
   let selectPerson = `SELECT * FROM Persons WHERE idPerson = ?`
 
-  //  let medicalcareids = db.pool.query(selectMedicalID)
-
-
-  // Run the 1st query
+  // EXECUTES FIRST QUERY
   db.pool.query(queryUpdatePerson, [person, weight, foodtype, remark, idcarelog], function (error, rows, fields) {
-    if (error) {
-
-      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+    // CHECKS FOR ERRORS
+      if (error) {
+      // LOGS ERROR WITH 400 BAD REQUEST
       console.log(error);
       res.sendStatus(400);
     }
 
-    // If there was no error, we run our second query and return that data so we can use it to update the people's
-    // table on the front-end
+       // IF NO ERROR THEN RUNS NEXT QUERY
     else {
-      // Run the second query
       db.pool.query(previousMedicalCaresQuery, [idcarelog], function (erorr, rows, fields) {
 
+          // THIS IS FOR THE INTERSECION TABLE
+          // DEFINES EMPTY ARRAYS TO DISTINGUISH BETWEEN PREVIOUS MEDICAL CARE IDS AND NEW MEDICAL CARE IDS
         let medicalCaresToAdd = [];
         let medicalCaresToDelete = [];
         let oldMedicalCares = rows.map(RowDataPacket => RowDataPacket.idMedicalCare);
         let newMedicalCaresStrings = medicalcares;
         let newMedicalCares = [];
 
+          // CREATES STRING ARRAY WITH NEW MEDICAL CARES IDS
         newMedicalCaresStrings.forEach(ele => newMedicalCares.push(+ele));
 
+          // FUNCTION TO COMPARE OLD AND NOW OBSOLETE AND NEW MEDICAL CARE TREATMENTS
         function compareMedicalCares(oldMedicalCares, newMedicalCares) {
-          // Array to store medical cares to delete
+          // STORES MEDICAL CARE IDS THAT HAVE TO BE DELETED
           let medicalCaresToDelete = oldMedicalCares.filter(oldCare => !newMedicalCares.includes(oldCare));
 
-          // Array to store medical cares to add
+          // STORES MEDICAL CARE IDS THAT HAVE TO BE CREATED
           let medicalCaresToAdd = newMedicalCares.filter(newCare => !oldMedicalCares.includes(newCare));
 
           return {
@@ -653,15 +691,18 @@ app.put('/put-carelog-ajax', function (req, res, next) {
           };
         }
 
+          // STORES RESULTS
         let result = compareMedicalCares(oldMedicalCares, newMedicalCares);
         medicalCaresToDelete = result.medicalCaresToDelete.map(number => number.toString());
         medicalCaresToAdd = result.medicalCaresToAdd.map(number => number.toString());
 
+          // NOW CREATES NEW CARELOGSMEDICALCARES RECORDS
         let addMedicalCaresQuery = `INSERT INTO CareLogsMedicalCares (idCareLog, idMedicalCare)
         VALUES ${medicalCaresToAdd.map(function (medicalCare) {
           return "(" + idcarelog + "," + medicalCare + ")";
         })};`;
 
+          // NOW DELETES OBSOLETE CARELOGSMEDICALCARES RECORDS
         let deleteMedicalCaresQuery = `DELETE FROM CareLogsMedicalCares 
         WHERE idCareLog = ${idcarelog} 
           AND idMedicalCare IN (${medicalCaresToDelete.join(',')});`;
@@ -669,8 +710,9 @@ app.put('/put-carelog-ajax', function (req, res, next) {
         db.pool.query(deleteMedicalCaresQuery, function (erorr, rows, fields) {
           db.pool.query(addMedicalCaresQuery, function (error, rows, fields) {
             db.pool.query(selectPerson, [person], function (error, rows, fields) {
-
+        // CHECKS FOR ERRORS
               if (error) {
+                  // LOGS ERROR WITH 400 BAD REQUEST
                 console.log(error);
                 res.sendStatus(400);
               } else {
@@ -688,40 +730,40 @@ app.put('/put-carelog-ajax', function (req, res, next) {
 app.put('/put-bat-ajax', function (req, res, next) {
   let bat = req.body;
 
+        // ASSIGNS EACH DATA
   let idbat = parseInt(bat.idbat);
   let enddate = bat.enddate;
   let releasesite = parseInt(bat.releasesite);
   let status = bat.status;
   let remark = bat.remark;
 
-  // capture empty string values
+  // CAPTURES EMPTY STRING VALUES AND SET TO NULL
   enddate = enddate.trim() === "" ? null : enddate;
   remark = remark.trim() === "" ? null : remark;
 
-  // capture empty int values
+  // CAPTURES EMPPY INT VALUES AND SET TO NULL
   if (isNaN(releasesite)) {
     releasesite = null;
   }
 
-  let updateBat = `UPDATE Bats SET endDate = ?, releaseSite = ?, idStatus = ?, remark = ? WHERE Bats.idBat = ?`;
-  let selectStatus = `SELECT * FROM Status WHERE idStatus = ?`
+    // DEFINES QUERIES
+  let updateBatQuery = `UPDATE Bats SET endDate = ?, releaseSite = ?, idStatus = ?, remark = ? WHERE Bats.idBat = ?`;
+  let selectStatusQuery = `SELECT * FROM Status WHERE idStatus = ?`
 
-  // Run the 1st query
-  db.pool.query(updateBat, [enddate, releasesite, status, remark, idbat], function (error, rows, fields) {
+  // RUNS FIRST QUERY
+  db.pool.query(updateBatQuery, [enddate, releasesite, status, remark, idbat], function (error, rows, fields) {
+      // CHECK FOR ERRORS
     if (error) {
-
-      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      // LOG ERROR WITH 400 BAD REQUEST
       console.log(error);
       res.sendStatus(400);
     }
-
-    // If there was no error, we run our second query and return that data so we can use it to update the people's
-    // table on the front-end
+    // IF NO ERROR THEN RUNS NEXT QUERY
     else {
-      // Run the second query
-      db.pool.query(selectStatus, [status], function (error, rows, fields) {
-
+      db.pool.query(selectStatusQuery, [status], function (error, rows, fields) {
+// CHECK FOR ERRORS
         if (error) {
+            // LOG ERROR WITH 400 BAD REQUEST
           console.log(error);
           res.sendStatus(400);
         } else {
@@ -733,56 +775,56 @@ app.put('/put-bat-ajax', function (req, res, next) {
 });
 
 
-
 /*
     SEARCH
 */
 
 app.get("/carelogssearch", function (req, res) {
-  let query1;
-  let query2;
-  let query3;
-  let query4;
+
+    // DEFINES QUERIES
+  let selectCareLogsQuery;
+  let selectBatsQuery;
+  let selectPersonsQuery;
+  let selectMedicalCaresQuery;
 
   if (req.query.inputid === undefined) {
-    query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
+    selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
     FROM CareLogs
     LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
     LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
     LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
     LEFT JOIN MedicalCares ON MedicalCares.idMedicalCare = CareLogsMedicalCares.idMedicalCare
-    GROUP BY CareLogs.idCareLog;`; // display CareLogs
+    GROUP BY CareLogs.idCareLog;`;
 
-    query2 = `SELECT Bats.idBat FROM Bats;`;
+    selectBatsQuery = `SELECT Bats.idBat FROM Bats;`;
 
-    query3 = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
+    selectPersonsQuery = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
 
-    query4 = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
+    selectMedicalCaresQuery = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
   }
   else {
-    query1 = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
+    selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
       FROM CareLogs
       LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
       LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
       LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
       LEFT JOIN MedicalCares ON MedicalCares.idMedicalCare = CareLogsMedicalCares.idMedicalCare
       WHERE Persons.name = '${req.query.inputid}'
-      GROUP BY CareLogs.idCareLog;`; // display CareLogs
+      GROUP BY CareLogs.idCareLog;`;
 
-    query2 = `SELECT Bats.idBat FROM Bats;`;
+    selectBatsQuery = `SELECT Bats.idBat FROM Bats;`;
 
-    query3 = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
+    selectPersonsQuery = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
 
-    query4 = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
+    selectMedicalCaresQuery = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
 
   }
 
-
-  db.pool.query(query1, function (error, carelogs, fields) {
-    // Execute the query
-    db.pool.query(query2, function (error, bats, fields) {
-      db.pool.query(query3, function (error, persons, fields) {
-        db.pool.query(query4, function (error, medicalcares, fields) {
+    // EXECUTES ALL QUERIES
+  db.pool.query(selectCareLogsQuery, function (error, carelogs, fields) {
+    db.pool.query(selectBatsQuery, function (error, bats, fields) {
+      db.pool.query(selectPersonsQuery, function (error, persons, fields) {
+        db.pool.query(selectMedicalCaresQuery, function (error, medicalcares, fields) {
           res.render("carelogs", {
             carelogs: carelogs,
             bats: bats,
@@ -792,16 +834,15 @@ app.get("/carelogssearch", function (req, res) {
         });
       });
     });
-  }); // an object where 'data' is equal to the 'rows' we
+  });
 });
-
 
 
 /*
     LISTENER
 */
+
 app.listen(PORT, function () {
-  // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
   console.log(
     "Express started on http://localhost:" +
     PORT +
