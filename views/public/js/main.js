@@ -1,30 +1,26 @@
-// Citation for the following function: 
-//Date: 10/12/2023
-//Copied from /OR/ Adapted from /OR/ Based on:  code from Dr. Curry
-//Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+// Citation for the following function:
+// Date: 10/12/2023
+// Partially based on: code from Dr. Curry
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
-
+// METHOD TO DISPLAY ACTIVE FORMS AND HIDE OTHERS
 function showform(dostuff) {
-  /*
-  * four DIVS: browse, insert, update, delete
-  * this function sets one visible the others not
-  */
   if (dostuff == 'insert') {
     document.getElementById('browse').style.display = 'none';
     document.getElementById('insert').style.display = 'block';
     document.getElementById('edit').style.display = 'none';
     document.getElementById('search').style.display = 'none';
-  } else if (dostuff == 'edit') { //by default display browse
+  } else if (dostuff == 'edit') {
     document.getElementById('browse').style.display = 'none';
     document.getElementById('insert').style.display = 'none';
     document.getElementById('edit').style.display = 'block';
     document.getElementById('search').style.display = 'none';
-  } else if (dostuff == 'browse') { //by default display browse
+  } else if (dostuff == 'browse') { // DEFAULT DISPLAY
     document.getElementById('browse').style.display = 'block';
     document.getElementById('insert').style.display = 'none';
     document.getElementById('edit').style.display = 'none';
     document.getElementById('search').style.display = 'none';
-  } else if (dostuff == 'search') { //by default display browse
+  } else if (dostuff == 'search') {
     document.getElementById('browse').style.display = 'block';
     document.getElementById('insert').style.display = 'none';
     document.getElementById('edit').style.display = 'none';
@@ -32,9 +28,14 @@ function showform(dostuff) {
   }
 }
 
-function newRecord() { showform('insert'); }
-function browseRecords(idCareLog) { showform('browse'); }
+function newRecord() { showform('insert'); };
+
+function browseRecords(idCareLog) { showform('browse'); };
+
+function searchRecord() { showform('search'); };
+
 function editRecord(idCareLog, name, weight, food, remark) {
+  // INSERTS VALUES OF EXISTING RECORD TO BE EDITED
   $("#idToUpdate").val(idCareLog);
   $("#input_person_update option").each(function() {
     if ($(this).text() === name) {
@@ -49,9 +50,10 @@ function editRecord(idCareLog, name, weight, food, remark) {
   $("#input_remark_update").val(remark);
 
   showform('edit');
-}
-function searchRecord() { showform('search'); }
+};
+
 function editBat(idBat, endDate, releaseSite, status, remark) {
+    // INSERTS VALUES OF EXISTING RECORD TO BE EDITED
   $("#idToUpdate").val(idBat);
   $("#input_status_update option").each(function() {
     if ($(this).text() === status) {
@@ -66,4 +68,4 @@ function editBat(idBat, endDate, releaseSite, status, remark) {
   $("#input_remark_update").val(remark);
 
   showform('edit');
-}
+};
