@@ -12,6 +12,7 @@
     {{!-- DISPLAY TABLE WITH ALL DATA --}}
     <div id="browse">
     <table id="medicalcares_table">
+            
         {{!-- DISPLAY COLUMN TITLES --}}
         <thead>
             <tr>
@@ -20,6 +21,7 @@
                 <th>treatment name</th>
             </tr>
         </thead>
+            
         {{!-- DISPLAY ROWS --}}
         <tbody>
             {{#each medicalcares}}
@@ -37,10 +39,12 @@
     <div id="insert" style="display: none">
         <form id="add_medicalcare_form_ajax">
               <table class="insert_table">
+                      
                 {{!-- DISPLAY COLUMN TITLES --}}
                 <tr>
                   <th>treatment name</th>
                 </tr>
+                      
                 {{!-- DISPLAY ROWS --}}
                 <tr>
                   <td>
