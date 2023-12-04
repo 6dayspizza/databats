@@ -1,21 +1,18 @@
-    
-   // Citation for the following function: 
-    //Date: 10/12/2023
-    //Copied from /OR/ Adapted from /OR/ Based on: code from Dr. Curry
-    //Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+// Citation for the following function:
+//Date: 10/12/2023
+//Partially based on: code from Dr. Curry
+//Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
-
-
-// Get the objects we need to modify
+// GETS OBJECTS TO MODIFY
 let addCareLogForm = document.getElementById('add_carelog_form_ajax');
 
-// Modify the objects we need
+// MODIFIES THIS OBJECT
 addCareLogForm.addEventListener("submit", function (e) {
-    // Prevent the form from sumbitting a default http request
-    // DO NOT REMOVE THIS LINE
+  // PERVENTS DEFAULT BEHAVIOR ASSOCIATED WITH EVENT
+  // DO NOT REMOVE THIS LINE
     e.preventDefault();
 
-    // Get form fields we need to get data from
+  // ASSIGNS FIELDS FROM FORM WE JUST RECEIVED
     let inputBat = document.getElementById("input_bat");
     let inputPerson = document.getElementById("input_person");
     let inputWeight = document.getElementById("input_weight");
@@ -23,7 +20,7 @@ addCareLogForm.addEventListener("submit", function (e) {
     let inputsMedicalCare = Array.from(document.getElementsByClassName("input_medical_care"));
     let inputRemark = document.getElementById("input_remark");
 
-    // Get the values from the form fields
+  // EXTRACTS VALUES FROM ASSIGNED FIELDS
     let batValue = inputBat.value;
     let personValue = inputPerson.value;
     let weightValue = inputWeight.value;
@@ -31,8 +28,7 @@ addCareLogForm.addEventListener("submit", function (e) {
     let medicalCareValues = inputsMedicalCare.filter(function(input){return input.checked === true}).map(function(input){return input.value});
     let remarkValue = inputRemark.value;
 
-
-    // Put our data we want to send in a javascript object
+  // PLACES THOSE VALUES IN JS OBJECT
     let data = {
         idBat: batValue,
         idPerson: personValue,
@@ -42,19 +38,19 @@ addCareLogForm.addEventListener("submit", function (e) {
         remark: remarkValue
     }
     
-    // Setup our AJAX request
+  // SETS UP AJAX REQUEST
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-carelog-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Tell our AJAX request how to resolve
+  // DEFINES BEHAVIOR FOR AJAX
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            // Add the new data to the table
+      // ADDS INSERTED DATA TO EXISTING TABLE
             addRowToTable(xhttp.response);
 
-            // Clear the input fields for another transaction
+      // CLEARS FORM FIELDS FOR NEW DATA
             inputBat.value = '';
             inputPerson.value = '';
             inputWeight.value = '';
@@ -65,31 +61,28 @@ addCareLogForm.addEventListener("submit", function (e) {
             browseRecords();
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
-            console.log("There was an error with the input.")
+            console.log("There was an error with the form.")
         }
     }
 
-    // Send the request and wait for the response
+  // SENDS REQUEST
     xhttp.send(JSON.stringify(data));
+});
 
-})
-
-
-// Creates a single row from an Object representing a single record from 
-// bsg_people
+// CREATES A NEW ROW
 addRowToTable = (data) => {
 
-    // Get a reference to the current table on the page and clear it out.
+  // GETS CURRENT TABLE
     let currentTable = document.getElementById("carelogs_table");
 
-    // Get the location where we should insert the new row (end of table)
+  // GETS LOCATION OF NEW ROW OF CURRENT TABLE
     let newRowIndex = currentTable.rows.length;
 
-    // Get a reference to the new row from the database query (last object)
+  // GETS CURRENT OBJECT
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
 
-    // Create a row and cells
+  // CREATES NEW ROW WITH ALL CELLS
     let row = document.createElement("TR");
     let firstCell = document.createElement("TD");
     let idCell = document.createElement("TD");
@@ -103,7 +96,7 @@ addRowToTable = (data) => {
     let editCell = document.createElement("TD");
     let deleteCell = document.createElement("TD");
 
-    // Fill the cells with correct data
+  // FILLS THOSE CELLS
     idCell.innerText = newRow.idCareLog;
     idCell.classList=["id"]
     batCell.innerText = newRow.idBat;
@@ -114,6 +107,7 @@ addRowToTable = (data) => {
     medicalCareCell.innerText = newRow.medicalCares || "";
     remarkCell.innerText = newRow.remark;
 
+      // MODIFIES EDIT BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
     let editButton = document.createElement("button");
     editButton.classList=["modify"];
     editButton.innerHTML = "edit";
@@ -122,6 +116,7 @@ addRowToTable = (data) => {
     })
     editCell.appendChild(editButton);
 
+      // MODIFIES DELETE BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
     let deleteButton = document.createElement("button");
     deleteButton.classList=["modify accent"];
     deleteButton.innerHTML = "delete";
@@ -130,9 +125,7 @@ addRowToTable = (data) => {
     })
     deleteCell.appendChild(deleteButton);
 
-
-
-    // Add the cells to the row
+  // ADDS CELLS TO NEW ROW
     row.appendChild(firstCell);
     row.appendChild(idCell);
     row.appendChild(batCell);
@@ -145,12 +138,10 @@ addRowToTable = (data) => {
     row.appendChild(editCell);
     row.appendChild(deleteCell);
 
-    // Add a row attribute so the deleteRow function can find a newly added row
+  // ADDS A ROW ATTRIBUTE FOR deleteRow FUNCTION
+  // DOUBLE CHECK IF THIS IS ACTUALLY IN USE
     row.setAttribute('data-value', newRow.id);
 
-    
-    // Add the row to the table
+  // APPENDS NEW ROW TO TABLE
     currentTable.appendChild(row);
-
-
-}
+};
