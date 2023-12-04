@@ -1,23 +1,20 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {{> header}}
 
-<!-- index.hbs -->
-
 <!--     
     Citation for the following function: 
     Date: 10/12/2023
-    Copied from /OR/ Adapted from /OR/ Based on: code from Dr. Curry
+    Partially based on: code from Dr. Curry
     Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
 -->
 
 <main>
+    {{!-- DISPLAY TABLE WITH ALL DATA --}}
   <div id="browse">
     <table id="status_table">
 
-      {{!-- Header section --}}
+      {{!-- DISPLAY COLUMN TITLES --}}
       <thead>
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
         <tr>
           <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
           <th width=4%>id</th>
@@ -26,7 +23,7 @@
         </tr>
       </thead>
 
-      {{!-- Body section --}}
+      {{!-- DISPLAY ROWS --}}
       <tbody>
         {{#each status}}
         <tr>
@@ -39,14 +36,19 @@
         {{/each}}
       </tbody>
     </table>
-
   </div>
+
+    {{!-- DISPLAY TABLE TO INSERT DATA --}}
   <div id="insert" style="display: none">
     <form id="add_status_form_ajax">
       <table class="insert_table">
+          
+          {{!-- DISPLAY COLUMN TITLES --}}
         <tr>
           <th>name</th>
         </tr>
+          
+          {{!-- DISPLAY ROWS --}}
         <tr>
           <td>
             <textarea name="name" id="input_name" placeholder="max. 30 characters"></textarea>
@@ -61,11 +63,8 @@
     </form>
   </div>
 </main>
-</div>
 
 
-
-
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+{{!-- EMBEDED JAVASCRIPT DOCUMENTS --}}
 <script src="js/add_status.js"></script>
 <script src="js/delete_status.js"></script>
