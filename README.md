@@ -55,9 +55,9 @@ Brett Dixon / Ruth Kistler
   
 This project is largely based on the CS 340 starter code. Exceptions are intersection (M:N) relationship tables, additional functionality and layout (all of main.css). The pages based on the started code are marked as such on top of the page:  
   
-//
-    Citation for the following function: 
-    Date: 10/12/2023
-    Partially based on: code from Dr. Curry
-    Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app 
+//  
+// Citation for the following function:  
+// Date: 10/12/2023  
+// Partially based on: code from Dr. Curry  
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app  
 //
