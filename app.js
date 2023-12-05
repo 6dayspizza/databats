@@ -761,7 +761,7 @@ app.put('/put-bat-ajax', function (req, res, next) {
     // IF NO ERROR THEN RUNS NEXT QUERY
     else {
       db.pool.query(selectStatusQuery, [status], function (error, rows, fields) {
-// CHECK FOR ERRORS
+    // CHECK FOR ERRORS
         if (error) {
             // LOG ERROR WITH 400 BAD REQUEST
           console.log(error);
@@ -797,27 +797,23 @@ app.get("/carelogssearch", function (req, res) {
     GROUP BY CareLogs.idCareLog;`;
 
     selectBatsQuery = `SELECT Bats.idBat FROM Bats;`;
-
     selectPersonsQuery = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
-
     selectMedicalCaresQuery = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
-  }
-  else {
+
+  } else {
+      // FILTER BY PERSON NAME OR SCIENTIFIC BAT NAME
     selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
       FROM CareLogs
       LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
       LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
       LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
       LEFT JOIN MedicalCares ON MedicalCares.idMedicalCare = CareLogsMedicalCares.idMedicalCare
-      WHERE Persons.name = '${req.query.inputid}'
+      WHERE Persons.name = '${req.query.inputid} OR Bats.idBat = '${req.query.inputid}''
       GROUP BY CareLogs.idCareLog;`;
 
     selectBatsQuery = `SELECT Bats.idBat FROM Bats;`;
-
     selectPersonsQuery = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
-
     selectMedicalCaresQuery = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
-
   }
 
     // EXECUTES ALL QUERIES
