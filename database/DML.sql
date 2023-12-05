@@ -3,6 +3,7 @@
 -- Ruth Kistler
 -- CS 340
 
+
 -- disable foreign key checks and auto-commit
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
@@ -28,8 +29,6 @@ CREATE OR REPLACE TABLE Species (
   name VARCHAR(30) NOT NULL,
   PRIMARY KEY (idSpecies)
 );
-
-
 
 
 --
@@ -88,6 +87,7 @@ CREATE OR REPLACE TABLE Bats (
   FOREIGN KEY (idStatus) REFERENCES Status (idStatus) ON DELETE RESTRICT
 );
 
+
 --
 -- replace/create table 'CareLogs'
 --
@@ -112,10 +112,14 @@ CREATE OR REPLACE TABLE CareLogs (
 INSERT INTO Species
   (name)
 VALUES
+  ('Hypsugo savii'),
   ('Pipistrellus pipistrellus'),
   ('Pipistrellus kuhlii'),
+  ('Plecotus macrobullaris'),
   ('Nyctalus noctula'),
+  ('Myotis bechsteinii'),
   ('Myotis myotis'),
+  ('Myotis mystacinus'),
   ('Myotis crypticus');
 
 
@@ -142,7 +146,10 @@ VALUES
   ('Metacam'),
   ('Baytril'),
   ('surgery'),
-  ('Betadine (diluted) on wings');
+  ('Betadine'),
+  ('IV'),
+  ('splint'),
+  ('microchipped');
 
 
 --
@@ -153,7 +160,10 @@ INSERT INTO Persons
 VALUES
   ('Brett Dixon'),
   ('Ruth Kistler'),
-  ('Some Body');
+  ('Some Body'),
+  ('The Vet'),
+  ('A Volunteer'),
+  ('Random Person');
 
 
 --
@@ -162,9 +172,12 @@ VALUES
 INSERT INTO Bats
   (idPerson, idSpecies, sex, remark, foundDate, foundSite, endDate, releaseSite, idStatus)
 VALUES
-  ((SELECT idPerson FROM Persons WHERE idPerson = 3), (SELECT idSpecies FROM Species WHERE idSpecies = 4), 0, 'cat victim; euthanized', '2023-10-24', 8003, '2023-10-25', null, (SELECT idStatus FROM Status WHERE idStatus = 5)),
+  ((SELECT idPerson FROM Persons WHERE idPerson = 6), (SELECT idSpecies FROM Species WHERE idSpecies = 4), 0, 'cat victim', '2023-10-24', 8003, '2023-10-25', null, (SELECT idStatus FROM Status WHERE idStatus = 5)),
   ((SELECT idPerson FROM Persons WHERE idPerson = 2), (SELECT idSpecies FROM Species WHERE idSpecies = 5), 1, null, '2023-10-24', 8000, null, null, (SELECT idStatus FROM Status WHERE idStatus = 3)),
-  ((SELECT idPerson FROM Persons WHERE idPerson = 2), (SELECT idSpecies FROM Species WHERE idSpecies = 1), 0, null, '2023-09-20', 8004, '2023-10-21', 8004, (SELECT idStatus FROM Status WHERE idStatus = 4));
+  ((SELECT idPerson FROM Persons WHERE idPerson = 6), (SELECT idSpecies FROM Species WHERE idSpecies = 5), 1, null, '2023-10-24', 8004, null, null, (SELECT idStatus FROM Status WHERE idStatus = 3)),
+  ((SELECT idPerson FROM Persons WHERE idPerson = 6), (SELECT idSpecies FROM Species WHERE idSpecies = 7), 1, null, '2023-11-01', 8152, null, null, (SELECT idStatus FROM Status WHERE idStatus = 1)),
+  ((SELECT idPerson FROM Persons WHERE idPerson = 6), (SELECT idSpecies FROM Species WHERE idSpecies = 6), 1, 'physically fine, just tired', '2023-11-21', 5200, null, null, (SELECT idStatus FROM Status WHERE idStatus = 4)),
+  ((SELECT idPerson FROM Persons WHERE idPerson = 6), (SELECT idSpecies FROM Species WHERE idSpecies = 9), 0, null, '2023-12-06', 8067, '2023-12-07', 8067, (SELECT idStatus FROM Status WHERE idStatus = 1));
 ;
 
 --
@@ -179,11 +192,18 @@ VALUES
   3.9, '10 mw', null),
   ((SELECT idBat FROM Bats WHERE idbat = 1), (SELECT idPerson FROM Persons WHERE idPerson = 2),
   4.2, null, "didnt eat"),
-  ((SELECT idBat FROM Bats WHERE idbat = 2), (SELECT idPerson FROM Persons WHERE idPerson = 3),
+  ((SELECT idBat FROM Bats WHERE idbat = 2), (SELECT idPerson FROM Persons WHERE idPerson = 5),
   4.0, '15 mw', null),
-  ((SELECT idBat FROM Bats WHERE idbat = 2), (SELECT idPerson FROM Persons WHERE idPerson = 2),
-  4.2, '12 mw', 'ready to be released');
-
+  ((SELECT idBat FROM Bats WHERE idbat = 2), (SELECT idPerson FROM Persons WHERE idPerson = 5),
+  4.2, '12 mw', 'ready to be released'),
+  ((SELECT idBat FROM Bats WHERE idbat = 2), (SELECT idPerson FROM Persons WHERE idPerson = 5), 
+  4.5, '15 mw', null),
+  ((SELECT idBat FROM Bats WHERE idbat = 5), (SELECT idPerson FROM Persons WHERE idPerson = 1),
+  5.6, '15 mw', null),
+  ((SELECT idBat FROM Bats WHERE idbat = 6), (SELECT idPerson FROM Persons WHERE idPerson = 2),
+  7.2, '12 mw', 'needs to gain more weight'),
+  ((SELECT idBat FROM Bats WHERE idbat = 6), (SELECT idPerson FROM Persons WHERE idPerson = 1), 
+  7.4, '15 mw', 'looking good');
 
 INSERT INTO CareLogsMedicalCares
   (idCareLog, idMedicalCare)
@@ -191,7 +211,10 @@ VALUES
 	((SELECT idCareLog FROM CareLogs WHERE idCareLog = 1), (SELECT idMedicalCare FROM MedicalCares WHERE idMedicalCare = 3)),
     ((SELECT idCareLog FROM CareLogs WHERE idCareLog = 1), (SELECT idMedicalCare FROM MedicalCares WHERE idMedicalCare = 1)),
     ((SELECT idCareLog FROM CareLogs WHERE idCareLog = 2), (SELECT idMedicalCare FROM MedicalCares WHERE idMedicalCare = 1)),
-    ((SELECT idCareLog FROM CareLogs WHERE idCareLog = 3), (SELECT idMedicalCare FROM MedicalCares WHERE idMedicalCare = 1));
+    ((SELECT idCareLog FROM CareLogs WHERE idCareLog = 3), (SELECT idMedicalCare FROM MedicalCares WHERE idMedicalCare = 1)),
+    ((SELECT idCareLog FROM CareLogs WHERE idCareLog = 7), (SELECT idMedicalCare FROM MedicalCares WHERE idMedicalCare = 7)),
+    ((SELECT idCareLog FROM CareLogs WHERE idCareLog = 8), (SELECT idMedicalCare FROM MedicalCares WHERE idMedicalCare = 7)),
+    ((SELECT idCareLog FROM CareLogs WHERE idCareLog = 8), (SELECT idMedicalCare FROM MedicalCares WHERE idMedicalCare = 5));
 
 
 -- enable foreign key checks and commit
