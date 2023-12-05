@@ -13,7 +13,7 @@ updateBatForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
   // ASSIGNS FIELDS FROM FORM WE JUST RECEIVED
-  let inputIDBat = document.getElementById("idToUpdate");
+  let inputIDBat = document.getElementById("id_to_update");
   let inputEndDate = document.getElementById("input_enddate_update");
   let inputReleaseSite = document.getElementById("input_releasesite_update");
   let inputStatus = document.getElementById("input_status_update");

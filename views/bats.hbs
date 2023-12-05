@@ -27,7 +27,11 @@
           <th>site released</th>
           <th>status</th>
           <th>remark</th>
-          <th></th>
+          <th width="5%">
+            {{#if displayResetButton}}
+            <button class="modify" onClick="resetSpeciesFilter()">reset</button>
+            {{/if}}
+          </th>
           <th></th>
         </tr>
       </thead>
@@ -39,7 +43,7 @@
           <td></td>
           <td class="id">{{this.idBat}}</td>
           <td>{{this.person}}</td>
-          <td>{{this.species}}</td>
+          <td><button class="filter" onClick="filterBySpecies('{{this.species}}')" >{{this.species}}</button></td>
           <td>{{this.sex}}</td>
           <td>{{this.foundDate}}</td>
           <td>{{this.foundSite}}</td>
@@ -138,7 +142,7 @@
                           {{!-- DISPLAY ROWS --}}
         <tr>
           <td>
-            <input type="integer" id="idToUpdate" name="input_id" value="{{this.idBat}}" readonly />
+            <input type="integer" id="id_to_update" name="input_id" value="{{this.idBat}}" readonly />
           </td>
           <td>
             <input type="date" id="input_enddate_update" name="input_enddate" value="{{this.endDate}}" />

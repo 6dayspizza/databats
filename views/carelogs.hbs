@@ -11,9 +11,9 @@
 <main>
   {{!-- DISPLAY TABLE TO SEARCH DATA --}}
   <div id="search" style="display: none;">
-    <form id="search-person-carelogs" method='GET' action='/carelogssearch'>
+    <form id="search-person-carelogs" method='GET' action='/person-filter'>
       <div class="actions">
-              <input class="search" type="text" name="inputid" placeholder="firstname lastname OR scientificbatname" id="input-id-carelogs-search">
+              <input class="search" type="text" name="inputid" placeholder="firstname lastname" id="input-id-carelogs-search">
         <button class="modify confirm" type="submit">go</button>
         <button class="modify cancel" type="button" onClick="browseRecords()">escape</button>
       </div>
@@ -37,7 +37,11 @@
           <th>food</th>
           <th>medical</th>
           <th>remark</th>
-          <th width="5%"></th>
+          <th width="5%">
+            {{#if displayResetButton}}
+            <button class="modify" onClick="resetBatFilter()">reset</button>
+            {{/if}}
+          </th>
           <th width="5%"><button class="modify" onClick="searchRecord()">search</button></th>
         </tr>
       </thead>
@@ -48,7 +52,7 @@
         <tr>
           <td></td>
           <td class="id">{{this.idCareLog}}</td>
-          <td>{{this.idBat}}</td>
+          <td><button class="filter" onClick="filterByBat('{{this.idBat}}')" >{{this.idBat}}</button></td>
           <td>{{this.name}}</td>
           <td>{{this.dateTime}}</td>
           <td>{{this.weight}}</td>
@@ -144,7 +148,7 @@
         {{!-- DISPLAY ROWS --}}
         <tr>
           <td>
-            <input type="integer" id="idToUpdate" name="input_id" value="{{this.idCareLog}}" readonly />
+            <input type="integer" id="id_to_update" name="input_id" value="{{this.idCareLog}}" readonly />
           </td>
           <td>
             <select name="input_person" id="input_person_update">

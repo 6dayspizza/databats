@@ -498,10 +498,10 @@ app.delete("/delete-bat-ajax/", function (req, res, next) {
                     res.sendStatus(400);
                   } else {
                     let selectBatsQuery = `SELECT Bats.idBat, Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Persons.name AS "person", Bats.endDate, Bats.releaseSite, Status.name AS "status", Bats.remark
-              FROM Bats
-              LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
-              LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
-              LEFT JOIN Status ON Bats.idStatus = Status.idStatus;`;
+                      FROM Bats
+                      LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
+                      LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
+                      LEFT JOIN Status ON Bats.idStatus = Status.idStatus;`;
                     db.pool.query(selectBatsQuery, function (error, rows, fields) {
                       // CHECKS FOR ERRORS
                       if (error) {
@@ -698,13 +698,13 @@ app.put('/put-carelog-ajax', function (req, res, next) {
 
           // NOW CREATES NEW CARELOGSMEDICALCARES RECORDS
         let addMedicalCaresQuery = `INSERT INTO CareLogsMedicalCares (idCareLog, idMedicalCare)
-        VALUES ${medicalCaresToAdd.map(function (medicalCare) {
+          VALUES ${medicalCaresToAdd.map(function (medicalCare) {
           return "(" + idcarelog + "," + medicalCare + ")";
         })};`;
 
           // NOW DELETES OBSOLETE CARELOGSMEDICALCARES RECORDS
         let deleteMedicalCaresQuery = `DELETE FROM CareLogsMedicalCares 
-        WHERE idCareLog = ${idcarelog} 
+          WHERE idCareLog = ${idcarelog} 
           AND idMedicalCare IN (${medicalCaresToDelete.join(',')});`;
 
         db.pool.query(deleteMedicalCaresQuery, function (erorr, rows, fields) {
@@ -779,7 +779,7 @@ app.put('/put-bat-ajax', function (req, res, next) {
     SEARCH
 */
 
-app.get("/carelogssearch", function (req, res) {
+app.get("/person-filter", function (req, res) {
 
     // DEFINES QUERIES
   let selectCareLogsQuery;
@@ -801,14 +801,14 @@ app.get("/carelogssearch", function (req, res) {
     selectMedicalCaresQuery = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
 
   } else {
-      // FILTER BY PERSON NAME OR SCIENTIFIC BAT NAME
+      // FILTER BY PERSON NAME
     selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
       FROM CareLogs
       LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
       LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
       LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
       LEFT JOIN MedicalCares ON MedicalCares.idMedicalCare = CareLogsMedicalCares.idMedicalCare
-      WHERE Persons.name = '${req.query.inputid} OR Bats.idBat = '${req.query.inputid}''
+      WHERE Persons.name = '${req.query.inputid}'
       GROUP BY CareLogs.idCareLog;`;
 
     selectBatsQuery = `SELECT Bats.idBat FROM Bats;`;
@@ -826,6 +826,116 @@ app.get("/carelogssearch", function (req, res) {
             bats: bats,
             persons: persons,
             medicalcares: medicalcares,
+          });
+        });
+      });
+    });
+  });
+});
+
+
+app.get("/bat-filter", function (req, res) {
+
+  // DEFINES QUERIES
+let selectCareLogsQuery;
+let selectBatsQuery;
+let selectPersonsQuery;
+let selectMedicalCaresQuery;
+
+if (req.query.inputid === undefined) {
+  selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
+  FROM CareLogs
+  LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
+  LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
+  LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
+  LEFT JOIN MedicalCares ON MedicalCares.idMedicalCare = CareLogsMedicalCares.idMedicalCare
+  GROUP BY CareLogs.idCareLog;`;
+
+  selectBatsQuery = `SELECT Bats.idBat FROM Bats;`;
+  selectPersonsQuery = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
+  selectMedicalCaresQuery = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
+
+} else {
+    // FILTER BY BAT ID
+  selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
+    FROM CareLogs
+    LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
+    LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
+    LEFT JOIN CareLogsMedicalCares ON CareLogs.idCareLog = CareLogsMedicalCares.idCareLog
+    LEFT JOIN MedicalCares ON MedicalCares.idMedicalCare = CareLogsMedicalCares.idMedicalCare
+    WHERE Bats.idBat = '${req.query.inputid}'
+    GROUP BY CareLogs.idCareLog;`;
+
+  selectBatsQuery = `SELECT Bats.idBat FROM Bats;`;
+  selectPersonsQuery = `SELECT Persons.name, Persons.idPerson FROM Persons;`;
+  selectMedicalCaresQuery = `SELECT MedicalCares.treatment, MedicalCares.idMedicalCare FROM MedicalCares;`;
+}
+
+  // EXECUTES ALL QUERIES
+db.pool.query(selectCareLogsQuery, function (error, carelogs, fields) {
+  db.pool.query(selectBatsQuery, function (error, bats, fields) {
+    db.pool.query(selectPersonsQuery, function (error, persons, fields) {
+      db.pool.query(selectMedicalCaresQuery, function (error, medicalcares, fields) {
+        const displayResetButton = req.query.inputid !== undefined;
+        res.render("carelogs", {
+          carelogs: carelogs,
+          bats: bats,
+          persons: persons,
+          medicalcares: medicalcares,
+          displayResetButton: displayResetButton,
+        });
+      });
+    });
+  });
+});
+});
+
+
+app.get("/species-filter", function (req, res) {
+
+    // DEFINES QUERIES
+  let selectBatsQuery;
+  let selectPersonsQuery;
+  let selectSpeciesQuery;
+  let selectStatusQuery;
+
+  if (req.query.inputid === undefined) {
+    selectBatsQuery = `SELECT Bats.idBat, Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Persons.name AS "person", Bats.endDate, Bats.releaseSite, Status.name AS "status", Bats.remark
+    FROM Bats
+    LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
+    LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
+    LEFT JOIN Status ON Bats.idStatus = Status.idStatus;`;
+
+    selectPersonsQuery = `SELECT * FROM Persons;`;
+    selectSpeciesQuery = `SELECT * FROM Species;`;
+    selectStatusQuery = `SELECT * FROM Status;`;
+
+  } else {
+      // FILTER BY SPECIES NAME
+    selectBatsQuery = `SELECT Bats.idBat, Species.name AS "species", Bats.sex, Bats.foundDate, Bats.foundSite, Persons.name AS "person", Bats.endDate, Bats.releaseSite, Status.name AS "status", Bats.remark
+    FROM Bats
+    LEFT JOIN Persons ON Bats.idPerson = Persons.idPerson
+    LEFT JOIN Species ON Bats.idSpecies = Species.idSpecies
+    LEFT JOIN Status ON Bats.idStatus = Status.idStatus
+    WHERE Species.name = '${req.query.inputid}'`;
+    
+    selectPersonsQuery = `SELECT * FROM Persons;`;
+    selectSpeciesQuery = `SELECT * FROM Species;`;
+    selectStatusQuery = `SELECT * FROM Status;`;;
+  }
+
+    // EXECUTES ALL QUERIES
+  db.pool.query(selectBatsQuery, function (error, bats, fields) {
+    db.pool.query(selectPersonsQuery, function (error, persons, fields) {
+      db.pool.query(selectSpeciesQuery, function (error, species, fields) {
+        db.pool.query(selectStatusQuery, function (error, status, fields) {
+          const displayResetButton = req.query.inputid !== undefined;
+          res.render("bats", {
+            bats: bats,
+            persons: persons,
+            species: species,
+            status: status,
+            displayResetButton: displayResetButton,
           });
         });
       });

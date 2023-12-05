@@ -457,6 +457,33 @@ input:enabled {
   color: var(--almost-white);
 }
 
+.filter {
+  background-color: var(--almost-black);
+  color: var(--dusty-purple);
+  border: none;
+  cursor: pointer;
+  border-radius: 30px 30px 30px 30px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 3px 12px;
+  width: auto;
+  font-family: "Amatic SC", cursive;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.filter:active {
+  color: var(--almost-black);
+  background-color: var(--dusty-purple);
+}
+.filter:hover {
+  background-color: var(--nice-green);
+  color: var(--almost-black);
+}
+
 .space {
   height: 1rem;
 }

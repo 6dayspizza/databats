@@ -43,7 +43,7 @@ function searchRecord() {
 
 function editRecord(idCareLog, name, weight, food, remark) {
   // INSERTS VALUES OF EXISTING RECORD TO BE EDITED
-  $("#idToUpdate").val(idCareLog);
+  $("#id_to_update").val(idCareLog);
   $("#input_person_update option").each(function () {
     if ($(this).text() === name) {
       $(this).prop("selected", true);
@@ -61,7 +61,7 @@ function editRecord(idCareLog, name, weight, food, remark) {
 
 function editBat(idBat, endDate, releaseSite, status, remark) {
   // INSERTS VALUES OF EXISTING RECORD TO BE EDITED
-  $("#idToUpdate").val(idBat);
+  $("#id_to_update").val(idBat);
   $("#input_status_update option").each(function () {
     if ($(this).text() === status) {
       $(this).prop("selected", true);
@@ -79,4 +79,24 @@ function editBat(idBat, endDate, releaseSite, status, remark) {
 
 function enterDatabase() {
   window.location.href = "/bats";
+}
+
+function filterByBat(idBat) {
+  window.location.href = `/bat-filter?inputid=${idBat}`;
+}
+
+function filterBySpecies(species) {
+  window.location.href = `/species-filter?inputid=${species}`;
+}
+
+function resetSpeciesFilter() {
+  // Assuming you want to redirect to the original route without any filter
+  window.location.href = '/bats';
+  // If you have a different default route, adjust the URL accordingly
+}
+
+function resetBatFilter() {
+  // Assuming you want to redirect to the original route without any filter
+  window.location.href = '/carelogs';
+  // If you have a different default route, adjust the URL accordingly
 }

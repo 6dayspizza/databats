@@ -13,7 +13,7 @@ updateCareLogForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
   // ASSIGNS FIELDS FROM FORM WE JUST RECEIVED
-  let inputIDCareLog = document.getElementById("idToUpdate");
+  let inputIDCareLog = document.getElementById("id_to_update");
   let inputPerson = document.getElementById("input_person_update");
   let inputWeight = document.getElementById("input_weight_update");
   let inputFoodType = document.getElementById("input_food_update");
