@@ -103,7 +103,16 @@ addRowToTable = (data) => {
   idCell.innerText = newRow.idBat;
   idCell.classList = ["id"];
   personCell.innerText = newRow.person;
-  speciesCell.innerText = newRow.species;
+  
+  // FORMAT SPECIES CELL TO DIRECTLY BE ABLE TO FILTER  
+  let speciesButton = document.createElement("button");
+  speciesButton.classList = ["filter"];
+  speciesButton.innerHTML = newRow.species;
+  speciesButton.addEventListener("click", function (event) {
+    filterBySpecies(newRow.species);
+  });
+  speciesCell.appendChild(speciesButton);
+  
   sexCell.innerText = newRow.sex;
   foundDateCell.innerText = newRow.foundDate;
   foundSiteCell.innerText = newRow.foundSite;

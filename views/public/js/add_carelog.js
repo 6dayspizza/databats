@@ -104,7 +104,16 @@ addRowToTable = (data) => {
   // FILLS THOSE CELLS
   idCell.innerText = newRow.idCareLog;
   idCell.classList = ["id"];
-  batCell.innerText = newRow.idBat;
+
+  // FORMAT BAT IDs CELL TO DIRECTLY BE ABLE TO FILTER  
+  let batButton = document.createElement("button");
+  batButton.classList = ["filter"];
+  batButton.innerHTML = newRow.idBat;
+  batButton.addEventListener("click", function (event) {
+    filterByBat(newRow.idBat);
+  });
+  batCell.appendChild(batButton);
+
   personCell.innerText = newRow.name;
   dateTimeCell.innerText = newRow.dateTime;
   weightCell.innerText = newRow.weight;
