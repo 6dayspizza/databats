@@ -1,0 +1,52 @@
+{{> header}}
+
+<body>
+  <main>
+
+    <div class="about">
+      <p>
+      <h2>Here are some statistics, because everybody loves those:</h2>
+      </p>
+      {{#if speciesCountIsOne}}
+        <p> 1. A total of <button class="accent">{{speciesCount}}</button> bat species has passed through this shelter.</p> 
+        {{else}}
+        <p> 1. A total of <button class="accent">{{speciesCount}}</button> bat species have passed through this shelter.</p>
+        {{/if}}
+      {{#if totalPersonsIsOne}}
+        <p>2. No more than <button class="accent">{{totalPersons}}</button> human has been involved in their rescue.</p>
+        {{else}}
+        <p>2. No less than <button class="accent">{{totalPersons}}</button> humans have been involved in their rescue.</p>
+        {{/if}}
+      {{#if batsInShelterCountIsOne}}
+        <p>3. Currently, this shelter hosts <button class="accent">{{batsInShelterCount}}</button> bat.</p>
+        {{else}}
+        <p>3. Currently, this shelter hosts <button class="accent">{{batsInShelterCount}}</button> bats.</p>
+        {{/if}}
+      {{#if releasedBatsCountIsOne}}
+        <p>4. And <button class="accent">{{releasedBatsCount}}</button> bat has successfully been released back into the wild.</p>
+        {{else}}
+        <p>4. And <button class="accent">{{releasedBatsCount}}</button> bats have successfully been released back into the wild.</p>
+        {{/if}}
+      <div class="space"></div>
+      <p>
+      <h2>Okay, but what is this all about anyway?</h2>
+      </p>
+      <p>In this project for CS 340 of Oregon State University, we created a simple database for a fictitious bat rescue
+        shelter. The shelter’s purpose is to help
+        injured and distressed bats, providing medical care (medication, surgery) and fostering. It is loosely based on
+        an actual bat rescue station located in Zurich,
+        Switzerland. Each year, approximately 300 bats are admitted. About 70% survive and can
+        be rehabilitated into the wild. A bat can stay anything between 1 and 90 days. There are no long-term patients.
+        Each bat receives their
+        own record with their basic information, as well as the circumstances and details of the person that found and
+        submitted them. A daily
+        care log per bat tracks their medical treatments and the name of the person that took care of them on the
+        respective day.</p>
+      <div class="space"></div>
+      <p>&copy; 2023 Brett Dixon / Ruth Kistler</p>
+    </div>
+  </main>
+</body>
+
+
+{{! EMBEDED JAVASCRIPT DOCUMENTS }}

@@ -31,6 +31,10 @@ body {
   clear: both;
 }
 
+.about {
+  color: var(--dusty-purple)
+}
+
 /*  ----- Page layout blocks -----  */
 header,
 footer {
@@ -364,20 +368,22 @@ input:disabled {
 }
 input:enabled {
 }
-.btn {
+
+.accent {
   background-color: var(--almost-black);
   color: var(--dusty-purple);
-  border: none;
-  cursor: pointer;
+  border: 5px solid var(--dusty-purple);
   border-radius: 30px 30px 30px 30px;
   font-weight: bold;
   text-decoration: none;
-  padding: 1.25%;
-  margin-top: 20px;
-  margin-right: 10px;
-  width: 100px;
+  padding: 3px 12px;
+  width: 60px;
   font-family: "Amatic SC", cursive;
-  font-size: 140%;
+  font-size: 24px;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .checkbox-list {
@@ -412,10 +418,6 @@ input:enabled {
 #remark {
   width: 320px;
   height: 120px;
-}
-.btn:hover {
-  background-color: var(--dusty-purple);
-  color: var(--almost-black);
 }
 
 .modify {

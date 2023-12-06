@@ -42,6 +42,67 @@ app.get("/homepage", function(req, res) {
   res.render("homepage")
 })
 
+
+app.get("/about", function (req, res) {
+  // COUNTS FOR STATISTICS - JUST FOR FUN
+  let selectSpeciesCountQuery = `SELECT COUNT(DISTINCT idSpecies) AS speciesCount FROM Bats`;
+  let selectBatsInShelterCountQuery = `SELECT COUNT(*) AS batsInShelterCount FROM Bats WHERE idStatus IN (1, 2, 3)`;
+  let selectReleasedBatsCountQuery = `SELECT COUNT(*) AS releasedBatsCount FROM Bats WHERE idStatus IN (4)`;
+  let selectPersonsCountQuery = `
+  SELECT COUNT(DISTINCT idPerson) AS totalPersons
+  FROM (
+    SELECT idPerson FROM Bats
+    UNION
+    SELECT idPerson FROM CareLogs
+  ) AS combinedPersons`;
+
+  db.pool.query(selectSpeciesCountQuery, function (error, speciesResult, fields) {
+    if (error) {
+      console.error(error);
+      res.status(500).send("unknown error");
+      return;
+    }
+  
+  db.pool.query(selectBatsInShelterCountQuery, function (error, bats1Result, fields) {
+    if (error) {
+      console.error(error);
+      res.status(500).send("unknown error");
+      return;
+    }
+
+  db.pool.query(selectPersonsCountQuery, function (error, personsResult, fields) {
+    if (error) {
+      console.error(error);
+      res.status(500).send("unknown error");
+      return;
+    }
+
+  db.pool.query(selectReleasedBatsCountQuery, function (error, bats2Result, fields) {
+    if (error) {
+      console.error(error);
+      res.status(500).send("unknown error");
+      return;
+    }
+  
+
+  const speciesCount = speciesResult[0].speciesCount;
+  const batsInShelterCount = bats1Result[0].batsInShelterCount;
+  const totalPersons = personsResult[0].totalPersons;
+  const releasedBatsCount = bats2Result[0].releasedBatsCount;
+
+    res.render("about", {
+      speciesCount: speciesCount,
+      batsInShelterCount: batsInShelterCount,
+      totalPersons: totalPersons,
+      releasedBatsCount: releasedBatsCount,
+      active: { about: true },
+    });
+  });
+});
+});
+});
+});
+
 app.get("/carelogs", function (req, res) {
 // DEFINES QUERIES
   let selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
@@ -942,6 +1003,7 @@ app.get("/species-filter", function (req, res) {
     });
   });
 });
+
 
 
 /*

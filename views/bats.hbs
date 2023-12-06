@@ -9,7 +9,13 @@
 -->
 
 <main>
-{{!-- DISPLAY TABLE WITH ALL DATA --}}
+  {{!-- BUTTON TO RESET FILTER --}}
+  {{#if displayResetButton}}
+  <button class="modify cancel" onClick="resetSpeciesFilter()"> x </button>
+  <div class="space"></div>
+  {{/if}}
+
+  {{!-- DISPLAY TABLE WITH ALL DATA --}}
   <div id="browse">
     <table id="bats_table">
         
@@ -27,11 +33,7 @@
           <th>site released</th>
           <th>status</th>
           <th>remark</th>
-          <th width="5%">
-            {{#if displayResetButton}}
-            <button class="modify" onClick="resetSpeciesFilter()">reset</button>
-            {{/if}}
-          </th>
+          <th width="5%"></th>
           <th></th>
         </tr>
       </thead>

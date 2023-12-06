@@ -100,3 +100,7 @@ function resetBatFilter() {
   window.location.href = '/carelogs';
   // If you have a different default route, adjust the URL accordingly
 }
+
+function isOne(value) {
+  return value === 1;
+}
