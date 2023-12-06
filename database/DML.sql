@@ -177,7 +177,9 @@ VALUES
   ((SELECT idPerson FROM Persons WHERE idPerson = 6), (SELECT idSpecies FROM Species WHERE idSpecies = 5), 1, null, '2023-10-24', 8004, null, null, (SELECT idStatus FROM Status WHERE idStatus = 3)),
   ((SELECT idPerson FROM Persons WHERE idPerson = 6), (SELECT idSpecies FROM Species WHERE idSpecies = 7), 1, null, '2023-11-01', 8152, null, null, (SELECT idStatus FROM Status WHERE idStatus = 1)),
   ((SELECT idPerson FROM Persons WHERE idPerson = 6), (SELECT idSpecies FROM Species WHERE idSpecies = 6), 1, 'physically fine, just tired', '2023-11-21', 5200, null, null, (SELECT idStatus FROM Status WHERE idStatus = 4)),
-  ((SELECT idPerson FROM Persons WHERE idPerson = 6), (SELECT idSpecies FROM Species WHERE idSpecies = 9), 0, null, '2023-12-06', 8067, '2023-12-07', 8067, (SELECT idStatus FROM Status WHERE idStatus = 1));
+  ((SELECT idPerson FROM Persons WHERE idPerson = 3), (SELECT idSpecies FROM Species WHERE idSpecies = 9), 0, null, '2023-12-06', 8067, '2023-12-07', 8067, (SELECT idStatus FROM Status WHERE idStatus = 1)),
+  ((SELECT idPerson FROM Persons WHERE idPerson = 3), (SELECT idSpecies FROM Species WHERE idSpecies = 9), 1, null, '2023-12-06', 8067, '2023-12-07', 8067, (SELECT idStatus FROM Status WHERE idStatus = 4));
+
 ;
 
 --

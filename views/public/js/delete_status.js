@@ -24,14 +24,17 @@ function deleteStatus(idStatus) {
   xhttp.open("DELETE", "/delete-status-ajax", true);
   xhttp.setRequestHeader("Content-type", "application/json");
 
+  let alertShown = false;
+
   // DEFINES BEHAVIOUR FOR AJAX
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 204) {
       // RETURN TO PAGE
       window.location.href = "/status";
-    } else if (xhttp.status == 400) {
+    } else if (xhttp.status == 400 && !alertShown) {
       // RESOLVE CONFLICTS IF IN USE
       alert("sorry, but this status is in use in another table.");
+      alertShown = true;
     } else {
       // OTHER ERRORS
       console.log("There was an error with the input.");
