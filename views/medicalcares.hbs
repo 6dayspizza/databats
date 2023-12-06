@@ -1,5 +1,5 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        {{> header}}
+{{> header}}
 
 <!--     
     Citation for the following function: 
@@ -9,58 +9,61 @@
 -->
 
 <main>
-    {{!-- DISPLAY TABLE WITH ALL DATA --}}
-    <div id="browse">
+  {{!-- DISPLAY TABLE WITH ALL DATA --}}
+  <div id="browse">
     <table id="medicalcares_table">
-            
-        {{!-- DISPLAY COLUMN TITLES --}}
-        <thead>
-            <tr>
-                <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
-                <th width=4%>id</th>
-                <th>treatment name</th>
-            </tr>
-        </thead>
-            
-        {{!-- DISPLAY ROWS --}}
-        <tbody>
-            {{#each medicalcares}}
-            <tr>
-                <td></td>
-                <td class="id">{{this.idMedicalCare}}</td>
-                <td>{{this.treatment}}</td>
-            </tr>
-            {{/each}}
-        </tbody>
+
+      {{!-- DISPLAY COLUMN TITLES --}}
+      <thead>
+        <tr>
+          <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
+          <th width=4%>id</th>
+          <th width=83%>treatment name</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      {{!-- DISPLAY ROWS --}}
+      <tbody>
+        {{#each medicalcares}}
+        <tr>
+          <td></td>
+          <td class="id">{{this.idMedicalCare}}</td>
+          <td>{{this.treatment}}</td>
+          <td><button class="modify cancel" onclick="deleteMedicalCare({{this.idMedicalCare}})">delete</button></td>
+        </tr>
+        {{/each}}
+      </tbody>
     </table>
-    </div>
-    
-    {{!-- DISPLAY TABLE TO INSERT DATA --}}
-    <div id="insert" style="display: none">
-        <form id="add_medicalcare_form_ajax">
-              <table class="insert_table">
-                      
-                {{!-- DISPLAY COLUMN TITLES --}}
-                <tr>
-                  <th>treatment name</th>
-                </tr>
-                      
-                {{!-- DISPLAY ROWS --}}
-                <tr>
-                  <td>
-                    <textarea name="treatment" id="input_treatment" placeholder="max. 30 characters"></textarea>
-                  </td>
-                </tr>
-              </table>
-            <div class="space"></div>
-            <div class="actions">
-                <button class="modify confirm" type="submit" id="addMedicalCare">confirm</button>
-              <button class="modify cancel" type="button" onClick="browseRecords()">cancel</button>
-            </div>
-        </form> 
-    </div>
+  </div>
+
+  {{!-- DISPLAY TABLE TO INSERT DATA --}}
+  <div id="insert" style="display: none">
+    <form id="add_medicalcare_form_ajax">
+      <table class="insert_table">
+
+        {{!-- DISPLAY COLUMN TITLES --}}
+        <tr>
+          <th>treatment name</th>
+        </tr>
+
+        {{!-- DISPLAY ROWS --}}
+        <tr>
+          <td>
+            <textarea name="treatment" id="input_treatment" placeholder="max. 30 characters"></textarea>
+          </td>
+        </tr>
+      </table>
+      <div class="space"></div>
+      <div class="actions">
+        <button class="modify confirm" type="submit" id="addMedicalCare">confirm</button>
+        <button class="modify cancel" type="button" onClick="browseRecords()">cancel</button>
+      </div>
+    </form>
+  </div>
 </main>
 
 
 {{!-- EMBEDED JAVASCRIPT DOCUMENTS --}}
 <script src="js/add_medicalcare.js"></script>
+<script src="js/delete_medicalcare.js"></script>

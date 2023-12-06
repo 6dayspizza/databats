@@ -694,6 +694,44 @@ app.delete("/delete-status-ajax/", function (req, res, next) {
   );
 });
 
+app.delete("/delete-medicalcare-ajax/", function (req, res, next) {
+  let medicalcare = req.body;
+  let idMedicalCare = parseInt(medicalcare.id);
+
+    // DEFINES QUERIES
+  let deleteMedicalCareQuery = `DELETE FROM MedicalCares WHERE idMedicalCare = ${idMedicalCare}`;
+
+    // EXECUTES QUERIES
+  db.pool.query(
+    deleteMedicalCareQuery,
+    [idMedicalCare],
+    function (error, rows, fields) {
+        // CHECK FOR ERRORS
+      if (error) {
+          // LOG ERROR WITH 400 BAD REQUEST
+        console.log(error);
+        res.sendStatus(400);
+      } else {
+        let selectMedicalCareQuery = `SELECT * from MedicalCares`;
+        db.pool.query(selectMedicalCareQuery, function (error, rows, fields) {
+          // CHECK FOR ERRORS
+          if (error) {
+            // LOG ERROR WITH 400 BAD REQUEST
+            console.log(error);
+            res.sendStatus(400);
+          }
+          // IF NO ERROR SENDS RESULT OF QUERY
+          else {
+            res.sendStatus(204);
+          }
+        });
+      }
+    }
+  );
+});
+
+
+
 /*
     ALL UPDATE REQUESTS TO EDIT DATA
 */

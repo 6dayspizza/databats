@@ -64,15 +64,26 @@ addRowToTable = (data) => {
   let firstCell = document.createElement("TD");
   let idCell = document.createElement("TD");
   let treatmentCell = document.createElement("TD");
+  let deleteCell = document.createElement("TD");
+
+  let deleteButton = document.createElement("button");
+  deleteButton.classList = ["modify cancel"];
+  deleteButton.innerHTML = "delete";
+  deleteButton.addEventListener("click", function (event) {
+    deleteMedicalCare(newRow.idMedicalCare);
+  });
+  deleteCell.appendChild(deleteButton);
 
   // FILLS THOSE CELLS
   idCell.innerText = newRow.idMedicalCare;
+  idCell.classList = ["id"];
   treatmentCell.innerText = newRow.treatment;
 
   // MODIFIES EDIT BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
   row.appendChild(firstCell);
   row.appendChild(idCell);
   row.appendChild(treatmentCell);
+  row.appendChild(deleteCell);
 
   // MODIFIES DELETE BUTTON SO THAT IT CAN BE CLICKED DIRECTLY WITHOUT REFRESHING PAGE
   row.setAttribute("data-value", newRow.id);
