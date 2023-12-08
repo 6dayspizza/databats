@@ -16,7 +16,7 @@ updateCareLogForm.addEventListener("submit", function (e) {
   let inputIDCareLog = document.getElementById("id_to_update");
   let inputPerson = document.getElementById("input_person_update");
   let inputWeight = document.getElementById("input_weight_update");
-  let inputFoodType = document.getElementById("input_food_update");
+  let inputNutrition = document.getElementById("input_nutrition_update");
   let inputsMedicalCare = Array.from(
     document.getElementsByClassName("input_medical_care"),
   );
@@ -34,7 +34,7 @@ updateCareLogForm.addEventListener("submit", function (e) {
       return input.value;
     });
   let remarkValue = inputRemark.value;
-  let foodTypeValue = inputFoodType.value;
+  let nutritionValue = inputNutrition.value;
 
   // HANDLES CASE WHERE PERSON IS NOT AN INTEGER/EMPTY WHICH IS NOT ALLOWED FOR NEW ENTRIES
   if (isNaN(personValue)) {
@@ -48,7 +48,7 @@ updateCareLogForm.addEventListener("submit", function (e) {
     weight: weightValue,
     medicalcares: medicalCareValues,
     remark: remarkValue,
-    foodtype: foodTypeValue,
+    nutrition: nutritionValue,
   };
 
   // SETS UP AJAX REQUEST

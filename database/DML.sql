@@ -98,7 +98,7 @@ CREATE OR REPLACE TABLE CareLogs (
   idBat INT NOT NULL,
   dateTime DATETIME DEFAULT CURRENT_TIMESTAMP,
   weight DECIMAL(3,2),
-  foodType VARCHAR(20),
+  nutrition VARCHAR(20),
   remark VARCHAR(255),
   PRIMARY KEY (idCareLog),
   FOREIGN KEY (idPerson) REFERENCES Persons (idPerson) ON DELETE SET NULL,
@@ -186,7 +186,7 @@ VALUES
 -- insert data into 'CareLogs'
 --
 INSERT INTO CareLogs
-  (idBat, idPerson, weight, foodType, remark)
+  (idBat, idPerson, weight, nutrition, remark)
 VALUES
   ((SELECT idBat FROM Bats WHERE idbat = 1), (SELECT idPerson FROM Persons WHERE idPerson = 1), 
   4.5, '15 mw', 'underweight'),
@@ -224,7 +224,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
 
 
-SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(CareLogsMedicalCares.idMedicalCare SEPARATOR ', ') AS MedicalCares
+SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.nutrition, CareLogs.remark, GROUP_CONCAT(CareLogsMedicalCares.idMedicalCare SEPARATOR ', ') AS MedicalCares
         FROM CareLogs
         LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
         LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat

@@ -41,7 +41,7 @@ function searchRecord() {
   showform("search");
 }
 
-function editRecord(idCareLog, name, weight, food, remark) {
+function editRecord(idCareLog, name, weight, nutrition, remark) {
   // INSERTS VALUES OF EXISTING RECORD TO BE EDITED
   $("#id_to_update").val(idCareLog);
   $("#input_person_update option").each(function () {
@@ -53,7 +53,7 @@ function editRecord(idCareLog, name, weight, food, remark) {
   });
 
   $("#input_weight_update").val(weight);
-  $("#input_food_update").val(food);
+  $("#input_nutrition_update").val(nutrition);
   $("#input_remark_update").val(remark);
 
   showform("edit");

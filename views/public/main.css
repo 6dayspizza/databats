@@ -64,6 +64,10 @@ header * {
   display: inline;
 }
 
+.headerimg {
+  height: 90px;
+}
+
 footer {
   bottom: 0;
   z-index: 999;

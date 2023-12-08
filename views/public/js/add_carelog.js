@@ -16,7 +16,7 @@ addCareLogForm.addEventListener("submit", function (e) {
   let inputBat = document.getElementById("input_bat");
   let inputPerson = document.getElementById("input_person");
   let inputWeight = document.getElementById("input_weight");
-  let inputFood = document.getElementById("input_food");
+  let inputNutrition = document.getElementById("input_nutrition");
   let inputsMedicalCare = Array.from(
     document.getElementsByClassName("input_medical_care"),
   );
@@ -26,7 +26,7 @@ addCareLogForm.addEventListener("submit", function (e) {
   let batValue = inputBat.value;
   let personValue = inputPerson.value;
   let weightValue = inputWeight.value;
-  let foodValue = inputFood.value;
+  let nutritionValue = inputNutrition.value;
   let medicalCareValues = inputsMedicalCare
     .filter(function (input) {
       return input.checked === true;
@@ -41,7 +41,7 @@ addCareLogForm.addEventListener("submit", function (e) {
     idBat: batValue,
     idPerson: personValue,
     weight: weightValue,
-    food: foodValue,
+    nutrition: nutritionValue,
     medicalCares: medicalCareValues,
     remark: remarkValue,
   };
@@ -61,7 +61,7 @@ addCareLogForm.addEventListener("submit", function (e) {
       inputBat.value = "";
       inputPerson.value = "";
       inputWeight.value = "";
-      inputFood.value = "";
+      inputNutrition.value = "";
       inputsMedicalCare.forEach((input) => (input.checked = false));
       inputRemark.value = "";
 
@@ -95,7 +95,7 @@ addRowToTable = (data) => {
   let personCell = document.createElement("TD");
   let dateTimeCell = document.createElement("TD");
   let weightCell = document.createElement("TD");
-  let foodCell = document.createElement("TD");
+  let nutritionCell = document.createElement("TD");
   let medicalCareCell = document.createElement("TD");
   let remarkCell = document.createElement("TD");
   let editCell = document.createElement("TD");
@@ -117,7 +117,7 @@ addRowToTable = (data) => {
   personCell.innerText = newRow.name;
   dateTimeCell.innerText = newRow.dateTime;
   weightCell.innerText = newRow.weight;
-  foodCell.innerText = newRow.foodType;
+  nutritionCell.innerText = newRow.nutrition;
   medicalCareCell.innerText = newRow.medicalCares || "";
   remarkCell.innerText = newRow.remark;
 
@@ -130,7 +130,7 @@ addRowToTable = (data) => {
       newRow.idCareLog,
       newRow.name,
       newRow.weight,
-      newRow.foodType,
+      newRow.nutrition,
       newRow.remark,
     );
   });
@@ -152,7 +152,7 @@ addRowToTable = (data) => {
   row.appendChild(personCell);
   row.appendChild(dateTimeCell);
   row.appendChild(weightCell);
-  row.appendChild(foodCell);
+  row.appendChild(nutritionCell);
   row.appendChild(medicalCareCell);
   row.appendChild(remarkCell);
   row.appendChild(editCell);

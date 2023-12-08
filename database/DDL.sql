@@ -41,7 +41,7 @@ SELECT * FROM Status;
 -- Select MedicalCares
 SELECT * FROM MedicalCares;
 -- Select CareLogs
-SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark
+SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.nutrition, CareLogs.remark
 FROM CareLogs
 LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
 LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat;
@@ -67,8 +67,8 @@ VALUES (:treatmentInput);
 INSERT INTO MedicalCares(name)
 VALUES (:nameInput);
 -- Insert CareLogs
-INSERT INTO CareLogs (idBat, idPerson, weight, foodType, remark) /*dateTime is automatically created*/
-VALUES (:idBatInput, :idPersonInput, :weightInput, :foodTypeInput, :remarkInput);
+INSERT INTO CareLogs (idBat, idPerson, weight, nutrition, remark) /*dateTime is automatically created*/
+VALUES (:idBatInput, :idPersonInput, :weightInput, :nutritionInput, :remarkInput);
 /* SET @idCareLog = LAST_INSERT_ID(); */
 
 -- Insert CareLogsMedicalCares (Intersection Table) (M-to-M relationship addition)
@@ -83,7 +83,7 @@ SET endDate = :endDateUpdate, releaseSite = :releaseSiteUpdate, status = :idStat
 WHERE idBat = :idBatToUpdate;
 -- update CareLogs
 UPDATE CareLogs
-SET person = :idPersonUpdate, weight = :weightUpdate, food = :foodTypeUpdate, remark = CONCAT(remark, '; ', :remarkUpdate)
+SET person = :idPersonUpdate, weight = :weightUpdate, nutrition = :nutritionUpdate, remark = CONCAT(remark, '; ', :remarkUpdate)
 WHERE idCareLog = :idCareLogToUpdate;
 
 ------------------------NULL UPDATE queries-------------------------------------------

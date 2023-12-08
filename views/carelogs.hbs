@@ -40,7 +40,7 @@
           <th>person</th>
           <th>date/time</th>
           <th>weight</th>
-          <th>food</th>
+          <th>nutrition</th>
           <th>medical</th>
           <th>remark</th>
           <th width="5%">
@@ -62,11 +62,11 @@
           <td>{{this.name}}</td>
           <td>{{this.dateTime}}</td>
           <td>{{this.weight}}</td>
-          <td>{{this.foodType}}</td>
+          <td>{{this.nutrition}}</td>
           <td>{{this.medicalCares}}</td>
           <td>{{this.remark}}</td>
           <td><button class="modify"
-              onClick="editRecord('{{this.idCareLog}}', '{{this.name}}', '{{this.weight}}', '{{this.foodType}}', '{{this.medicalcares}}', '{{this.remark}}')">edit</button>
+              onClick="editRecord('{{this.idCareLog}}', '{{this.name}}', '{{this.weight}}', '{{this.nutrition}}', '{{this.medicalcares}}', '{{this.remark}}')">edit</button>
           </td>
           <td><button class="modify cancel" onclick="deleteCareLog({{this.idCareLog}})">delete</button></td>
         </tr>
@@ -85,7 +85,7 @@
           <th>bat</th>
           <th>person</th>
           <th>weight (g)</th>
-          <th>food (mw)</th>
+          <th>nutrition (mw)</th>
           <th>medical</th>
           <th>remark</th>
         </tr>
@@ -113,7 +113,7 @@
               min="0.00">
           </td>
           <td>
-            <input type="text" name="input_food" id="input_food" placeholder="00 mw">
+            <input type="text" name="input_nutrition" id="input_nutrition" placeholder="00 mw">
           </td>
           <td>
             <div class="checkbox-list">
@@ -146,7 +146,7 @@
           <th class="id">care log</th>
           <th>person</th>
           <th>weight (g)</th>
-          <th>food (mw)</th>
+          <th>nutrition (mw)</th>
           <th>medical</th>
           <th>remark</th>
         </tr>
@@ -168,7 +168,7 @@
               max="9.99" min="0.00">
           </td>
           <td>
-            <input type="text" name="input_food" id="input_food_update" value="{{this.foodType}}">
+            <input type="text" name="input_nutrition" id="input_nutrition_update" value="{{this.nutrition}}">
           </td>
           <td>
             <div class="checkbox-list">

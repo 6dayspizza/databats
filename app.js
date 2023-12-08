@@ -105,7 +105,7 @@ app.get("/about", function (req, res) {
 
 app.get("/carelogs", function (req, res) {
 // DEFINES QUERIES
-  let selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
+  let selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.nutrition, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
   FROM CareLogs
   LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
   LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
@@ -251,8 +251,8 @@ app.post("/add-carelog-ajax", function (req, res) {
   }
 
   // CREATES QUERIES AND RUNS
-  let insertCareLogsQuery = `INSERT INTO CareLogs (idBat, idPerson, weight, foodType, remark)
-    VALUES (${data.idBat}, ${idPerson}, ${weight}, "${data.food}", "${data.remark}");`;
+  let insertCareLogsQuery = `INSERT INTO CareLogs (idBat, idPerson, weight, nutrition, remark)
+    VALUES (${data.idBat}, ${idPerson}, ${weight}, "${data.nutrition}", "${data.remark}");`;
 
   db.pool.query(insertCareLogsQuery, function (error, rows, fields) {
     // CHECKS FOR ERRORS
@@ -271,7 +271,7 @@ app.post("/add-carelog-ajax", function (req, res) {
       db.pool.query(insertCareLogsMedicalCaresQuery, function (error, rows, fields) {
         console.log(rows);
         // IF NO ERROR THEN DISPLAYS DATA
-        let selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
+        let selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.nutrition, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
         FROM CareLogs
         LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
         LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
@@ -498,7 +498,7 @@ app.delete("/delete-carelog-ajax/", function (req, res, next) {
               res.sendStatus(400);
             } else {
                 // IF NO ERROR THEN DISPLAYS DATA
-              let selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark
+              let selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.nutrition, CareLogs.remark
                         FROM CareLogs
                         LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
                         LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat;`;
@@ -743,17 +743,17 @@ app.put('/put-carelog-ajax', function (req, res, next) {
   let person = parseInt(data.person);
   let idcarelog = parseInt(data.idcarelog);
   let weight = parseFloat(data.weight);
-  let foodtype = data.foodtype;
+  let nutrition = data.nutrition;
   let medicalcares = data.medicalcares;
   let remark = data.remark;
 
     // DEFINES QUERIES
   let previousMedicalCaresQuery = `SELECT idMedicalCare From CareLogsMedicalCares where idCarelog = ${idcarelog}`
-  let queryUpdatePerson = `UPDATE CareLogs SET idPerson = ?, weight = ?, foodType = ?, remark = ? WHERE CareLogs.idCareLog = ?`;
+  let queryUpdatePerson = `UPDATE CareLogs SET idPerson = ?, weight = ?, nutrition = ?, remark = ? WHERE CareLogs.idCareLog = ?`;
   let selectPerson = `SELECT * FROM Persons WHERE idPerson = ?`
 
   // EXECUTES FIRST QUERY
-  db.pool.query(queryUpdatePerson, [person, weight, foodtype, remark, idcarelog], function (error, rows, fields) {
+  db.pool.query(queryUpdatePerson, [person, weight, nutrition, remark, idcarelog], function (error, rows, fields) {
     // CHECKS FOR ERRORS
       if (error) {
       // LOGS ERROR WITH 400 BAD REQUEST
@@ -887,7 +887,7 @@ app.get("/person-filter", function (req, res) {
   let selectMedicalCaresQuery;
 
   if (req.query.inputid === undefined) {
-    selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
+    selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.nutrition, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
     FROM CareLogs
     LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
     LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
@@ -901,7 +901,7 @@ app.get("/person-filter", function (req, res) {
 
   } else {
       // FILTER BY PERSON NAME
-    selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
+    selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.nutrition, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
       FROM CareLogs
       LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
       LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
@@ -942,7 +942,7 @@ let selectPersonsQuery;
 let selectMedicalCaresQuery;
 
 if (req.query.inputid === undefined) {
-  selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
+  selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.nutrition, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
   FROM CareLogs
   LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
   LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
@@ -956,7 +956,7 @@ if (req.query.inputid === undefined) {
 
 } else {
     // FILTER BY BAT ID
-  selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.foodType, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
+  selectCareLogsQuery = `SELECT CareLogs.idCareLog, Bats.idBat, Persons.name, CareLogs.dateTime, CareLogs.weight, CareLogs.nutrition, CareLogs.remark, GROUP_CONCAT(MedicalCares.treatment SEPARATOR '; ') AS medicalCares
     FROM CareLogs
     LEFT JOIN Persons ON CareLogs.idPerson = Persons.idPerson
     LEFT JOIN Bats ON CareLogs.idBat = Bats.idBat
