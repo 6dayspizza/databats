@@ -343,6 +343,12 @@ textarea {
   height: 125px;
   padding-top: 13px;
 }
+
+.nameinput {
+  height: 50px;
+  width: 100%;
+}
+
 button {
 }
 input {
@@ -405,18 +411,6 @@ input:enabled {
   height: 20px;
   margin-right: 5px;
   vertical-align: middle;
-}
-
-#input_treatment {
-  width: 95%;
-}
-
-#input_name {
-  width: 95%;
-}
-
-#input_status {
-  width: 95%;
 }
 
 #remark {

@@ -18,10 +18,10 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-          <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
-          <th width=4%>id</th>
+          <th width=60px><button class="modify" onClick="newRecord()">add</button></th>
+          <th width=30px>id</th>
           <th width=83%>species name</th>
-          <th></th>
+          <th width=80px></th>
         </tr>
       </thead>
 
@@ -51,7 +51,7 @@
         <tr>
             {{!-- DISPLAY ROWS --}}
           <td>
-            <textarea name="name" id="input_name" placeholder="max. 30 characters"></textarea>
+            <textarea name="name" id="input_name" placeholder="max. 30 characters" class="nameinput"></textarea>
           </td>
         </tr>
       </table>

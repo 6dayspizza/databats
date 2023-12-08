@@ -34,8 +34,8 @@
       {{!-- DISPLAY COLUMN TITLES --}}
       <thead>
         <tr>
-          <th width=110px><button class="modify" onClick="newRecord()">add</button></th>
-          <th width=4%>id</th>
+          <th width=80px><button class="modify" onClick="newRecord()">add</button></th>
+          <th width=30px>id</th>
           <th>bat</th>
           <th>person</th>
           <th>date/time</th>
@@ -43,12 +43,8 @@
           <th>nutrition</th>
           <th>medical</th>
           <th>remark</th>
-          <th width="5%">
-            {{#if displayResetButton}}
-            <button class="modify" onClick="resetBatFilter()">reset</button>
-            {{/if}}
-          </th>
-          <th width="5%"><button class="modify" onClick="searchRecord()">search</button></th>
+          <th width=80px></th>
+          <th width=80px><button class="modify" onClick="searchRecord()">search</button></th>
         </tr>
       </thead>
 
